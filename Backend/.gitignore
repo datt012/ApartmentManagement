@@ -1,0 +1,12 @@
+CNPM/bin/
+CNPM/.vs/
+CNPM/obj/
+CNPM.Core/bin/
+CNPM.Core/obj/
+CNPM.Core/.vs/
+CNPM.Repository/bin/
+CNPM.Repository/.vs/
+CNPM.Repository/obj/
+CNPM.Service/bin/
+CNPM.Service/obj/
+CNPM.Service/.vs/
