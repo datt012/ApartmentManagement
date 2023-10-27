@@ -17,7 +17,7 @@ namespace CNPM.Repository.Interfaces
         public int CreateKhoanThu(KhoanThuEntity khoanThu);
         public int UpdateKhoanThu(KhoanThuEntity newKhoanThu);
         public bool DeleteKhoanThu(int maKhoanThu, string userName);
-        //tạo tự động khoản thu theo họ theo mã khoản thu
+        //tạo tự động khoản thu theo hộ theo mã khoản thu
         public int CreateKhoanThuTheoHo(int maKhoanThu, string userName);
         //lấy danh sách khoản thu theo hộ theo mã khoản thu
         public List<KhoanThuTheoHoEntity> GetKhoanThuTheoHo(int maKhoanThu);

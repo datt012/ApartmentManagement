@@ -65,6 +65,74 @@ namespace CNPM
                 Delete = 0
             };
             dbcontext.Add(superAdmin);
+            var listPhongEntity = new List<PhongEntity>()
+            {
+                new PhongEntity
+                {
+                    TenPhong = "P501",
+                    Tang = "5",
+                    DienTich = 40,
+                    CreateTime = today,
+                    UpdateTime = today,
+                    UserCreate = "crackertvn",
+                    UserUpdate = "crackertvn",
+                    Version = 0,
+                    Delete = 0
+                },
+                new PhongEntity
+                {
+                    TenPhong = "P502",
+                    Tang = "5",
+                    DienTich = 50,
+                    CreateTime = today,
+                    UpdateTime = today,
+                    UserCreate = "crackertvn",
+                    UserUpdate = "crackertvn",
+                    Version = 0,
+                    Delete = 0
+                },
+                new PhongEntity
+                {
+                    TenPhong = "P503",
+                    Tang = "5",
+                    DienTich = 55,
+                    CreateTime = today,
+                    UpdateTime = today,
+                    UserCreate = "crackertvn",
+                    UserUpdate = "crackertvn",
+                    Version = 0,
+                    Delete = 0
+                }
+            };
+            listPhongEntity.ForEach(o => dbcontext.Add(o));
+
+            var listLoaiXe = new List<LoaiXeEntity>()
+            {
+                new LoaiXeEntity
+                {
+                    MaLoaiXe = "LX001",
+                    LoaiXe = "Xe máy",
+                    CreateTime = today,
+                    UpdateTime = today,
+                    UserCreate = "crackertvn",
+                    UserUpdate = "crackertvn",
+                    Version = 0,
+                    Delete = 0
+                },
+                new LoaiXeEntity
+                {
+                    MaLoaiXe = "LX002",
+                    LoaiXe = "Xe ô tô",
+                    CreateTime = today,
+                    UpdateTime = today,
+                    UserCreate = "crackertvn",
+                    UserUpdate = "crackertvn",
+                    Version = 0,
+                    Delete = 0
+                }
+            };
+            listLoaiXe.ForEach(o => dbcontext.Add(o));
+
             dbcontext.SaveChanges();
         }
     }

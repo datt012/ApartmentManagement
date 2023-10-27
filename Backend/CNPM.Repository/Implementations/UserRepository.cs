@@ -24,7 +24,7 @@ namespace CNPM.Repository.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return null;
             }
         }
 
@@ -42,7 +42,7 @@ namespace CNPM.Repository.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return null;
             }
         }
         public bool DeleteUser(UserEntity userData)
@@ -62,7 +62,7 @@ namespace CNPM.Repository.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return false;
             }
         }
         public bool UpdateUser(UserEntity newUserData)
@@ -90,7 +90,7 @@ namespace CNPM.Repository.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return false;
             }
         }
 
@@ -104,7 +104,7 @@ namespace CNPM.Repository.Implementations
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+                return null;
             }
         }
         public List<UserEntity> GetAllUsers()
@@ -117,7 +117,7 @@ namespace CNPM.Repository.Implementations
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+                return null;
             }
         }
         public bool ChangePassWord(string userName, string newPassword)
@@ -134,9 +134,9 @@ namespace CNPM.Repository.Implementations
                 }
                 else return false;
             }
-            catch(Exception ex)
+            catch(Exception e)
             {
-                throw new Exception(ex.Message);
+                return false;
             }
         }
 
@@ -157,9 +157,9 @@ namespace CNPM.Repository.Implementations
                 _dbcontext.LoginInfos.Add(loginInfo);
                 _dbcontext.SaveChanges();
             }
-            catch(Exception ex)
+            catch(Exception e)
             {
-                throw new Exception(ex.Message);
+                throw new Exception();
             }
            
         }
@@ -178,9 +178,9 @@ namespace CNPM.Repository.Implementations
                 }
                 return true;
             }
-            catch (Exception ex) 
-            { 
-                throw new Exception(ex.Message); 
+            catch (Exception e)
+            {
+                return false;
             }
 
         }
@@ -196,9 +196,9 @@ namespace CNPM.Repository.Implementations
                 }
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                throw new Exception(ex.Message);
+                return false;
             }
 
         }

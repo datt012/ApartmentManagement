@@ -1,4 +1,6 @@
 ﻿using CNPM.Core.Entities;
+using CNPM.Core.Models.NhanKhau;
+using CNPM.Core.Models.LichSu;
 using CNPM.Core.Utils;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
@@ -10,30 +12,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CNPM.Core.Models.KhoanThu
+namespace CNPM.Core.Models.Phong
 {
-    public class KhoanThuDto1001 // response 
+    public class PhongDto1001 // response 
     {
-        [JsonProperty("maKhoanThu")]
-        public int MaKhoanThu { get; set; }
+        [JsonProperty("maPhong")]
+        public int MaPhong { get; set; }
 
-        [JsonProperty("tenKhoanThu")]
-        public string TenKhoanThu { get; set; }
+        [JsonProperty("tenPhong")]
+        public string TenPhong { get; set; }
 
-        [JsonProperty("thoiGianBatDau")]
-        public DateTime ThoiGianBatDau { get; set; }
+        [JsonProperty("tang")]
+        public string Tang { get; set; }
 
-        [JsonProperty("thoiGianKetThuc")]
-        public DateTime ThoiGianKetThuc { get; set; }
+        [JsonProperty("dienTich")]
+        public double DienTich { get; set; }
 
-        [JsonProperty("loaiKhoanThu")]
-        public int LoaiKhoanThu { get; set; }
+        [JsonProperty("maHoKhau")]
+        public string MaHoKhau { get; set; }
 
-        [JsonProperty("chiTiet")]
-        public string ChiTiet { get; set; }
-
-        [JsonProperty("ghiChu")]
-        public string GhiChu { get; set; }
+        [JsonProperty("moTa")]
+        public string MoTa { get; set; }
 
         [JsonProperty("createTime")]
         public DateTime CreateTime { get; set; }

@@ -24,6 +24,10 @@ namespace CNPM.Core.Models.KhoanThu
         [JsonProperty("thoiGianKetThuc")]
         public DateTime ThoiGianKetThuc { get; set; }
 
+        [Required]
+        [JsonProperty("chiTiet")]
+        public string ChiTiet { get; set; }
+
         [MaxLength(200)]
         [JsonProperty("ghiChu")]
         public string? GhiChu { get; set; }

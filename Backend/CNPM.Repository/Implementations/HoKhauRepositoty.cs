@@ -128,6 +128,29 @@ namespace CNPM.Repository.Implementations
                 throw new Exception(ex.Message);
             }
         }
+        public bool AddPhongToHoKhau(string maHoKhau, int maPhong, string userName)
+        {
+            try
+            {
+                var _dbcontext = new MyDbContext();
+                var phongByHoKhau = _dbcontext.Phong.Where(
+                    o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == maHoKhau).FirstOrDefault();
+                if (phongByHoKhau != null) return false;
+
+                var phong = _dbcontext.Phong.Where(
+                    o => o.Delete == Constant.NOT_DELETE && o.MaPhong == maPhong).FirstOrDefault();
+
+                if (phong.MaHoKhau != null) return false;
+                
+                phong.MaHoKhau = maHoKhau;
+                _dbcontext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public bool RemoveNhanKhauFromHoKhau(string maHoKhau, string userName)
         {
             try

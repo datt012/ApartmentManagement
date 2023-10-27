@@ -64,16 +64,26 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
+
 builder.Services.AddSingleton<INhanKhauService, NhanKhauService>();
 builder.Services.AddSingleton<INhanKhauRepository, NhanKhauRepository>();
+
 builder.Services.AddSingleton<IKhoanThuService, KhoanThuService>();
 builder.Services.AddSingleton<IKhoanThuRepository, KhoanThuRepository>();
+
 builder.Services.AddSingleton<IHoKhauService, HoKhauService>();
 builder.Services.AddSingleton<IHoKhauRepository, HoKhauRepository>();
+
 builder.Services.AddSingleton<ITamTruService, TamTruService>();
 builder.Services.AddSingleton<ITamTruRepository, TamTruRepository>();
+
 builder.Services.AddSingleton<ITamVangService, TamVangService>();
 builder.Services.AddSingleton<ITamVangRepository, TamVangRepository>();
+
+builder.Services.AddSingleton<IXeRepository, XeRepository>();
+
+builder.Services.AddSingleton<IPhongRepository, PhongRepository>();
+builder.Services.AddSingleton<IPhongService, PhongService>();
 
 builder.Services.AddHttpClient();
 

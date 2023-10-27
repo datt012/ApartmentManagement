@@ -17,6 +17,7 @@ using CNPM.Repository.Implementations;
 using System.Collections.Generic;
 using CNPM.Core.Models.HoKhau;
 using CNPM.Core.Models.LichSu;
+using CNPM.Core.Models.Xe;
 
 namespace CNPM.Service.Implementations
 {
@@ -25,11 +26,13 @@ namespace CNPM.Service.Implementations
     {
         private readonly IHoKhauRepository _hoKhauRepository;
         private readonly INhanKhauRepository _nhanKhauRepository;
+        private readonly IXeRepository _xeRepository;
         private readonly IMapper _mapper;
-        public HoKhauService(IHoKhauRepository hoKhauRepository, INhanKhauRepository nhanKhauRepository)
+        public HoKhauService(IHoKhauRepository hoKhauRepository, INhanKhauRepository nhanKhauRepository, IXeRepository xeRepository)
         {
             _hoKhauRepository = hoKhauRepository;
             _nhanKhauRepository = nhanKhauRepository;
+            _xeRepository = xeRepository;
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new MappingProfile());
@@ -176,6 +179,84 @@ namespace CNPM.Service.Implementations
                 return new BadRequestObjectResult(new
                 {
                     message = Constant.UPDATE_HO_KHAU_FAILED
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public IActionResult AddPhongToHoKhau(string token, string maHoKhau, int maPhong)
+        {
+            try
+            {
+                var userName = Helpers.DecodeJwt(token, "username");
+                var hoKhau = _hoKhauRepository.GetHoKhau(maHoKhau);
+                if (hoKhau == null) return new BadRequestObjectResult(new
+                {
+                    message = Constant.UPDATE_HO_KHAU_FAILED,
+                    reason = Constant.MA_HO_KHAU_NOT_EXIST
+                });
+                // bỏ check version
+                bool add = _hoKhauRepository.AddPhongToHoKhau(maHoKhau, maPhong, userName);
+
+                if (add)
+                {
+                    return new OkObjectResult(new
+                    {
+                        message = Constant.UPDATE_HO_KHAU_SUCCESSFULLY,
+                        data = new { maHoKhau = maHoKhau }
+                    });
+                }
+                return new BadRequestObjectResult(new
+                {
+                    message = Constant.UPDATE_HO_KHAU_FAILED
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public IActionResult AddXeToHoKhau(string token, XeDto1000 xe)
+        {
+            try
+            {
+                var userName = Helpers.DecodeJwt(token, "username");
+                
+                var hoKhau = _hoKhauRepository.GetHoKhau(xe.MaHoKhau);
+                if (hoKhau == null) return new BadRequestObjectResult(new
+                {
+                    message = Constant.UPDATE_HO_KHAU_FAILED,
+                    reason = Constant.MA_HO_KHAU_NOT_EXIST
+                });
+                // kiểm tra xem biển kiểm soát đã có chưa
+                XeEntity xeExist = _xeRepository.GetXeByBienKiemSoat(xe.BienKhiemSoat);
+                if (xeExist != null)
+                {
+                    return new BadRequestObjectResult(new
+                    {
+                        message = Constant.XE_EXISTED
+                    });
+                }
+                // bỏ check version
+                XeEntity xeEntity = _mapper.Map<XeDto1000, XeEntity>(xe);
+                xeEntity.UserCreate = userName;
+                xeEntity.UserUpdate = userName;
+                xeEntity.CreateTime = DateTime.Now;
+                xeEntity.UpdateTime = DateTime.Now;
+                int maXe = _xeRepository.CreateXe(xeEntity);
+
+                if (maXe != -1)
+                {
+                    return new OkObjectResult(new
+                    {
+                        message = Constant.ADD_XE_SUCCESSFULLY
+                    });
+                }
+                return new BadRequestObjectResult(new
+                {
+                    message = Constant.ADD_XE_FAILED
                 });
             }
             catch (Exception ex)

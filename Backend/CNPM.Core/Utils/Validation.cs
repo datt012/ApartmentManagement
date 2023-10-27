@@ -24,10 +24,10 @@ namespace CNPM.Core.Utils
     {
         public static ValidationResult IsKhoanThu(int khoanThu)
         {
-            if (khoanThu == 0 || khoanThu == 1) // khoản thu = 0 - ủng hộ, 1 - phí ve sinh
+            if (khoanThu == 0 || khoanThu == 1 || khoanThu == 2 || khoanThu == 3 || khoanThu == 4) // khoản thu = 0 - ủng hộ/đóng góp, 1 - phí sinh hoạt, 2 - phí dịch vụ, 3 - phí quản lý, 4 - phí gửi xe
                 return ValidationResult.Success;
             else
-                return new ValidationResult("Khoan thu is not valid, khoan thu = 0 as ung ho, = 1 as phi ve sinh");
+                return new ValidationResult("Khoan thu is not valid");
         }
     }
 }

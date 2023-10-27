@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using CNPM.Repository.Interfaces;
 using CNPM.Core.Entities;
@@ -10,6 +11,8 @@ using CNPM.Core.Utils;
 using CNPM.Core.Models;
 using CNPM.Core.Models.NhanKhau;
 using System.ComponentModel.DataAnnotations;
+using CNPM.Core.Models.KhoanThu;
+using Newtonsoft.Json.Linq;
 
 namespace CNPM.Repository.Implementations
 {
@@ -62,6 +65,9 @@ namespace CNPM.Repository.Implementations
                 if (number_rows <= 0) return -1;
 
                 var listHoKhau = _dbcontext.HoKhau.Where(o => o.Delete == Constant.NOT_DELETE).ToList();
+                List<PhiSinhHoat> dsPhiSinhHoat = null;
+                if (khoanThu.LoaiKhoanThu == 1) dsPhiSinhHoat = JObject.Parse(khoanThu.ChiTiet).ToObject<List<PhiSinhHoat>>();
+
                 foreach (var hoKhau in listHoKhau)
                 {
                     KhoanThuTheoHoEntity khoanThuTheoHo = new KhoanThuTheoHoEntity();
@@ -71,15 +77,32 @@ namespace CNPM.Repository.Implementations
                     khoanThuTheoHo.UserUpdate = khoanThu.UserUpdate;
                     khoanThuTheoHo.CreateTime = DateTime.Now;
                     khoanThuTheoHo.UpdateTime = DateTime.Now;
+                    
+                    PhiDichVu phiDichVu = JObject.Parse(khoanThu.ChiTiet).ToObject<PhiDichVu>();
+                    PhiGuiXe phiGuiXe = JObject.Parse(khoanThu.ChiTiet).ToObject<PhiGuiXe>();
+                    PhiQuanLy phiQuanLy = JObject.Parse(khoanThu.ChiTiet).ToObject<PhiQuanLy>();
+
+                    // Access the deserialized object
                     if (khoanThu.LoaiKhoanThu == 1)
                     {
-                        // check người đã đăng ký tạm vắng ? 
-                        var listNhanKhau = _dbcontext.NhanKhau.Where(
-                            o => o.MaHoKhau == hoKhau.MaHoKhau
-                            && o.TrangThai == Constant.ALIVE
-                            && o.Delete == Constant.NOT_DELETE).ToList();
-                        // tinh tien phi ve sinh
-                        khoanThuTheoHo.SoTien = 12 * 6000 * listNhanKhau.Count();
+                        var phiSinhHoat = dsPhiSinhHoat.Find(o => o.MaHoKhau == hoKhau.MaHoKhau);
+                        khoanThuTheoHo.SoTien = phiSinhHoat.Dien + phiSinhHoat.Nuoc;
+                    }
+                    else if (khoanThu.LoaiKhoanThu == 2)
+                    {
+                        var phong = _dbcontext.Phong.Where(o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == hoKhau.MaHoKhau).FirstOrDefault();
+                        khoanThuTheoHo.SoTien = (int)Math.Ceiling(phiDichVu.DichVu.SoTien * phong.DienTich);
+                    }
+                    else if (khoanThu.LoaiKhoanThu == 3)
+                    {
+                        var phong = _dbcontext.Phong.Where(o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == hoKhau.MaHoKhau).FirstOrDefault();
+                        khoanThuTheoHo.SoTien = (int)Math.Ceiling(phiQuanLy.QuanLy.SoTien * phong.DienTich);
+                    }
+                    else if (khoanThu.LoaiKhoanThu == 4)
+                    {
+                        var xeMay = _dbcontext.Xe.Where(o => o.Delete == Constant.NOT_DELETE && o.MaLoaiXe == "LX001" && o.MaHoKhau == hoKhau.MaHoKhau).ToArray();
+                        var xeOto = _dbcontext.Xe.Where(o => o.Delete == Constant.NOT_DELETE && o.MaLoaiXe == "LX002" && o.MaHoKhau == hoKhau.MaHoKhau).ToArray();
+                        khoanThuTheoHo.SoTien = phiGuiXe.XeMay.SoTien * xeMay.Length + phiGuiXe.XeOto.SoTien * xeOto.Length;
                     }
                     _dbcontext.KhoanThuTheoHo.Add(khoanThuTheoHo);
                     _dbcontext.SaveChanges();
@@ -201,7 +224,15 @@ namespace CNPM.Repository.Implementations
                     khoanThu.UserUpdate = userNameUpdate;
                     khoanThu.UpdateTime = DateTime.Now;
                     khoanThu.Version++;
-                    // xóa các khoản thu theo hộ ứng với mã khoản thu 
+                    // xóa các khoản thu theo hộ ứng với mã khoản thu
+                    var listKhoanThuTheoHo = _dbcontext.KhoanThuTheoHo.Where(o => o.MaKhoanThu == maKhoanThu && o.Delete == Constant.NOT_DELETE).ToList();
+                    foreach (var khoanThuTheoHo in listKhoanThuTheoHo)
+                    {
+                        khoanThuTheoHo.Delete = Constant.DELETE;
+                        khoanThuTheoHo.UserUpdate = userNameUpdate;
+                        khoanThuTheoHo.UpdateTime = DateTime.Now;
+                        khoanThuTheoHo.Version++;
+                    }
                     _dbcontext.SaveChanges();
                     return true;
                 }

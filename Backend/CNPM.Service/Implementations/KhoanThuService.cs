@@ -51,7 +51,7 @@ namespace CNPM.Service.Implementations
                 return new OkObjectResult(
                     new
                     {
-                        message = Constant.GET_LIST_NHAN_KHAU_SUCCESSFULLY,
+                        message = Constant.GET_LIST_KHOAN_THU_SUCCESSFULLY,
                         data = arr
                     }
                 );
