@@ -91,11 +91,13 @@ namespace CNPM.Repository.Implementations
                     else if (khoanThu.LoaiKhoanThu == 2)
                     {
                         var phong = _dbcontext.Phong.Where(o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == hoKhau.MaHoKhau).FirstOrDefault();
+                        if (phong == null) continue;
                         khoanThuTheoHo.SoTien = (int)Math.Ceiling(phiDichVu.DichVu.SoTien * phong.DienTich);
                     }
                     else if (khoanThu.LoaiKhoanThu == 3)
                     {
                         var phong = _dbcontext.Phong.Where(o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == hoKhau.MaHoKhau).FirstOrDefault();
+                        if (phong == null) continue;
                         khoanThuTheoHo.SoTien = (int)Math.Ceiling(phiQuanLy.QuanLy.SoTien * phong.DienTich);
                     }
                     else if (khoanThu.LoaiKhoanThu == 4)
