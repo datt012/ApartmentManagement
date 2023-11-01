@@ -78,6 +78,15 @@ namespace CNPM.Controllers.Authorize
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
+        [HttpPost("ho-khau/remove-phong-from-ho-khau")]
+        public IActionResult RemovePhongFromHoKhau(string maHoKhau)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
+            return _hoKhauService.RemovePhongFromHoKhau(token, maHoKhau);
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
+        Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPost("ho-khau/add-xe-to-ho-khau")]
         public IActionResult AddXeToHoKhau([FromBody] XeDto1000 xe)
         {
@@ -87,6 +96,15 @@ namespace CNPM.Controllers.Authorize
             }
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _hoKhauService.AddXeToHoKhau(token, xe);
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
+        Roles = Constant.Administrator + ", " + Constant.Manager)]
+        [HttpPost("ho-khau/remove-xe-from-ho-khau")]
+        public IActionResult RemoveXeFromHoKhau(int maXe)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
+            return _hoKhauService.RemoveXeFromHoKhau(token, maXe);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,

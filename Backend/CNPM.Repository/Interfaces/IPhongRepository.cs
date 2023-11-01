@@ -12,6 +12,7 @@ namespace CNPM.Repository.Interfaces
     {
         public List<PhongEntity> GetListPhong(int index, int limit);
         public PhongEntity GetPhong(int maPhong);
+        public PhongEntity GetPhongByHoKhau(string maHoKhau);
         public bool CreatePhong(PhongEntity phong);
         public bool UpdatePhong(PhongEntity phong);
         public bool DeletePhong(int maPhong, string userName);

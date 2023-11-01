@@ -35,7 +35,23 @@ namespace CNPM.Repository.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        
+
+        public List<XeEntity> GetListXeByHoKhau(string maHoKhau)
+        {
+            try
+            {
+                var _dbcontext = new MyDbContext();
+                List<XeEntity> arr = _dbcontext.Xe.Where(
+                    o => o.Delete == Constant.NOT_DELETE & o.MaHoKhau == maHoKhau).ToList();
+                
+                return arr;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public XeEntity GetXe(int maXe)
         {
             try

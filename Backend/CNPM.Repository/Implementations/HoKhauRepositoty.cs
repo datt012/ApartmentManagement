@@ -133,16 +133,33 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var phongByHoKhau = _dbcontext.Phong.Where(
-                    o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == maHoKhau).FirstOrDefault();
-                if (phongByHoKhau != null) return false;
 
                 var phong = _dbcontext.Phong.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaPhong == maPhong).FirstOrDefault();
 
-                if (phong.MaHoKhau != null) return false;
+                if (phong == null || phong.MaHoKhau != null) return false;
                 
                 phong.MaHoKhau = maHoKhau;
+                _dbcontext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public bool RemovePhongFromHoKhau(string maHoKhau, string userName)
+        {
+            try
+            {
+                var _dbcontext = new MyDbContext();
+
+                var phong = _dbcontext.Phong.Where(
+                    o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == maHoKhau).FirstOrDefault();
+
+                if (phong == null) return false;
+
+                phong.MaHoKhau = null;
                 _dbcontext.SaveChanges();
                 return true;
             }

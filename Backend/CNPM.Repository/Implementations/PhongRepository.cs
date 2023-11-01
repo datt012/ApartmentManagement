@@ -50,7 +50,22 @@ namespace CNPM.Repository.Implementations
                 throw new Exception(ex.Message);
             }
         }
-      
+
+        public PhongEntity GetPhongByHoKhau(string maHoKhau)
+        {
+            try
+            {
+                var _dbcontext = new MyDbContext();
+                PhongEntity xe = _dbcontext.Phong.Where(
+                    o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == maHoKhau).FirstOrDefault();
+                return xe;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public bool CreatePhong(PhongEntity phong)
         {
             try

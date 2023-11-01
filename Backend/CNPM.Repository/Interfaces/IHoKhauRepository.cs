@@ -19,6 +19,7 @@ namespace CNPM.Repository.Interfaces
         public bool DeleteHoKhau(string maHoKhau, string userName);
         public bool AddNhanKhauToHoKhau(List<int> danhSachNhanKhau, string maHoKhau, string userName);
         public bool AddPhongToHoKhau(string maHoKhau, int maPhong, string userName);
+        public bool RemovePhongFromHoKhau(string maHoKhau, string userName);
         public bool RemoveNhanKhauFromHoKhau(string maHoKhau, string userName);
     }
 }

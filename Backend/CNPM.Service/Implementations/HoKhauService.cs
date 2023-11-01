@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using CNPM.Core.Models.HoKhau;
 using CNPM.Core.Models.LichSu;
 using CNPM.Core.Models.Xe;
+using CNPM.Core.Models.Phong;
 
 namespace CNPM.Service.Implementations
 {
@@ -27,12 +28,14 @@ namespace CNPM.Service.Implementations
         private readonly IHoKhauRepository _hoKhauRepository;
         private readonly INhanKhauRepository _nhanKhauRepository;
         private readonly IXeRepository _xeRepository;
+        private readonly IPhongRepository _phongRepository;
         private readonly IMapper _mapper;
-        public HoKhauService(IHoKhauRepository hoKhauRepository, INhanKhauRepository nhanKhauRepository, IXeRepository xeRepository)
+        public HoKhauService(IHoKhauRepository hoKhauRepository, INhanKhauRepository nhanKhauRepository, IXeRepository xeRepository, IPhongRepository phongRepository)
         {
             _hoKhauRepository = hoKhauRepository;
             _nhanKhauRepository = nhanKhauRepository;
             _xeRepository = xeRepository;
+            _phongRepository = phongRepository;
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new MappingProfile());
@@ -82,6 +85,13 @@ namespace CNPM.Service.Implementations
                 var listNhanKhauDto = _mapper.Map<List<NhanKhauEntity>, List<NhanKhauDto1001> >(listNhanKhauEntity);
                 var lichSuEntity = _hoKhauRepository.GetLichSu(maHoKhau);
                 var lichSuDto= _mapper.Map<List<LichSuEntity>, List<LichSuDto1000>>(lichSuEntity);
+                var phongEntity = _phongRepository.GetPhongByHoKhau(maHoKhau);
+                var phong1001 = _mapper.Map<PhongEntity, PhongDto1001 >(phongEntity);
+                var listXeEntity = _xeRepository.GetListXeByHoKhau(maHoKhau);
+                var listXe1001 = _mapper.Map<List<XeEntity>, List<XeDto1001> >(listXeEntity);
+
+                hoKhau1001.Phong = phong1001;
+                hoKhau1001.DanhSachXe = listXe1001;
                 hoKhau1001.DanhSachNhanKhau = listNhanKhauDto;
                 hoKhau1001.SoThanhVien = listNhanKhauDto.FindAll(o => o.TrangThai == Constant.ALIVE).ToList().Count();
                 hoKhau1001.LichSu = lichSuDto;
@@ -218,6 +228,38 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
+        public IActionResult RemovePhongFromHoKhau(string token, string maHoKhau)
+        {
+            try
+            {
+                var userName = Helpers.DecodeJwt(token, "username");
+                var hoKhau = _hoKhauRepository.GetHoKhau(maHoKhau);
+                if (hoKhau == null) return new BadRequestObjectResult(new
+                {
+                    message = Constant.UPDATE_HO_KHAU_FAILED,
+                    reason = Constant.MA_HO_KHAU_NOT_EXIST
+                });
+                // bỏ check version
+                bool remove = _hoKhauRepository.RemovePhongFromHoKhau(maHoKhau, userName);
+
+                if (remove)
+                {
+                    return new OkObjectResult(new
+                    {
+                        message = Constant.UPDATE_HO_KHAU_SUCCESSFULLY,
+                        data = new { maHoKhau = maHoKhau }
+                    });
+                }
+                return new BadRequestObjectResult(new
+                {
+                    message = Constant.UPDATE_HO_KHAU_FAILED
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public IActionResult AddXeToHoKhau(string token, XeDto1000 xe)
         {
             try
@@ -257,6 +299,31 @@ namespace CNPM.Service.Implementations
                 return new BadRequestObjectResult(new
                 {
                     message = Constant.ADD_XE_FAILED
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public IActionResult RemoveXeFromHoKhau(string token, int maXe)
+        {
+            try
+            {
+                var userName = Helpers.DecodeJwt(token, "username");
+
+                bool remove = _xeRepository.DeleteXe(maXe, userName);
+                if (remove)
+                {
+                    return new OkObjectResult(new
+                    {
+                        message = Constant.REMOVE_XE_SUCCESSFULLY
+                    });
+                }
+
+                return new BadRequestObjectResult(new
+                {
+                    message = Constant.REMOVE_XE_FAILED
                 });
             }
             catch (Exception ex)
