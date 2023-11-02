@@ -2,15 +2,16 @@ import { Box, Button, TextField } from "@mui/material";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Header from "../components/Header";
-import CustomSelect from "../components/CustomSelect";
+import Header from "../../components/Header";
+import CustomSelect from "../../components/CustomSelect";
 import { useLocation, Link, useParams } from "react-router-dom";
 import { useState, useEffect, version } from "react";
-import axios from "../setups/custom_axios";
-import { formatDate } from "../Services/API/formatDateService";
+import axios from "../../setups/custom_axios";
+import { formatDate } from "../../Services/API/formatDateService";
 import Select from 'react-select';
-import { putHouseHold } from "../Services/API/putHouseHoldService";
+import { putHouseHold } from "../../Services/API/putHouseHoldService";
 import { useHistory } from 'react-router-dom';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
 
 const HouseholdAddPage = () => {
   const history = useHistory();
@@ -82,7 +83,7 @@ const HouseholdAddPage = () => {
   return (
 
     <Box m="20px" onLoad>
-      <Header title="Thay đổi hộ khẩu" />
+      <Header title="Cập nhật thông tin hộ khẩu" />
 
 
       <Formik
@@ -194,8 +195,9 @@ const HouseholdAddPage = () => {
 
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type = "submit" color="secondary" variant="contained" onClick={() => console.log(values.danhSachNhanKhau)}>
-                Thay đổi hộ khẩu
+              <Button startIcon={<SaveAsIcon />}
+              type = "submit" color="secondary" variant="contained" onClick={() => console.log(values.danhSachNhanKhau)}>
+                Lưu
               </Button>
             </Box>
 

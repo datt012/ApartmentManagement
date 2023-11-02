@@ -13,6 +13,7 @@ import revenueService from "../../Services/API/revenueService";
 import { DesktopDatePicker, LocalizationProvider,} from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import { LIST_LOAI_KHOAN_THU } from "../../Services/Utils/const";
 
 const CreateRevenue = ({ openPopup, setOpenPopup }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -110,8 +111,9 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     onChange={handleChange}
                     defaultValue={values.loaiKhoanThu}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}>
-                        <MenuItem value={0}>Ủng hộ</MenuItem>
-                        <MenuItem value={1}>Thu phí</MenuItem>
+                      {LIST_LOAI_KHOAN_THU.map((khoanThu, index) => {
+                        return <MenuItem key={index} value={khoanThu.id}>{khoanThu.label}</MenuItem>
+                      })}
                     </TextField>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DesktopDatePicker label="Thời gian bắt đầu"

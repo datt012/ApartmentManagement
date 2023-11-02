@@ -7,10 +7,10 @@ import Topbar from "./components/Topbar";
 import Sidebar from "./components/Sidebarver";
 import Login from "./pages/Login";
 import DemographicPage from "./pages/Demographic/DemographicPage";
-import HouseholdPage from "./pages/HouseholdPage";
+import HouseholdPage from "./pages/Household/HouseholdPage";
 import TabernaclePage from "./pages/Tabernacle/TabernaclePage";
 import AbsentPage from "./pages/Absent/AbsentPage";
-import HouseholdAddPage from "./pages/HouseholdAddPage";
+import HouseholdAddPage from "./pages/Household/HouseholdAddPage";
 import { Triangle } from "react-loader-spinner";
 import About from "./pages/About";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +26,7 @@ import RevenuePage from "./pages/Income/RevenuePage";
 import RevenueItem from "./pages/Income/RevenueItem";
 import RevenueHouse from "./pages/Income/RevenueHouse";
 import AddRoomModal from "./components/AddRoomModals";
-import HouseholdPutPage from "./pages/HouseholdPutPage";
+import HouseholdPutPage from "./pages/Household/HouseholdPutPage";
 
 function App() {
   const dispatch = useDispatch();

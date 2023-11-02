@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { tokens } from "../theme";
-import { mockDataHousehold } from "../Services/MOCK/householddata";
-import Header from "../components/Header";
+import { tokens } from "../../theme";
+import { mockDataHousehold } from "../../Services/MOCK/householddata";
+import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -10,14 +10,15 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link, Redirect } from "react-router-dom";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import detailroomSlice from "../Redux/detailRoomSlice";
-import { isDetailVisibleSelector, isSelectedIdSelector } from "../Redux/selector";
-import { deleteHouseHold } from "../Services/API/householdService";
-import axios from "../setups/custom_axios";
+import detailroomSlice from "../../Redux/detailRoomSlice";
+import { isDetailVisibleSelector, isSelectedIdSelector } from "../../Redux/selector";
+import { deleteHouseHold } from "../../Services/API/householdService";
+import axios from "../../setups/custom_axios";
 import dayjs from "dayjs";
 import Button from "@mui/material/Button";
 import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded';
-import { fetchAllRevenueHouse } from "../Redux/revenueSlice";
+import { fetchAllRevenueHouse } from "../../Redux/revenueSlice";
+import { useHistory } from "react-router-dom";
 
 const HouseholdPage = () => {
 
@@ -25,7 +26,7 @@ const HouseholdPage = () => {
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  const history = useHistory();
   const handleDetail = () => {
     dispatch(detailroomSlice.actions.isDetailVisibleChange())
   }
@@ -148,6 +149,9 @@ const HouseholdPage = () => {
       <Header
         title="Quản lý hộ khẩu"
       />
+      <Button onClick={() => history.push('/household-add')}
+        color="secondary" variant="contained" style={{ fontWeight: "bold" }}>
+        Đăng ký hộ khẩu</Button>
       <Box
         m="40px 0 0 0"
         height="75vh"

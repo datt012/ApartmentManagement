@@ -2,11 +2,12 @@ import { Box, Button, TextField } from "@mui/material";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Header from "../components/Header";
-import { addHouseHold } from "../Services/API/householdService";
-import CustomSelect from "../components/CustomSelect";
-import axios from "../setups/custom_axios";
+import Header from "../../components/Header";
+import { addHouseHold } from "../../Services/API/householdService";
+import CustomSelect from "../../components/CustomSelect";
+import axios from "../../setups/custom_axios";
 import { useState, useEffect } from "react";
+import SaveAsIcon from '@mui/icons-material/SaveAs';
 const HouseholdAddPage = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
@@ -139,8 +140,8 @@ const HouseholdAddPage = () => {
 
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" color="secondary" variant="contained">
-                Tạo hộ khẩu mới
+              <Button type="submit" color="secondary" variant="contained" startIcon={<SaveAsIcon />}>
+                Lưu
               </Button>
             </Box>
   

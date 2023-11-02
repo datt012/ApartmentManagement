@@ -20,18 +20,18 @@ export const SidebarDataAdmin =  [
     title: 'Quản lý hộ khẩu',
     path: '/household',
     icon: <FaIcons.FaAddressBook />,
-    subNav: [
-      {
-        title: 'Danh sách hộ khẩu',
-        path: '/household',
-        icon: <FaIcons.FaListAlt />
-      },
-      {
-        title: 'Thêm hộ khẩu',
-        path: '/household-add',
-        icon: <AiIcons.AiFillPlusCircle />,
-      }
-    ]
+    // subNav: [
+    //   {
+    //     title: 'Danh sách hộ khẩu',
+    //     path: '/household',
+    //     icon: <FaIcons.FaListAlt />
+    //   },
+    //   {
+    //     title: 'Thêm hộ khẩu',
+    //     path: '/household-add',
+    //     icon: <AiIcons.AiFillPlusCircle />,
+    //   }
+    // ]
   },
   {
     title: 'Quản lý tạm trú',

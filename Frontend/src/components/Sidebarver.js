@@ -106,7 +106,7 @@ const Sidebar = () => {
                   alignItems="center"
                   ml="15px"
                 >
-                  <Typography variant="h4" color={colors.grey[100]} fontWeight="bold">
+                  <Typography variant="h3" color={colors.grey[100]}>
                     QUẢN LÝ DÂN CƯ
                   </Typography>
                   <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>

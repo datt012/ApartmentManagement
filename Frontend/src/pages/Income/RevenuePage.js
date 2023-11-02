@@ -15,6 +15,7 @@ import CreateRevenue from "./CreateRevenue";
 import EditRevenue from "./EditRevenue";
 import revenueService from "../../Services/API/revenueService";
 import { Link } from "react-router-dom";
+import { LIST_LOAI_KHOAN_THU } from "../../Services/Utils/const";
 
 const RevenuePage = () => {
   const theme = useTheme();
@@ -95,7 +96,10 @@ const RevenuePage = () => {
       field: "loaiKhoanThu",
       headerName: "Loại khoản thu",
       flex: 1,
-      valueGetter: (param) => {return (param.row.loaiKhoanThu) ? "Phí bắt buộc" : "Ủng hộ"},
+      valueGetter: (param) => {
+        const khoanThu = LIST_LOAI_KHOAN_THU.find(o => o.id === param.row.loaiKhoanThu);
+        return khoanThu?.label;
+      },
     },
     {
       field: "chiTiet",

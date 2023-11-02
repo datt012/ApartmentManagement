@@ -56,7 +56,7 @@ const DashBoard = () => {
                 <CardMedia
                   component="img"
                   height="100"
-                  image={require('../assets/quan-ly-nhan-khau.jpg')}
+                  image={require('../assets/quan-ly-nhan-khau.png')}
                   alt="green iguana"
                 />
                 <CardContent>
@@ -115,7 +115,7 @@ const DashBoard = () => {
             <CardMedia
               component="img"
               height="100"
-              image={require('../assets/quan-ly-khoan-thu.jpg')}
+              image={require('../assets/happy-valentine.png')}
               alt="green iguana"
             />
             <CardContent>

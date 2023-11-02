@@ -1,5 +1,5 @@
 {
-  "name": "Frontend",
+  "name": "project2-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -54,7 +54,13 @@
     "lint:js": "eslint --ext \"**/*.{js,jsx}\" --ignore-path .gitignore",
     "lint:prettier": "prettier --check \"./src/**/*.{js,jsx,css,scss}\"",
     "lint": "yarn lint:js &&  yarn lint:prettier",
-    "lintfix": "prettier --write --list-different . && yarn lint:js --fix"
+    "lintfix": "prettier --write --list-different . && yarn lint:js --fix",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "./src/**/*.{js,jsx,css,scss}": [
+      "yarn lint"
+    ]
   },
   "browserslist": {
     "production": [
@@ -69,10 +75,14 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^16.2.4",
+    "@commitlint/config-conventional": "^16.2.4",
     "eslint": "^8.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "7.0.1",
     "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "12.4.1",
     "miragejs": "^0.1.47",
     "prettier": "^2.6.2",
     "sass": "^1.51.0",
