@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { fetchAllRevenue } from "../../Redux/revenueSlice";
 import CloseIcon from '@mui/icons-material/Close';
 import revenueService from "../../Services/API/revenueService";
-import { DesktopDatePicker, LocalizationProvider,} from "@mui/x-date-pickers";
+import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { LIST_LOAI_KHOAN_THU } from "../../Services/Utils/const";
@@ -22,20 +22,28 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
   const dispatch = useDispatch();
   const handleFormSubmit = (values) => {
     revenueService.postRevenue({
-            tenKhoanThu: values.tenKhoanThu,
-            ghiChu: values.ghiChu,
-            loaiKhoanThu: values.loaiKhoanThu,
-            thoiGianBatDau: dateStart,
-            thoiGianKetThuc: dateEnd,
-        }).then(mes => {
-            alert(mes.message);
-            setOpenPopup(!openPopup);
-            dispatch(fetchAllRevenue());
-        })
+      tenKhoanThu: values.tenKhoanThu,
+      ghiChu: values.ghiChu,
+      loaiKhoanThu: values.loaiKhoanThu,
+      thoiGianBatDau: dateStart,
+      thoiGianKetThuc: dateEnd,
+    }).then(mes => {
+      alert(mes.message);
+      setOpenPopup(!openPopup);
+      dispatch(fetchAllRevenue());
+    })
   };
+  //phi cố định ban đầu
   const initialValues = {
     tenKhoanThu: "",
     loaiKhoanThu: 0,
+    dichvu: 0,
+    quanly: 0,
+    xeMay: 0,
+    xeOto: 0,
+    dien: 0,
+    nuoc:0,
+    ungho: 0,
     ghiChu: "",
   };
   return (
@@ -111,25 +119,119 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     onChange={handleChange}
                     defaultValue={values.loaiKhoanThu}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}>
-                      {LIST_LOAI_KHOAN_THU.map((khoanThu, index) => {
-                        return <MenuItem key={index} value={khoanThu.id}>{khoanThu.label}</MenuItem>
-                      })}
-                    </TextField>
+                    {LIST_LOAI_KHOAN_THU.map((khoanThu, index) => {
+                      return <MenuItem key={index} value={khoanThu.id}>{khoanThu.label}</MenuItem>
+                    })}
+                  </TextField>
+                  {values.loaiKhoanThu === 0 && [<TextField
+                    fullWidth
+                    variant="filled"
+                    type="number"
+                    label="Ủng hộ"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.ungho}
+                    name="ungho"
+                    error={!!touched.ungho && !!errors.ungho}
+                    helperText={touched.ungho && errors.ungho}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                  />
+                  ]} 
+                  {values.loaiKhoanThu === 1 && [<TextField
+                    fullWidth
+                    variant="filled"
+                    type="number"
+                    label="Tiền điện"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.dien}
+                    name="tienDien"
+                    error={!!touched.dien && !!errors.dien}
+                    helperText={touched.dien && errors.dien}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                  />
+                  ]} 
+                  {values.loaiKhoanThu === 1 && [<TextField
+                    fullWidth
+                    variant="filled"
+                    type="number"
+                    label="Tiền nước"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.nuoc}
+                    name="tienNuoc"
+                    error={!!touched.nuoc && !!errors.nuoc}
+                    helperText={touched.nuoc && errors.nuoc}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                  />
+                  ]} 
+                  {values.loaiKhoanThu === 2 && <TextField
+                    fullWidth
+                    variant="filled"
+                    type="number"
+                    label="Phí dịch vụ"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.dichvu}
+                    name="dichvu"
+                    error={!!touched.dichvu && !!errors.dichvu}
+                    helperText={touched.dichvu && errors.dichvu}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                  />}
+                  {values.loaiKhoanThu === 3 && <TextField
+                    fullWidth
+                    variant="filled"
+                    type="number"
+                    label="Phí quản lý"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.quanly}
+                    name="quanly"
+                    error={!!touched.quanly && !!errors.quanly}
+                    helperText={touched.quanly && errors.quanly}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                  />}
+                  {values.loaiKhoanThu === 4 && <TextField
+                    fullWidth
+                    variant="filled"
+                    type="number"
+                    label="Phí ô tô"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.xeOto}
+                    name="phiOto"
+                    error={!!touched.xeOto && !!errors.xeOto}
+                    helperText={touched.xeOto && errors.xeOto}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                  />}
+                  {values.loaiKhoanThu === 4 && <TextField
+                    fullWidth
+                    variant="filled"
+                    type="number"
+                    label="Phí xe máy"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.xeMay}
+                    name="phiOto"
+                    error={!!touched.xeMay && !!errors.xeMay}
+                    helperText={touched.xeMay && errors.xeMay}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                  />}
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DesktopDatePicker label="Thời gian bắt đầu"
-                    inputFormat="DD/MM/YYYY"
-                    onChange={setDateStart}
-                    value={dateStart}
-                    renderInput={(params) => <TextField {...params} />}>
+                    <DesktopDatePicker label="Thời gian bắt đầu"
+                      inputFormat="DD/MM/YYYY"
+                      onChange={setDateStart}
+                      value={dateStart}
+                      renderInput={(params) => <TextField {...params} />}>
 
-                  </DesktopDatePicker>
-                  <DesktopDatePicker label="Thời gian kết thúc"
-                    inputFormat="DD/MM/YYYY"
-                    onChange={setDateEnd}
-                    value={dateEnd}
-                    renderInput={(params) => <TextField {...params} />}>
+                    </DesktopDatePicker>
+                    <DesktopDatePicker label="Thời gian kết thúc"
+                      inputFormat="DD/MM/YYYY"
+                      onChange={setDateEnd}
+                      value={dateEnd}
+                      renderInput={(params) => <TextField {...params} />}>
 
-                  </DesktopDatePicker>
+                    </DesktopDatePicker>
                   </LocalizationProvider>
                 </Box>
                 <Box display="flex" justifyContent="end" mt="20px" >
