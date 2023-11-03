@@ -27,6 +27,7 @@ import RevenueItem from "./pages/Income/RevenueItem";
 import RevenueHouse from "./pages/Income/RevenueHouse";
 import AddRoomModal from "./components/AddRoomModals";
 import HouseholdPutPage from "./pages/Household/HouseholdPutPage";
+import RoomPage from "./pages/Room/RoomPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ function App() {
                   {
                     (user?.roleId === 1 || user?.roleId == 2) && <><Route path="/demographic" exact component={DemographicPage} />
                       <Route path="/household" exact component={HouseholdPage} />
+                      <Route path="/room" exact component={RoomPage} />
                       <Route path="/household-add" exact component={HouseholdAddPage} />
                       <Route path="/:id/edit" exact component={HouseholdPutPage} />
                       <Route path="/tabernacle" exact component={TabernaclePage} />

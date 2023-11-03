@@ -37,8 +37,8 @@ namespace CNPM.Core.Models.HoKhau
         [JsonProperty("danhSachNhanKhau")]
         public List<NhanKhauDto1001> DanhSachNhanKhau { get; set;}
 
-        [JsonProperty("phong")]
-        public PhongDto1001 Phong { get; set; }
+        [JsonProperty("maPhong")]
+        public int MaPhong { get; set; }
 
         [JsonProperty("danhSachXe")]
         public List<XeDto1001> DanhSachXe { get; set; }

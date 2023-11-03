@@ -90,7 +90,11 @@ namespace CNPM.Service.Implementations
                 var listXeEntity = _xeRepository.GetListXeByHoKhau(maHoKhau);
                 var listXe1001 = _mapper.Map<List<XeEntity>, List<XeDto1001> >(listXeEntity);
 
-                hoKhau1001.Phong = phong1001;
+                if (phong1001 != null)
+                {
+                    hoKhau1001.MaPhong = phong1001.MaPhong;
+                }
+       
                 hoKhau1001.DanhSachXe = listXe1001;
                 hoKhau1001.DanhSachNhanKhau = listNhanKhauDto;
                 hoKhau1001.SoThanhVien = listNhanKhauDto.FindAll(o => o.TrangThai == Constant.ALIVE).ToList().Count();

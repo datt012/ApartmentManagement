@@ -134,10 +134,18 @@ namespace CNPM.Repository.Implementations
             {
                 var _dbcontext = new MyDbContext();
 
+                var phongByMaHoKhau = _dbcontext.Phong.Where(
+                    o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == maHoKhau).FirstOrDefault();
+
+                if (phongByMaHoKhau != null)
+                {
+                    phongByMaHoKhau.MaHoKhau = null;
+                }
+
                 var phong = _dbcontext.Phong.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaPhong == maPhong).FirstOrDefault();
 
-                if (phong == null || phong.MaHoKhau != null) return false;
+                if (phong == null) return false;
                 
                 phong.MaHoKhau = maHoKhau;
                 _dbcontext.SaveChanges();

@@ -55,13 +55,13 @@ const HouseholdPage = () => {
 
     return (
       <Link to={"/revenue-house"}>
-      <Button onClick={() => {
-        dispatch(fetchAllRevenueHouse(maHoKhau));
-      }}
-        startIcon={<ManageAccountsRoundedIcon />}
-        variant="contained"
-        style={{ backgroundColor: colors.greenAccent[700], border: "none" }}>Khoản thu
-      </Button>
+        <Button onClick={() => {
+          dispatch(fetchAllRevenueHouse(maHoKhau));
+        }}
+          startIcon={<ManageAccountsRoundedIcon />}
+          variant="contained"
+          style={{ backgroundColor: colors.greenAccent[700], border: "none" }}>Khoản thu
+        </Button>
       </Link>
     );
   }
@@ -123,24 +123,24 @@ const HouseholdPage = () => {
         </div>
     },
     /// 
-    {
-      field: "details",
-      headerName: "",
-      flex: 0.25,
-      align: "center",
-      renderCell: (param) =>
-        <div>
-          <VisibilityIcon onClick={() => {
-            handleSelectedId(param.row.maHoKhau);
-            handleDetail();
-          }} />
-        </div>
-    },
+    // {
+    //   field: "details",
+    //   headerName: "",
+    //   flex: 0.25,
+    //   align: "center",
+    //   renderCell: (param) =>
+    //     <div>
+    //       <VisibilityIcon onClick={() => {
+    //         handleSelectedId(param.row.maHoKhau);
+    //         handleDetail();
+    //       }} />
+    //     </div>
+    // },
     {
       field: "khoanThu",
       headerName: "",
       flex: 0.6,
-      renderCell: (param) =>  <ListButton maHoKhau={param.row.maHoKhau}></ListButton>,
+      renderCell: (param) => <ListButton maHoKhau={param.row.maHoKhau}></ListButton>,
     }
   ]);
 
@@ -151,7 +151,8 @@ const HouseholdPage = () => {
       />
       <Button onClick={() => history.push('/household-add')}
         color="secondary" variant="contained" style={{ fontWeight: "bold" }}>
-        Đăng ký hộ khẩu</Button>
+        Đăng ký hộ khẩu
+      </Button>
       <Box
         m="40px 0 0 0"
         height="75vh"

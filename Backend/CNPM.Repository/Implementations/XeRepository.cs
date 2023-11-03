@@ -72,7 +72,7 @@ namespace CNPM.Repository.Implementations
             {
                 var _dbcontext = new MyDbContext();
                 XeEntity xe = _dbcontext.Xe.Where(
-                    o => o.Delete == Constant.NOT_DELETE && o.BienKhiemSoat == bienKhiemSoat).FirstOrDefault();
+                    o => o.Delete == Constant.NOT_DELETE && o.BienKiemSoat == bienKhiemSoat).FirstOrDefault();
                 return xe;
             }
             catch (Exception ex)
@@ -92,7 +92,7 @@ namespace CNPM.Repository.Implementations
                 if (number_rows <= 0) return -1;
 
                 XeEntity xeCreated = _dbcontext.Xe.Where(
-                    o => o.Delete == Constant.NOT_DELETE && o.BienKhiemSoat == xe.BienKhiemSoat).FirstOrDefault();
+                    o => o.Delete == Constant.NOT_DELETE && o.BienKiemSoat == xe.BienKiemSoat).FirstOrDefault();
                 return xeCreated.MaXe;
             }
             catch (Exception ex)
@@ -112,7 +112,7 @@ namespace CNPM.Repository.Implementations
                 {
                     xe.UserUpdate = newXe.UserUpdate;
                     xe.UpdateTime = newXe.UpdateTime;
-                    xe.BienKhiemSoat = newXe.BienKhiemSoat;
+                    xe.BienKiemSoat = newXe.BienKiemSoat;
                     xe.MaLoaiXe = newXe.MaLoaiXe;
                     xe.MaHoKhau = newXe.MaHoKhau;
                     xe.MoTa = xe.MoTa;

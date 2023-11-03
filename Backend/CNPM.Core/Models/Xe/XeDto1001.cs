@@ -23,7 +23,7 @@ namespace CNPM.Core.Models.Xe
         public string TenXe { get; set; }
 
         [JsonProperty("bienKiemSoat")]
-        public string BienKhiemSoat { get; set; }
+        public string BienKiemSoat { get; set; }
 
         [JsonProperty("maLoaiXe")]
         public string MaLoaiXe { get; set; }

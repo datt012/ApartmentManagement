@@ -5,8 +5,9 @@ body,
 #root,
 .app,
 .content {
-  maxHeight: 1000px;
+  min-height: 1000px;
   width: 100%;
+  background-color: white;
   font-family: "Source Sans Pro", sans-serif;
 }
 

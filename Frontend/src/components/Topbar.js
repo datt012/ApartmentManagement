@@ -10,7 +10,7 @@ const Topbar = () => {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const history = useHistory();
   return (
-    <Box display="flex" justifyContent="flex-end" p={2}>
+    <div style={{position: 'absolute', top: 10, right: 10}}>
       <Box display="flex">
       {user && isAuthenticated === true ? // user && isAuthenticated
       (
@@ -34,7 +34,7 @@ const Topbar = () => {
         </Link>
       )}
       </Box>
-    </Box>
+    </div>
   );
 };
 

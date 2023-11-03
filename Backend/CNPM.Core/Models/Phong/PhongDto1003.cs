@@ -20,6 +20,9 @@ namespace CNPM.Core.Models.Phong
         [JsonProperty("tang")]
         public string Tang { get; set; }
 
+        [JsonProperty("maHoKhau")]
+        public string MaHoKhau { get; set; }
+
         [JsonProperty("dienTich")]
         public double DienTich { get; set; }
 

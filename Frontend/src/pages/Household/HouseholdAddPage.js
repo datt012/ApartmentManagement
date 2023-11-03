@@ -3,16 +3,31 @@ import { Formik, Field } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
-import { addHouseHold } from "../../Services/API/householdService";
+import householdService, { addHouseHold } from "../../Services/API/householdService";
 import CustomSelect from "../../components/CustomSelect";
 import axios from "../../setups/custom_axios";
 import { useState, useEffect } from "react";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
+import { useHistory } from "react-router-dom";
 const HouseholdAddPage = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
-
+  const history = useHistory();
   const [dataNhanKhau, setDataNhanKhau] = useState([]);
+  const handleSubmit = (values) => {
+    householdService.addHouseHold({
+      "maHoKhau": values.maHoKhau,
+      "diaChiThuongTru": values.diaChiThuongTru,
+      "noiCap": values.noiCap,
+      "ngayCap": values.ngayCap,
+      "danhSachNhanKhau": values.danhSachNhanKhau
+    }).then((result) => {
+      const maHoKhau = result.data.maHoKhau;
+      alert(result.message);
+      history.push(`/${maHoKhau}/edit`);
+    }).catch(e => {
 
+    })
+  }
   useEffect(
     async () => {
       try {
@@ -38,22 +53,7 @@ const HouseholdAddPage = () => {
 
 
       <Formik
-        onSubmit={(values) => {
-          console.log({
-            "maHoKhau": values.maHoKhau,
-            "diaChiThuongTru": values.diaChiThuongTru,
-            "noiCap": values.noiCap,
-            "ngayCap": values.ngayCap,
-            "danhSachNhanKhau": values.danhSachNhanKhau
-          })
-          addHouseHold({
-            "maHoKhau": values.maHoKhau,
-            "diaChiThuongTru": values.diaChiThuongTru,
-            "noiCap": values.noiCap,
-            "ngayCap": values.ngayCap,
-            "danhSachNhanKhau": values.danhSachNhanKhau
-          })
-        }}
+        onSubmit={(values) => handleSubmit(values)}
         initialValues={initialValues}
         validationSchema={checkoutSchema}
       >

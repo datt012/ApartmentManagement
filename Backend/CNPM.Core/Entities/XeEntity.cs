@@ -15,7 +15,7 @@ namespace CNPM.Core.Entities
 
         [Required]
         [StringLength(100)]
-        public string BienKhiemSoat { get; set; }
+        public string BienKiemSoat { get; set; }
 
         [Required]
         public string MaLoaiXe { get; set; }
