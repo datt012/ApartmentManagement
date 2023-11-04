@@ -20,3 +20,13 @@ export const LIST_LOAI_KHOAN_THU = [
         label: "Phí gửi xe" 
     }
 ]
+export const LIST_LOAI_XE = [
+    {
+        id: 'LX001',
+        label: 'Xe máy'
+    },
+    {
+        id: 'LX002',
+        label: 'Xe ô tô'
+    }
+]

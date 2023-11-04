@@ -23,7 +23,7 @@ namespace CNPM.Core.Models.Xe
         [MaxLength(200)]
         [Required]
         [JsonProperty("bienKiemSoat")]
-        public string BienKhiemSoat { get; set; }
+        public string BienKiemSoat { get; set; }
 
         [Required]
         [JsonProperty("maLoaiXe")]

@@ -87,7 +87,7 @@ namespace CNPM.Controllers.Authorize
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
-        [HttpPost("ho-khau/add-xe-to-ho-khau")]
+        [HttpPost("ho-khau/add-xe")]
         public IActionResult AddXeToHoKhau([FromBody] XeDto1000 xe)
         {
             if (!ModelState.IsValid)
@@ -100,7 +100,20 @@ namespace CNPM.Controllers.Authorize
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
-        [HttpPost("ho-khau/remove-xe-from-ho-khau")]
+        [HttpPost("ho-khau/update-xe")]
+        public IActionResult UpdateXe(int maXe, [FromBody] XeDto1002 xe)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(xe);
+            }
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
+            return _hoKhauService.UpdateXe(token, maXe, xe);
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
+        Roles = Constant.Administrator + ", " + Constant.Manager)]
+        [HttpPost("ho-khau/remove-xe")]
         public IActionResult RemoveXeFromHoKhau(int maXe)
         {
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);

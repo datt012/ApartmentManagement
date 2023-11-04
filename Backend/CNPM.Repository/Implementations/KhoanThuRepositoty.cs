@@ -86,7 +86,7 @@ namespace CNPM.Repository.Implementations
                     if (khoanThu.LoaiKhoanThu == 1)
                     {
                         var phiSinhHoat = dsPhiSinhHoat.Find(o => o.MaHoKhau == hoKhau.MaHoKhau);
-                        khoanThuTheoHo.SoTien = phiSinhHoat.Dien + phiSinhHoat.Nuoc;
+                        khoanThuTheoHo.SoTien = phiSinhHoat.Dien + phiSinhHoat.Nuoc + phiSinhHoat.Internet;
                     }
                     else if (khoanThu.LoaiKhoanThu == 2)
                     {

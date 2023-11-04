@@ -277,7 +277,7 @@ namespace CNPM.Service.Implementations
                     reason = Constant.MA_HO_KHAU_NOT_EXIST
                 });
                 // kiểm tra xem biển kiểm soát đã có chưa
-                XeEntity xeExist = _xeRepository.GetXeByBienKiemSoat(xe.BienKhiemSoat);
+                XeEntity xeExist = _xeRepository.GetXeByBienKiemSoat(xe.BienKiemSoat);
                 if (xeExist != null)
                 {
                     return new BadRequestObjectResult(new
@@ -303,6 +303,47 @@ namespace CNPM.Service.Implementations
                 return new BadRequestObjectResult(new
                 {
                     message = Constant.ADD_XE_FAILED
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public IActionResult UpdateXe(string token, int maXe, XeDto1002 newXe)
+        {
+            try
+            {
+                var userName = Helpers.DecodeJwt(token, "username");
+
+                XeEntity xe = _xeRepository.GetXe(maXe);
+                if (xe == null)
+                {
+                    return new BadRequestObjectResult(new
+                    {
+                        message = Constant.XE_IS_NOT_EXIST
+                    });
+                }
+                
+                XeEntity xeEntity = _mapper.Map<XeDto1002, XeEntity>(newXe);
+                xeEntity.MaXe = maXe;
+                xeEntity.UserCreate = userName;
+                xeEntity.UserUpdate = userName;
+                xeEntity.CreateTime = DateTime.Now;
+                xeEntity.UpdateTime = DateTime.Now;
+
+                bool update = _xeRepository.UpdateXe(xeEntity);
+
+                if (update)
+                {
+                    return new OkObjectResult(new
+                    {
+                        message = Constant.UPDATE_XE_SUCCESSFULLY
+                    });
+                }
+                return new BadRequestObjectResult(new
+                {
+                    message = Constant.UPDATE_XE_FAILED
                 });
             }
             catch (Exception ex)

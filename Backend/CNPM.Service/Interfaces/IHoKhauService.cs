@@ -19,6 +19,7 @@ namespace CNPM.Service.Interfaces
         public IActionResult AddPhongToHoKhau(string token, string maHoKhau, int maPhong);
         public IActionResult RemovePhongFromHoKhau(string token, string maHoKhau);
         public IActionResult AddXeToHoKhau(string token, XeDto1000 xe);
+        public IActionResult UpdateXe(string token, int maXe, XeDto1002 xe);
         public IActionResult RemoveXeFromHoKhau(string token, int maXe);
         public IActionResult DeleteHoKhau(string token, string maHoKhau,  int version);
     }

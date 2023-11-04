@@ -51,7 +51,7 @@ export const SidebarDataAdmin =  [
     icon: <AiIcons.AiFillMoneyCollect />
   },
   {
-    title: 'Quản lý phòng',
+    title: 'Quản lý căn hộ',
     path: '/room',
     icon: <AiIcons.AiFillMoneyCollect />
   },

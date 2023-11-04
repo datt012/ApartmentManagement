@@ -14,32 +14,37 @@ import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import roomService from "../../Services/API/roomService";
+import householdService from "../../Services/API/householdService";
+import { LIST_LOAI_XE } from "../../Services/Utils/const";
 
 
-const RegisterXe = ({ onClose, onSuccess }) => {
-
+const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
+    console.log('maHoKhau', maHoKhau);
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const dispatch = useDispatch();
     const [date, setDate] = useState(dayjs(new Date()));
 
     const handleFormSubmit = (values) => {
-        roomService.addRoom({
-            tenPhong: values.tenPhong,
-            tang: values.tang,
-            dienTich: +values.dienTich,
+        householdService.addXeToHouseHold({
+            tenXe: values.tenXe,
+            bienKiemSoat: values.bienKiemSoat,
+            maLoaiXe: values.maLoaiXe,
+            maHoKhau: maHoKhau,
             moTa: values.moTa
-        }).then(mes => {
+        }).then(result => {
+            alert(result.message);
+            onClose && onClose();
             onSuccess && onSuccess();
         }).catch(e => {
-
+            console.log(e);
+            alert(e.response.data.message)
         });
     };
     const initialValues = {
-        tenPhong: "",
-        tang: "",
-        dienTich: "",
-        maHoKhau: "",
-        moTa: "",
+        tenXe: "",
+        bienKiemSoat: "",
+        maLoaiXe: "LX001",
+        moTa: ""
     };
     return (
         <Dialog open={true} maxWidth="md" style={{ backgroundColor: "transparent" }}
@@ -83,54 +88,41 @@ const RegisterXe = ({ onClose, onSuccess }) => {
                                         fullWidth
                                         variant="filled"
                                         type="text"
-                                        label="Tên phòng"
+                                        label="Tên xe"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        value={values.tenPhong}
-                                        name="tenPhong"
-                                        error={!!touched.tenPhong && !!errors.tenPhong}
-                                        helperText={touched.tenPhong && errors.tenPhong}
+                                        value={values.tenXe}
+                                        name="tenXe"
+                                        error={!!touched.tenXe && !!errors.tenXe}
+                                        helperText={touched.tenXe && errors.tenXe}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                                     />
                                     <TextField
                                         fullWidth
                                         variant="filled"
                                         type="text"
-                                        label="Tầng"
+                                        label="Biển kiểm soát"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        value={values.tang}
-                                        name="tang"
-                                        error={!!touched.tang && !!errors.tang}
-                                        helperText={touched.tang && errors.tang}
+                                        value={values.bienKiemSoat}
+                                        name="bienKiemSoat"
+                                        error={!!touched.bienKiemSoat && !!errors.bienKiemSoat}
+                                        helperText={touched.bienKiemSoat && errors.bienKiemSoat}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                                     />
                                     <TextField
-                                        fullWidth
                                         variant="filled"
-                                        type="text"
-                                        label="Diện tích"
+                                        select
+                                        label="Loại xe"
                                         onBlur={handleBlur}
+                                        name="maLoaiXe"
                                         onChange={handleChange}
-                                        value={values.dienTich}
-                                        name="dienTich"
-                                        error={!!touched.dienTich && !!errors.dienTich}
-                                        helperText={touched.dienTich && errors.dienTich}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                                    />
-                                    {/* <TextField
-                                        fullWidth
-                                        variant="filled"
-                                        type="text"
-                                        label="Mã hộ khẩu"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.ngheNghiep}
-                                        name="ngheNghiep"
-                                        error={!!touched.ngheNghiep && !!errors.ngheNghiep}
-                                        helperText={touched.ngheNghiep && errors.ngheNghiep}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                                    /> */}
+                                        defaultValue={values.maLoaiXe}
+                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}>
+                                        {LIST_LOAI_XE.map((loaiXe, index) => {
+                                            return <MenuItem key={index} value={loaiXe.id}>{loaiXe.label}</MenuItem>
+                                        })}
+                                    </TextField>
                                     <TextField
                                         fullWidth
                                         variant="filled"
@@ -165,9 +157,9 @@ const phoneRegExp =
     /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const checkoutSchema = yup.object().shape({
-    tenPhong: yup.string().required("Bạn chưa điền thông tin"),
-    tang: yup.string().required("Bạn chưa điền thông tin"),
-    dienTich: yup.string().required("Bạn chưa điền thông tin")
+    tenXe: yup.string().required("Bạn chưa điền thông tin"),
+    bienKiemSoat: yup.string().required("Bạn chưa điền thông tin"),
+    maLoaiXe: yup.string().required("Bạn chưa chọn thông tin loại xe")
 });
 
 export default RegisterXe;

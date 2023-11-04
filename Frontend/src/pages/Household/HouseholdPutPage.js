@@ -18,6 +18,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import EditIcon from '@mui/icons-material/Edit';
 
 import { useHistory } from 'react-router-dom';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
@@ -25,6 +26,7 @@ import dayjs from "dayjs";
 import householdService from "../../Services/API/householdService";
 import roomService from "../../Services/API/roomService";
 import RegisterXe from "./RegisterXe";
+import EditXe from "./EditXe";
 
 
 const HouseholdAddPage = () => {
@@ -40,6 +42,9 @@ const HouseholdAddPage = () => {
   const [xeArr, setXeArr] = useState([]);
 
   const [addXe, setAddXe] = useState(false);
+  const [editXe, setEditXe] = useState(false);
+
+  const [currentXe, setCurrentXe] = useState({});
 
   const handleSelect = (selectedOption) => {
     setSelectOption(selectedOption);
@@ -61,10 +66,26 @@ const HouseholdAddPage = () => {
       "version": initialValues.version,
     }).then((result) => {
       alert(result.message);
-    }).catch(e => { })
+    }).catch(e =>
+      alert(e.response.message))
   }
-  const [initialValues, setInitialValues] = useState({})
-  useEffect(async () => {
+  const [initialValues, setInitialValues] = useState({});
+  const handleGetData = async () => {
+    try {
+      const response = await axios.get(`/nhan-khau/danh-sach-nhan-khau-chua-co-ho-khau`)
+      const datas = response.data;
+      const datamap = datas.map((data) => {
+        const label = `${data.hoTen} ${data.maNhanKhau}`
+        return {
+          label,
+          value: data.maNhanKhau
+        }
+      })
+      console.log('datamap', datamap);
+      setDataNhanKhau(datamap);
+    } catch (error) {
+      console.log(error);
+    }
     try {
       setIsLoading(true);
       const response = await axios.get(`ho-khau?maHoKhau=${id}`)
@@ -91,12 +112,6 @@ const HouseholdAddPage = () => {
     } catch (error) {
       history.push('/household');
     }
-    console.log(initialValues)
-  }, [])
-
-  const [dataNhanKhau, setDataNhanKhau] = useState([]);
-  const [dataPhong, setDataPhong] = useState([]);
-  const handleGetListRoom = () => {
     roomService.getListRoom().then((result) => {
       const datas = result.data;
       const datamap = datas.map((data) => {
@@ -112,28 +127,24 @@ const HouseholdAddPage = () => {
       console.log(e);
     })
   }
+  const [dataNhanKhau, setDataNhanKhau] = useState([]);
+  const [dataPhong, setDataPhong] = useState([]);
+  const handleRemoveXe = (maXe) => {
+
+    let text = "Bạn có chắc chắn muốn xóa xe này không?";
+    if (!window.confirm(text)) {
+      return
+    }
+    householdService.removeXe(maXe).then((result) => {
+      alert(result.message);
+      handleGetData();
+    }).catch(e => {
+      alert(e.response.data.message);
+    })
+  }
   useEffect(() => {
-    handleGetListRoom();
+    handleGetData();
   }, []);
-  useEffect(
-    async () => {
-      try {
-        const response = await axios.get(`/nhan-khau/danh-sach-nhan-khau-chua-co-ho-khau`)
-        const datas = response.data;
-        const datamap = datas.map((data) => {
-          const label = `${data.hoTen} ${data.maNhanKhau}`
-          return {
-            label,
-            value: data.maNhanKhau
-          }
-        })
-        console.log('datamap', datamap);
-        setDataNhanKhau(datamap);
-      } catch (error) {
-        console.log(error);
-      }
-    }, []
-  )
   console.log('xeArr', xeArr);
   if (isLoading) {
     return <div>Loading....</div>
@@ -143,7 +154,8 @@ const HouseholdAddPage = () => {
 
     <Box m="20px" onLoad>
       <Header title="Cập nhật thông tin hộ khẩu" />
-      {addXe && <RegisterXe  onClose={() => setAddXe(false)} onSuccess={() => {}} /> }
+      {addXe && <RegisterXe maHoKhau={initialValues.maHoKhau} onClose={() => setAddXe(false)} onSuccess={() => handleGetData()} />}
+      {editXe && <EditXe xeData={currentXe} onClose={() => setEditXe(false)} onSuccess={() => handleGetData()} />}
       <Formik
         onSubmit={(values) => {
           handleUpdate(values)
@@ -232,70 +244,54 @@ const HouseholdAddPage = () => {
                     onChange={handleSelect}
                   />
                 </div>
-                {/* <div style={{ width: '500px', marginBottom: 20 }}>
-                  <Select
-                    name="maPhong"
-                    options={dataPhong}
-                    component={CustomSelect}
-                    placeholder="Phòng"
-                    isMulti={false}
-                    defaultValue={values.maPhong.toString()}
-                    // onChange={}
-                  />
-                </div> */}
                 <div>
                   <select
                     onChange={(e) => setRoomId(e.target.value)}
                     value={roomId} style={{ height: 40, width: 100, border: '1px solid #ccc', borderRadius: 5 }}>
-                    <option value={""}>Chọn phòng</option>
+                    <option value={""}>Chọn căn hộ</option>
                     {dataPhong?.map((phong, index) => {
-                      return <option value={phong.value}>{phong.label}</option>
+                      return <option key={index} value={phong.value}>{phong.label}</option>
                     })}
                   </select>
                 </div>
                 <div style={{ width: '60vh', marginBottom: 10, marginTop: 10 }}>
-                  <Button onClick={() => setAddXe(true)}
-                  size="small" variant="contained" color="info" style={{ marginBottom: 5 }}>Thêm xe</Button>
-                  <TableContainer component={Paper}>
-                    <Table sx={{ width: '60vh' }} >
-                      <TableHead>
-                        <TableRow>
-                          <TableCell align="left">Mã xe</TableCell>
-                          <TableCell align="right">Biển kiểm soát</TableCell>
-                          <TableCell align="right">Loại xe</TableCell>
-                          <TableCell align="right">Tên xe</TableCell>
-                          <TableCell align="right">Mô tả</TableCell>
-                          <TableCell align="right"></TableCell>
-                          <TableCell align="right"></TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {xeArr.map((row) => (
-                          <TableRow
-                            key={row.maXe}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                          >
-                            <TableCell component="th" scope="row">
-                              {row.maXe}
-                            </TableCell>
-                            <TableCell align="right">
-                              {row.bienKiemSoat}
-                            </TableCell>
-                            <TableCell align="right">{row.maLoaiXe === "LX001" ? 'Xe máy' : 'Xe ô tô'}</TableCell>
-                            <TableCell align="right">{row.tenXe}</TableCell>
-                            <TableCell align="right">{row.moTa}</TableCell>
-                            <TableCell align="right">
-                              <TrackChangesIcon style={{cursor: 'pointer'}}/>
-                            </TableCell>
-                            <TableCell align="right">
-                              <DeleteIcon style={{cursor: 'pointer'}}/>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
 
+                  <table class="custom-table">
+                    <thead>
+                      <tr>
+                        <th>Mã xe</th>
+                        <th>Biển kiểm soát</th>
+                        <th>Loại xe</th>
+                        <th>Tên xe</th>
+                        <th>Mô tả</th>
+                        <th>Hành động</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {xeArr.map((row, index) => {
+                        return <tr key={index}>
+                          <td>{row.maXe}</td>
+                          <td>{row.bienKiemSoat}</td>
+                          <td>{row.maLoaiXe === "LX001" ? "Xe máy" : "Xe ô tô"}</td>
+                          <td>{row.tenXe}</td>
+                          <td>{row.moTa}</td>
+                          <td>
+                            <div style={{
+                              display: 'flex',
+                              flexDirection: 'row',
+                              justifyContent: 'space-evenly'
+                            }}>
+                              <EditIcon onClick={() => { setCurrentXe(row); setEditXe(true) }} style={{ cursor: 'pointer' }} />
+                              <DeleteIcon onClick={() => handleRemoveXe(row.maXe)}
+                                style={{ cursor: 'pointer' }} />
+                            </div>
+                          </td>
+                        </tr>
+                      })}
+                    </tbody>
+                  </table>
+                  <Button onClick={() => setAddXe(true)}
+                    size="small" variant="contained" color="info" style={{ marginTop: 5, color: 'white' }}>Thêm xe</Button>
                 </div>
               </div>
             </Box>

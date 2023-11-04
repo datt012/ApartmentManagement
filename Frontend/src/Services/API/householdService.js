@@ -17,6 +17,18 @@ const addRoomToHouseHold = async (maHoKhau, maPhong) => {
     return await axios.post(`/ho-khau/add-phong-to-ho-khau?mahokhau=${maHoKhau}&maphong=${maPhong}`);
 }
 
+const addXeToHouseHold = async ({ tenXe, bienKiemSoat, maLoaiXe, maHoKhau, moTa }) => {
+    return await axios.post(`/ho-khau/add-xe`, { tenXe, bienKiemSoat, maLoaiXe, maHoKhau, moTa });
+}
+
+const updateXeToHouseHold = async (maXe, { tenXe, bienKiemSoat, maLoaiXe, maHoKhau, moTa, version }) => {
+    return await axios.post(`/ho-khau/update-xe?maXe=${maXe}`, { tenXe, bienKiemSoat, maLoaiXe, maHoKhau, moTa, version });
+}
+
+const removeXe = async (maXe) => {
+    return await axios.post(`/ho-khau/remove-xe?maXe=${maXe}`);
+}
+
 export const deleteHouseHold = async HouseHoldId => {
     try {
         const response = await axios.delete(`ho-khau?maHoKhau=${HouseHoldId}`)
@@ -37,6 +49,9 @@ const householdService = {
     addHouseHold,
     updateHouseHold,
     addRoomToHouseHold,
+    addXeToHouseHold,
+    updateXeToHouseHold,
+    removeXe,
     deleteHouseHold
 }
 

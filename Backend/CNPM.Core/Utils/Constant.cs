@@ -135,9 +135,12 @@
 
         public const string ADD_XE_SUCCESSFULLY = "Thêm xe thành công";
         public const string ADD_XE_FAILED = "Thêm xe thất bại";
+        public const string UPDATE_XE_SUCCESSFULLY = "Cập nhật thông tin xe thành công";
+        public const string UPDATE_XE_FAILED = "Cập nhật thông tin xe thất bại";
         public const string REMOVE_XE_SUCCESSFULLY = "Xóa xe thành công";
         public const string REMOVE_XE_FAILED = "Xóa xe thất bại";
         public const string XE_EXISTED = "Xe đã tồn tại";
+        public const string XE_IS_NOT_EXIST = "Xe không tồn tại";
 
         public const string DELETE_NHAN_KHAU_SUCCESSFULLY = "Xóa thông tin nhân khẩu thành công";
         public const string DELETE_NHAN_KHAU_FAILED = "Xoá thông tin nhân khẩu thất bại";

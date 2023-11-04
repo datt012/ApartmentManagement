@@ -106,13 +106,13 @@ const RoomPage = () => {
   return (
     <Box m="20px">
       <Header
-        title="Quản lý Phòng"
+        title="Quản lý căn hộ"
       />
       <Button onClick={() => {
         setOpenPopup(!openPopup);
       }}
         color="secondary" variant="contained" style={{ fontWeight: "bold" }}>
-        Thêm phòng</Button>
+        Thêm căn hộ</Button>
       <Box
         m="40px 0 0 0"
         height="75vh"

@@ -50,7 +50,7 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
             <DialogTitle>
                 <div style={{ display: 'flex' }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-                        {"CẬP NHẬT THÔNG TIN PHÒNG"}
+                        {"CẬP NHẬT THÔNG TIN CĂN HỘ"}
                     </Typography>
                     <IconButton aria-label="close" onClick={() => {
                         onClose && onClose();

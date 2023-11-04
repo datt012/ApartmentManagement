@@ -141,35 +141,35 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     fullWidth
                     variant="filled"
                     type="number"
-                    label="Tiền điện"
+                    label="Tiền điện (VNĐ)"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.dien}
                     name="tienDien"
                     error={!!touched.dien && !!errors.dien}
                     helperText={touched.dien && errors.dien}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                   />
                   ]} 
                   {values.loaiKhoanThu === 1 && [<TextField
                     fullWidth
                     variant="filled"
                     type="number"
-                    label="Tiền nước"
+                    label="Tiền nước (VNĐ)"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.nuoc}
                     name="tienNuoc"
                     error={!!touched.nuoc && !!errors.nuoc}
                     helperText={touched.nuoc && errors.nuoc}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                   />
                   ]} 
                   {values.loaiKhoanThu === 2 && <TextField
                     fullWidth
                     variant="filled"
                     type="number"
-                    label="Phí dịch vụ"
+                    label="Phí dịch vụ (VNĐ / m2)"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.dichvu}
@@ -182,7 +182,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     fullWidth
                     variant="filled"
                     type="number"
-                    label="Phí quản lý"
+                    label="Phí quản lý (VNĐ / m2)"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.quanly}
@@ -195,27 +195,27 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     fullWidth
                     variant="filled"
                     type="number"
-                    label="Phí ô tô"
+                    label="Phí ô tô (VNĐ / xe)"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.xeOto}
                     name="phiOto"
                     error={!!touched.xeOto && !!errors.xeOto}
                     helperText={touched.xeOto && errors.xeOto}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                   />}
                   {values.loaiKhoanThu === 4 && <TextField
                     fullWidth
                     variant="filled"
                     type="number"
-                    label="Phí xe máy"
+                    label="Phí xe máy (VNĐ / xe)"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.xeMay}
                     name="phiOto"
                     error={!!touched.xeMay && !!errors.xeMay}
                     helperText={touched.xeMay && errors.xeMay}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                   />}
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DesktopDatePicker label="Thời gian bắt đầu"

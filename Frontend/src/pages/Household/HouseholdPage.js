@@ -163,10 +163,11 @@ const HouseholdPage = () => {
           "& .MuiDataGrid-cell": {
           },
           "& .name-column--cell": {
-            color: colors.greenAccent[300],
+            color: colors.greenAccent[900],
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            // backgroundColor: colors.blueAccent[200],
+            color: 'black',
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
@@ -177,10 +178,10 @@ const HouseholdPage = () => {
             backgroundColor: colors.blueAccent[700],
           },
           "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
+            color: `${colors.greenAccent[900]} !important`,
           },
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${colors.grey[100]} !important`,
+            color: `${colors.grey[900]} !important`,
           },
           "& .MuiTablePagination-displayedRows, .MuiTablePagination-selectLabel": {
             "margin-top": "1em",

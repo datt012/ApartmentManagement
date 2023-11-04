@@ -23,6 +23,9 @@ namespace CNPM.Core.Models.KhoanThu
         [JsonProperty("nuoc")]
         public int Nuoc { get; set; }
 
+        [JsonProperty("internet")]
+        public int Internet { get; set; }
+
     }
 }
 

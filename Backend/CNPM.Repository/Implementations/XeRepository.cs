@@ -114,8 +114,8 @@ namespace CNPM.Repository.Implementations
                     xe.UpdateTime = newXe.UpdateTime;
                     xe.BienKiemSoat = newXe.BienKiemSoat;
                     xe.MaLoaiXe = newXe.MaLoaiXe;
-                    xe.MaHoKhau = newXe.MaHoKhau;
-                    xe.MoTa = xe.MoTa;
+                    xe.MoTa = newXe.MoTa;
+                    xe.TenXe = newXe.TenXe;
                     xe.Version = newXe.Version + 1;
                     _dbcontext.SaveChanges();
                     return true;
