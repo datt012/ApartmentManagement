@@ -19,6 +19,7 @@ import Button from "@mui/material/Button";
 import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded';
 import { fetchAllRevenueHouse } from "../../Redux/revenueSlice";
 import { useHistory } from "react-router-dom";
+import EditIcon from '@mui/icons-material/Edit';
 
 const HouseholdPage = () => {
 
@@ -104,7 +105,9 @@ const HouseholdPage = () => {
       align: "center",
       renderCell: (param) => {
         const link = param.row.maHoKhau + "/edit";
-        return <Link to={link}><TrackChangesIcon /> </Link>
+        return <div onClick={() => {
+          history.push(link);
+        }}><EditIcon /></div>
       }
     },
     {
@@ -157,32 +160,6 @@ const HouseholdPage = () => {
         m="40px 0 0 0"
         height="75vh"
         sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[900],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            // backgroundColor: colors.blueAccent[200],
-            color: 'black',
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[900]} !important`,
-          },
-          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${colors.grey[900]} !important`,
-          },
           "& .MuiTablePagination-displayedRows, .MuiTablePagination-selectLabel": {
             "margin-top": "1em",
             "margin-bottom": "1em"

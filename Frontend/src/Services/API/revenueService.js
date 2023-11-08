@@ -7,13 +7,14 @@ const getRevenue = (maKhoanThu) => {
     return axios.get(`khoan-thu?maKhoanThu=${maKhoanThu}`);
 }
 const postRevenue = (data) => {
-    const {tenKhoanThu, thoiGianBatDau, thoiGianKetThuc, loaiKhoanThu, ghiChu} = data;
+    const {tenKhoanThu, thoiGianBatDau, thoiGianKetThuc, loaiKhoanThu, ghiChu, chiTiet} = data;
     return axios.post("/khoan-thu", {
         tenKhoanThu: tenKhoanThu,
         thoiGianBatDau: thoiGianBatDau,
         thoiGianKetThuc: thoiGianKetThuc,
         loaiKhoanThu: loaiKhoanThu,
-        ghiChu: ghiChu
+        ghiChu: ghiChu,
+        chiTiet: chiTiet,
     });
 }
 const putRevenue = (maKhoanThu, data) => {

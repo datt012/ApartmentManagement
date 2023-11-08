@@ -85,7 +85,7 @@ const HouseholdAddPage = () => {
                 name="maHoKhau"
                 error={!!touched.maHoKhau && !!errors.maHoKhau}
                 helperText={touched.maHoKhau && errors.maHoKhau}
-                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 4", backgroundColor: "#293040" }}
+                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 4" }}
               />
               <TextField
                 fullWidth
@@ -98,7 +98,7 @@ const HouseholdAddPage = () => {
                 name="diaChiThuongTru"
                 error={!!touched.diaChiThuongTru && !!errors.diaChiThuongTru}
                 helperText={touched.diaChiThuongTru && errors.diaChiThuongTru}
-                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 4", backgroundColor: "#293040" }}
+                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 4" }}
               />
               <TextField
                 fullWidth
@@ -111,7 +111,7 @@ const HouseholdAddPage = () => {
                 name="noiCap"
                 error={!!touched.noiCap && !!errors.noiCap}
                 helperText={touched.noiCap && errors.noiCap}
-                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 4", backgroundColor: "#293040" }}
+                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 4" }}
               />
               <TextField
                 fullWidth
@@ -124,7 +124,7 @@ const HouseholdAddPage = () => {
                 name="ngayCap"
                 error={!!touched.ngayCap && !!errors.ngayCap}
                 helperText={touched.ngayCap && errors.ngayCap}
-                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 4", backgroundColor: "#293040" }}
+                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 4" }}
               />
               <Field
                 fullWidth

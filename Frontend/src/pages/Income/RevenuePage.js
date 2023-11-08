@@ -16,6 +16,7 @@ import EditRevenue from "./EditRevenue";
 import revenueService from "../../Services/API/revenueService";
 import { Link } from "react-router-dom";
 import { LIST_LOAI_KHOAN_THU } from "../../Services/Utils/const";
+import EditIcon from '@mui/icons-material/Edit';
 
 const RevenuePage = () => {
   const theme = useTheme();
@@ -33,16 +34,14 @@ const RevenuePage = () => {
     const colors = tokens(theme.palette.mode);
 
     return (
-      <Button onClick={() => {
+      <div onClick={() => {
         revenueService.getRevenue(maKhoanThu).then(mes => {
           setData(mes.data);
           setOpenInPopup(!openInPopup);
-      })
-      }}
-        startIcon={<ManageAccountsRoundedIcon />}
-        variant="contained"
-        style={{ backgroundColor: colors.greenAccent[700], border: "none" }}>Chỉnh sửa
-      </Button>
+        })
+      }}>
+        <EditIcon/>
+      </div>
     );
   }
   const ListButton = ({ maKhoanThu, loaiKhoanThu }) => {
@@ -51,15 +50,15 @@ const RevenuePage = () => {
 
     return (
       <Link to="/revenue-item">
-      <Button onClick={() => {
-        dispatch(setRevenueItemID(maKhoanThu));
-        dispatch(setRevenueItemType(loaiKhoanThu));
-        dispatch(fetchRevenueItem(maKhoanThu));
-      }}
-        startIcon={<FactCheckIcon />}
-        variant="contained"
-        style={{ backgroundColor: colors.greenAccent[700], border: "none" }}>Danh sách hộ
-      </Button>
+        <Button onClick={() => {
+          dispatch(setRevenueItemID(maKhoanThu));
+          dispatch(setRevenueItemType(loaiKhoanThu));
+          dispatch(fetchRevenueItem(maKhoanThu));
+        }}
+          startIcon={<FactCheckIcon />}
+          variant="contained"
+          style={{ backgroundColor: colors.greenAccent[500], border: "none" }}>Danh sách hộ
+        </Button>
       </Link>
     );
   }
@@ -84,13 +83,13 @@ const RevenuePage = () => {
       field: "thoiGianBatDau",
       headerName: "Thời gian bắt đầu",
       flex: 1,
-      valueGetter: (param) => {return dayjs(param.row.thoiGianBatDau).format('DD/MM/YYYY')},
+      valueGetter: (param) => { return dayjs(param.row.thoiGianBatDau).format('DD/MM/YYYY') },
     },
     {
       field: "thoiGianKetThuc",
       headerName: "Thời gian kết thúc",
       flex: 1,
-      valueGetter: (param) => {return dayjs(param.row.thoiGianKetThuc).format('DD/MM/YYYY')},
+      valueGetter: (param) => { return dayjs(param.row.thoiGianKetThuc).format('DD/MM/YYYY') },
     },
     {
       field: "loaiKhoanThu",
@@ -105,13 +104,13 @@ const RevenuePage = () => {
       field: "chiTiet",
       headerName: "",
       flex: 1,
-      renderCell: (param) => <EditButton maKhoanThu={param.row.maKhoanThu} openInPopup={openInPopup} setOpenInPopup={setOpenInPopup}/>,
+      renderCell: (param) => <EditButton maKhoanThu={param.row.maKhoanThu} openInPopup={openInPopup} setOpenInPopup={setOpenInPopup} />,
     },
     {
       field: "danhSach",
       headerName: "",
       flex: 1,
-      renderCell: (param) => <ListButton maKhoanThu={param.row.maKhoanThu} loaiKhoanThu={param.row.loaiKhoanThu}/>,
+      renderCell: (param) => <ListButton maKhoanThu={param.row.maKhoanThu} loaiKhoanThu={param.row.loaiKhoanThu} />,
     }
   ]);
   return (
@@ -128,42 +127,13 @@ const RevenuePage = () => {
         m="40px 0 0 0"
         height="75vh"
         sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${colors.grey[100]} !important`,
-          },
-          "& .MuiTablePagination-root": {
-            color: `${colors.grey[100]} !important`,
-          },
           "& .MuiTablePagination-displayedRows, .MuiTablePagination-selectLabel": {
             "margin-top": "1em",
             "margin-bottom": "1em"
           }
-
         }}
       >
-        <CreateRevenue openPopup={openPopup} setOpenPopup={setOpenPopup}/>
+        <CreateRevenue openPopup={openPopup} setOpenPopup={setOpenPopup} />
         <EditRevenue openInPopup={openInPopup} setOpenInPopup={setOpenInPopup} data={data}></EditRevenue>
         {isLoadingList ? (
           <div className="loading-container d-flex flex-column align-items-center ustify-content-center">

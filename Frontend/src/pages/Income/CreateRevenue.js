@@ -1,11 +1,11 @@
 import { Box, Button, TextField, Typography, Dialog, DialogTitle, DialogContent, IconButton, MenuItem } from "@mui/material";
-import { tokens } from "../../theme";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import { useEffect, useState, } from "react";
+import { tokens } from "../../theme";
 import { useDispatch } from "react-redux";
 import { fetchAllRevenue } from "../../Redux/revenueSlice";
 import CloseIcon from '@mui/icons-material/Close';
@@ -14,19 +14,44 @@ import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { LIST_LOAI_KHOAN_THU } from "../../Services/Utils/const";
+import FactCheckIcon from '@mui/icons-material/FactCheck';
+import { useTheme } from "@mui/material";
+import CreateListRevenue from "./CreateListRevenue";
 
 const CreateRevenue = ({ openPopup, setOpenPopup }) => {
+  const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [dateStart, setDateStart] = useState(dayjs(new Date()));
   const [dateEnd, setDateEnd] = useState(dayjs(new Date()));
   const dispatch = useDispatch();
+  const colors = tokens(theme.palette.mode);
+  const [listHouseHold, setListHouseHold] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
   const handleFormSubmit = (values) => {
+    var data;
+    switch (values.loaiKhoanThu) {
+      case 0:
+        data = '{\"quanLy\":{\"soTien\":10000,\"donVi\":\"m2\"}}';
+        break;
+      case 1:
+        data = '[{\"dien\":' + values.dien + ', \"nuoc\":' + values.nuoc + ', \"internet\":' + values.internet + ', \"maHoKhau\": \"' + 0 + '\"}]';
+        break;
+      case 2:
+        data = '{\"dichVu\":{\"soTien\":' + values.dichvu + ',\"donVi\":\"m2\"}}';
+        break;
+      case 3:
+        data = '{\"quanLy\":{\"soTien\":' + values.quanly + ',\"donVi\":\"m2\"}}';
+        break;
+      case 4:
+        data = '{\"xeMay\":{\"soTien\":' + values.xeMay + ',\"donVi\":\"xe\"},\"xeOto\":{\"soTien\":' + values.xeOto + ',\"donVi\":\"xe\"}}';
+    }
     revenueService.postRevenue({
       tenKhoanThu: values.tenKhoanThu,
       ghiChu: values.ghiChu,
       loaiKhoanThu: values.loaiKhoanThu,
       thoiGianBatDau: dateStart,
       thoiGianKetThuc: dateEnd,
+      chiTiet: data,
     }).then(mes => {
       alert(mes.message);
       setOpenPopup(!openPopup);
@@ -42,8 +67,9 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
     xeMay: 0,
     xeOto: 0,
     dien: 0,
-    nuoc:0,
-    ungho: 0,
+    nuoc: 0,
+    internet: 0,
+    maHoKhau: "",
     ghiChu: "",
   };
   return (
@@ -63,6 +89,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
         </div>
       </DialogTitle>
       <DialogContent dividers>
+        <CreateListRevenue openModal={openModal} setOpenModal={setOpenModal} listHouseHold={listHouseHold} setListHouseHold={setListHouseHold}/>
         <Box m="20px">
           <Formik
             onSubmit={handleFormSubmit}
@@ -123,20 +150,6 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                       return <MenuItem key={index} value={khoanThu.id}>{khoanThu.label}</MenuItem>
                     })}
                   </TextField>
-                  {values.loaiKhoanThu === 0 && [<TextField
-                    fullWidth
-                    variant="filled"
-                    type="number"
-                    label="Ủng hộ"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.ungho}
-                    name="ungho"
-                    error={!!touched.ungho && !!errors.ungho}
-                    helperText={touched.ungho && errors.ungho}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
-                  />
-                  ]} 
                   {values.loaiKhoanThu === 1 && [<TextField
                     fullWidth
                     variant="filled"
@@ -145,12 +158,12 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.dien}
-                    name="tienDien"
+                    name="dien"
                     error={!!touched.dien && !!errors.dien}
                     helperText={touched.dien && errors.dien}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                   />
-                  ]} 
+                  ]}
                   {values.loaiKhoanThu === 1 && [<TextField
                     fullWidth
                     variant="filled"
@@ -159,12 +172,26 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.nuoc}
-                    name="tienNuoc"
+                    name="nuoc"
                     error={!!touched.nuoc && !!errors.nuoc}
                     helperText={touched.nuoc && errors.nuoc}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                   />
-                  ]} 
+                  ]}
+                  {values.loaiKhoanThu === 1 && [<TextField
+                    fullWidth
+                    variant="filled"
+                    type="number"
+                    label="Tiền internet (VNĐ)"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.internet}
+                    name="internet"
+                    error={!!touched.internet && !!errors.internet}
+                    helperText={touched.internet && errors.internet}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                  />
+                  ]}
                   {values.loaiKhoanThu === 2 && <TextField
                     fullWidth
                     variant="filled"
@@ -233,6 +260,12 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
 
                     </DesktopDatePicker>
                   </LocalizationProvider>
+                  {values.loaiKhoanThu === 1 && <Button
+                    onClick={() => { setOpenModal(true)}}
+                    startIcon={<FactCheckIcon />}
+                    variant="contained"
+                    style={{ backgroundColor: colors.greenAccent[500], border: "none" }}>Tạo khoản thu theo hộ
+                  </Button>}
                 </Box>
                 <Box display="flex" justifyContent="end" mt="20px" >
                   <Button

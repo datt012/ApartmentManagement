@@ -33,19 +33,19 @@ const RevenueItem = () => {
     const PayButton = ({ maKhoanThuTheoHo, openPopup, setOpenPopup, soTienCanThu }) => {
         const theme = useTheme();
         const colors = tokens(theme.palette.mode);
-    
+
         return (
-          <Button onClick={() => {
-            setId(maKhoanThuTheoHo);
-            setSoTienCanThu(soTienCanThu);
-            setOpenPopup(!openPopup);
-          }}
-            startIcon={<ManageAccountsRoundedIcon />}
-            variant="contained"
-            style={{ backgroundColor: colors.greenAccent[700], border: "none" }}>Thanh toán
-          </Button>
+            <Button onClick={() => {
+                setId(maKhoanThuTheoHo);
+                setSoTienCanThu(soTienCanThu);
+                setOpenPopup(!openPopup);
+            }}
+                startIcon={<ManageAccountsRoundedIcon />}
+                variant="contained"
+                style={{ backgroundColor: colors.greenAccent[700], border: "none" }}>Thanh toán
+            </Button>
         );
-      }
+    }
 
     const columns = useMemo(() => [
         { field: "maKhoanThuTheoHo", headerName: "Mã khoản thu theo hộ", flex: 1 },
@@ -80,16 +80,18 @@ const RevenueItem = () => {
             field: "thanhToan",
             headerName: "Thanh toán",
             flex: 1,
-            renderCell: (param) => {return (param.row.soTienDaNop < param.row.soTien || loaiKhoanThu === 0) && <PayButton  openPopup={openPopup} 
-            soTienCanThu={param.row.soTien - param.row.soTienDaNop}
-            setOpenPopup={setOpenPopup} maKhoanThuTheoHo={param.row.maKhoanThuTheoHo}/> },
-          },
+            renderCell: (param) => {
+                return (param.row.soTienDaNop < param.row.soTien || loaiKhoanThu === 0) && <PayButton openPopup={openPopup}
+                    soTienCanThu={param.row.soTien - param.row.soTienDaNop}
+                    setOpenPopup={setOpenPopup} maKhoanThuTheoHo={param.row.maKhoanThuTheoHo} />
+            },
+        },
     ]);
-      useEffect(() => {
-        if (!idKhoanThu){
+    useEffect(() => {
+        if (!idKhoanThu) {
             history.push('/revenue');
         }
-      }, [idKhoanThu]);
+    }, [idKhoanThu]);
     return (
         <Box m="20px">
             <Header
@@ -99,42 +101,13 @@ const RevenueItem = () => {
                 m="40px 0 0 0"
                 height="75vh"
                 sx={{
-                    "& .MuiDataGrid-root": {
-                        border: "none",
-                    },
-                    "& .MuiDataGrid-cell": {
-                    },
-                    "& .name-column--cell": {
-                        color: colors.greenAccent[300],
-                    },
-                    "& .MuiDataGrid-columnHeaders": {
-                        backgroundColor: colors.blueAccent[700],
-                        borderBottom: "none",
-                    },
-                    "& .MuiDataGrid-virtualScroller": {
-                        backgroundColor: colors.primary[400],
-                    },
-                    "& .MuiDataGrid-footerContainer": {
-                        borderTop: "none",
-                        backgroundColor: colors.blueAccent[700],
-                    },
-                    "& .MuiCheckbox-root": {
-                        color: `${colors.greenAccent[200]} !important`,
-                    },
-                    "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-                        color: `${colors.grey[100]} !important`,
-                    },
-                    "& .MuiTablePagination-root": {
-                        color: `${colors.grey[100]} !important`,
-                    },
                     "& .MuiTablePagination-displayedRows, .MuiTablePagination-selectLabel": {
                         "margin-top": "1em",
                         "margin-bottom": "1em"
                     }
-
                 }}
             >
-                <PayRevenue openPopup={openPopup} setOpenPopup={setOpenPopup} maKhoanThuTheoHo={id} maKhoanThu ={idKhoanThu} soTienCanThu={soTienCanThu}/>
+                <PayRevenue openPopup={openPopup} setOpenPopup={setOpenPopup} maKhoanThuTheoHo={id} maKhoanThu={idKhoanThu} soTienCanThu={soTienCanThu} />
                 {isLoadingItem ? (
                     <div className="loading-container d-flex flex-column align-items-center ustify-content-center">
                         <Triangle
