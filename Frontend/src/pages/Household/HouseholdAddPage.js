@@ -9,24 +9,29 @@ import axios from "../../setups/custom_axios";
 import { useState, useEffect } from "react";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import { useHistory } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const HouseholdAddPage = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const history = useHistory();
   const [dataNhanKhau, setDataNhanKhau] = useState([]);
   const handleSubmit = (values) => {
-    householdService.addHouseHold({
-      "maHoKhau": values.maHoKhau,
-      "diaChiThuongTru": values.diaChiThuongTru,
-      "noiCap": values.noiCap,
-      "ngayCap": values.ngayCap,
-      "danhSachNhanKhau": values.danhSachNhanKhau
-    }).then((result) => {
-      const maHoKhau = result.data.maHoKhau;
-      alert(result.message);
-      history.push(`/${maHoKhau}/edit`);
-    }).catch(e => {
-
-    })
+    if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+      householdService.addHouseHold({
+        "maHoKhau": values.maHoKhau,
+        "diaChiThuongTru": values.diaChiThuongTru,
+        "noiCap": values.noiCap,
+        "ngayCap": values.ngayCap,
+        "danhSachNhanKhau": values.danhSachNhanKhau
+      }).then((result) => {
+        const maHoKhau = result.data.maHoKhau;
+        toast(result.message);
+        history.push(`/${maHoKhau}/edit`);
+      }).catch(e => {
+  
+      })
+    }
   }
   useEffect(
     async () => {
@@ -148,6 +153,7 @@ const HouseholdAddPage = () => {
           </form>
         )}
       </Formik>
+      <ToastContainer />
     </Box>
   );
 };

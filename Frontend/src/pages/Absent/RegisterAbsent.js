@@ -15,6 +15,8 @@ import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import axios from "../../setups/custom_axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -24,18 +26,20 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const handleFormSubmit = (values) => {
-    absentService.postAbsent({
-      maNhanKhau: values.maNhanKhau,
-      thoiHan: date,
-      lyDo: values.lyDo,
-    }).then(mes => {
-      alert(mes.message);
-      setOpenPopup(!openPopup);
-      setName("");
-      setCanCuoc("");
-      setShow(false);
-      dispatch(fetchAllAbsents());
-    })
+    if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+      absentService.postAbsent({
+        maNhanKhau: values.maNhanKhau,
+        thoiHan: date,
+        lyDo: values.lyDo,
+      }).then(mes => {
+        toast(mes.message);
+        setOpenPopup(!openPopup);
+        setName("");
+        setCanCuoc("");
+        setShow(false);
+        dispatch(fetchAllAbsents());
+      })
+    }
   };
   const handleOnChange = (newValue) => {
     setDate(newValue);
@@ -105,7 +109,7 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
                       endAdornment: (
                         <InputAdornment position="end">
                           <IconButton onClick={() => {
-                            if(!(!!touched.maNhanKhau && !!errors.maNhanKhau)){
+                            if (!(!!touched.maNhanKhau && !!errors.maNhanKhau)) {
                               axios.get(`/nhan-khau?maNhanKhau=${values.maNhanKhau}`).then(mes => {
                                 //alert(JSON.stringify(mes.data));
                                 setName(mes.data.hoTen);
@@ -113,7 +117,7 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
                                 setShow(true);
                               })
                             }
-                            
+
                           }}>
                             <SearchIcon />
                           </IconButton>
@@ -181,6 +185,7 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
             )}
           </Formik>
         </Box>
+        <ToastContainer />
       </DialogContent>
     </Dialog>
 

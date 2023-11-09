@@ -13,6 +13,8 @@ import revenueService from "../../Services/API/revenueService";
 import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
     const theme = useTheme();
@@ -22,17 +24,20 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
     const [newDateStart, setNewDateStart] = useState(dayjs(data.thoiGianBatDau));
     const [newDateEnd, setNewDateEnd] = useState(dayjs(data.thoiGianKetThuc));
     const handleFormSubmit = (values) => {
-        revenueService.putRevenue(data.maKhoanThu, {
-            tenKhoanThu: values.tenKhoanThu,
-            ghiChu: values.ghiChu,
-            thoiGianBatDau: newDateStart,
-            thoiGianKetThuc: newDateEnd,
-            version: data.version
-        }).then(mes => {
-            alert(mes.message);
-            dispatch(fetchAllRevenue());
-            setOpenInPopup(!openInPopup);
-        });
+        if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+            revenueService.putRevenue(data.maKhoanThu, {
+                tenKhoanThu: values.tenKhoanThu,
+                ghiChu: values.ghiChu,
+                thoiGianBatDau: newDateStart,
+                thoiGianKetThuc: newDateEnd,
+                version: data.version
+            }).then(mes => {
+                //alert(mes.message);
+                dispatch(fetchAllRevenue());
+                toast("Lưu thành công");
+                setOpenInPopup(!openInPopup);
+            });
+        }
     };
 
 
@@ -189,7 +194,7 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
                                     <Button onClick={() => {
                                         if (window.confirm('Bạn thật sự muốn xóa?')) {
                                             revenueService.deleteRevenue(values.maKhoanThu, data.version).then(mes => {
-                                                alert(mes.message);
+                                                toast(mes.message);
                                                 setOpenInPopup(!openInPopup);
                                                 dispatch(fetchAllRevenue());
                                             })
@@ -207,6 +212,7 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
                         )}
                     </Formik>
                 </Box>
+                <ToastContainer/>
             </DialogContent>
         </Dialog>
     );

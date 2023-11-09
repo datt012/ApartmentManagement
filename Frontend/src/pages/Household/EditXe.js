@@ -16,6 +16,8 @@ import dayjs from "dayjs";
 import roomService from "../../Services/API/roomService";
 import householdService from "../../Services/API/householdService";
 import { LIST_LOAI_XE } from "../../Services/Utils/const";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const EditXe = ({ xeData, onClose, onSuccess }) => {
@@ -24,21 +26,23 @@ const EditXe = ({ xeData, onClose, onSuccess }) => {
     const [date, setDate] = useState(dayjs(new Date()));
 
     const handleFormSubmit = (values) => {
-        householdService.updateXeToHouseHold(xeData.maXe, {
-            tenXe: values.tenXe,
-            bienKiemSoat: values.bienKiemSoat,
-            maLoaiXe: values.maLoaiXe,
-            maHoKhau: xeData.maHoKhau,
-            moTa: values.moTa,
-            version: xeData.version
-        }).then(result => {
-            alert(result.message);
-            onClose && onClose();
-            onSuccess && onSuccess();
-        }).catch(e => {
-            console.log(e);
-            alert(e.response.data.message)
-        });
+        if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+            householdService.updateXeToHouseHold(xeData.maXe, {
+                tenXe: values.tenXe,
+                bienKiemSoat: values.bienKiemSoat,
+                maLoaiXe: values.maLoaiXe,
+                maHoKhau: xeData.maHoKhau,
+                moTa: values.moTa,
+                version: xeData.version
+            }).then(result => {
+                toast(result.message);
+                onClose && onClose();
+                onSuccess && onSuccess();
+            }).catch(e => {
+                console.log(e);
+                alert(e.response.data.message)
+            });
+        }
     };
     const initialValues = {
         tenXe: xeData.tenXe,
@@ -147,6 +151,7 @@ const EditXe = ({ xeData, onClose, onSuccess }) => {
                         )}
                     </Formik>
                 </Box>
+                <ToastContainer />
             </DialogContent>
         </Dialog>
 

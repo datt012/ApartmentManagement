@@ -14,6 +14,8 @@ import { useSelector } from "react-redux";
 import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PayRevenue = ({ openPopup, setOpenPopup, maKhoanThuTheoHo, maKhoanThu, soTienCanThu, maHoKhau }) => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -22,16 +24,19 @@ const PayRevenue = ({ openPopup, setOpenPopup, maKhoanThuTheoHo, maKhoanThu, soT
     const loaiKhoanThu = useSelector((state) => state.revenue.loaiKhoanThu);
     const dispatch = useDispatch();
     const handleFormSubmit = (values) => {
-        revenueService.payRevenue({
-            maKhoanThuTheoHo: values.maKhoanThuTheoHo,
-            tenHoaDon: values.tenHoaDon,
-            soTienDaNop: (loaiKhoanThu === 1 && values.soTienDaNop > values.soTienCanThu) ? values.soTienCanThu : values.soTienDaNop
-        }).then(mes => {
-            alert(mes.message);
-            setOpenPopup(!openPopup);
-            dispatch(fetchRevenueItem(maKhoanThu));
-            dispatch(fetchAllRevenueHouse(maHoKhau));
-        })
+        if(window.confirm("Bạn có muốn lưu?") == true) {
+            revenueService.payRevenue({
+                maKhoanThuTheoHo: values.maKhoanThuTheoHo,
+                tenHoaDon: values.tenHoaDon,
+                soTienDaNop: (loaiKhoanThu === 1 && values.soTienDaNop > values.soTienCanThu) ? values.soTienCanThu : values.soTienDaNop
+            }).then(mes => {
+                //alert(mes.message);
+                setOpenPopup(!openPopup);
+                toast("Lưu thành công");
+                dispatch(fetchRevenueItem(maKhoanThu));
+                dispatch(fetchAllRevenueHouse(maHoKhau));
+            })
+        }
     };
     const initialValues = {
         maKhoanThuTheoHo: maKhoanThuTheoHo,
@@ -139,6 +144,7 @@ const PayRevenue = ({ openPopup, setOpenPopup, maKhoanThuTheoHo, maKhoanThu, soT
                         )}
                     </Formik>
                 </Box>
+                <ToastContainer />
             </DialogContent>
         </Dialog>
 

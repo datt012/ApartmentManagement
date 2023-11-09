@@ -14,6 +14,8 @@ import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import roomService from "../../Services/API/roomService";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const EditRoom = ({ roomData, onClose, onSuccess }) => {
@@ -22,19 +24,21 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
     const dispatch = useDispatch();
 
     const handleFormSubmit = (values) => {
-        roomService.updateRoom(roomData.maPhong, {
-            tenPhong: values.tenPhong,
-            tang: values.tang,
-            dienTich: +values.dienTich,
-            maHoKhau: values.maHoKhau,
-            moTa: values.moTa,
-            version: roomData.version
-        }).then(mes => {
-            alert(mes.message);
-            onClose && onClose();
-            onSuccess && onSuccess();
-        }).catch(e => {
-        });
+        if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+            roomService.updateRoom(roomData.maPhong, {
+                tenPhong: values.tenPhong,
+                tang: values.tang,
+                dienTich: +values.dienTich,
+                maHoKhau: values.maHoKhau,
+                moTa: values.moTa,
+                version: roomData.version
+            }).then(mes => {
+                toast(mes.message);
+                onClose && onClose();
+                onSuccess && onSuccess();
+            }).catch(e => {
+            });
+        }
     };
     const initialValues = {
         tenPhong: roomData?.tenPhong,
@@ -159,6 +163,7 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                         )}
                     </Formik>
                 </Box>
+                <ToastContainer />
             </DialogContent>
         </Dialog>
 

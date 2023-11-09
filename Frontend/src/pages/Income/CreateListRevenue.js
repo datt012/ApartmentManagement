@@ -4,19 +4,21 @@ import axios from "../../setups/custom_axios";
 import { DataGrid, GridToolbar, GridRowModel } from "@mui/x-data-grid";
 import CloseIcon from '@mui/icons-material/Close';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
+import Snackbar from '@mui/material/Snackbar';
 
-const CreateListRevenue = ({ openModal, setOpenModal, listHouseHold, setListHouseHold }) => {
-  const [dataHouseHold, setDataHouseHold] = useState([]);
+const CreateListRevenue = ({ openModal, setOpenModal, dataHouseHold, setDataHouseHold }) => {
+  const [snackbar, setSnackbar] = React.useState(null);
+  var tmpList = [];
   useEffect(
     async () => {
       try {
         const response = await axios.get(`/ho-khau/danh-sach-ho-khau`);
         console.log(response);
-        var list = response.data.map((value) => {
-          console.log(value.maHoKhau);
-          return { maHoKhau: value.maHoKhau, dien: 0, nuoc: 0, internet: 0 };
+        var list = response.data.map((value, index) => {
+          return { id: index.toString(), maHoKhau: value.maHoKhau, dien: 0, nuoc: 0, internet: 0 };
         });
         setDataHouseHold(() => list);
+        console.log(list);
       } catch (error) {
         console.log(error);
       }
@@ -30,27 +32,35 @@ const CreateListRevenue = ({ openModal, setOpenModal, listHouseHold, setListHous
       field: "dien",
       headerName: "Tiền điện",
       flex: 1,
+      type: "number",
       editable: true,
     },
     {
       field: "nuoc",
       headerName: "Tiền nước",
       flex: 1,
+      type: "number",
       editable: true,
     },
     {
       field: "internet",
       headerName: "Tiền internet",
       flex: 1,
+      type: "number",
       editable: true,
     },
   ]);
 
-  const processRowUpdate = React.useCallback(async (newRow) => {
+  const processRowUpdate = (newRow) => {
     console.log(newRow);
-    setDataHouseHold(newRow);
+    setDataHouseHold(dataHouseHold.map((item) => (item.id === newRow.id ? newRow : item)));
     return newRow;
-  }, [dataHouseHold]);
+  };
+
+  const handleProcessRowUpdateError = React.useCallback((error) => {
+    setSnackbar({ children: error.message, severity: 'error' });
+  }, []);
+
   return <Dialog open={openModal} maxWidth="md" style={{ backgroundColor: "transparent" }}>
     <DialogTitle>
       <div style={{ display: 'flex' }}>
@@ -73,16 +83,21 @@ const CreateListRevenue = ({ openModal, setOpenModal, listHouseHold, setListHous
         }
       }}>
         <DataGrid
-          getRowId={(row) => row.maHoKhau}
+          getRowId={(row) => row.id}
           rows={dataHouseHold}
           columns={columns}
           processRowUpdate={processRowUpdate}
-          components={{ Toolbar: GridToolbar }}
+          onProcessRowUpdateError={handleProcessRowUpdateError}
+          experimentalFeatures={{ newEditingApi: true }}
         />
       </Box>
       <Box display="flex" justifyContent="end" mt="20px" >
         <Button color="secondary" variant="contained" startIcon={<SaveAsIcon />}
-          onClick={() => { console.log(dataHouseHold) }}>
+          onClick={() => {
+            if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+              setOpenModal(false);
+            }
+          }}>
           Lưu
         </Button>
       </Box>

@@ -65,8 +65,30 @@ namespace CNPM.Repository.Implementations
                 if (number_rows <= 0) return -1;
 
                 var listHoKhau = _dbcontext.HoKhau.Where(o => o.Delete == Constant.NOT_DELETE).ToList();
-                List<PhiSinhHoat> dsPhiSinhHoat = null;
-                if (khoanThu.LoaiKhoanThu == 1) dsPhiSinhHoat = JObject.Parse(khoanThu.ChiTiet).ToObject<List<PhiSinhHoat>>();
+                List<PhiSinhHoat> dsPhiSinhHoat = new List<PhiSinhHoat>();
+                if (khoanThu.LoaiKhoanThu == 1)
+                {
+                    //dsPhiSinhHoat = JArray.Parse(khoanThu.ChiTiet).ToArray<List<PhiSinhHoat>>();
+                    JArray jsonArray = JArray.Parse(khoanThu.ChiTiet);
+
+                    foreach (JObject jsonObject in jsonArray)
+                    {
+                        int dien = (int)jsonObject["dien"];
+                        
+                        int nuoc = (int)jsonObject["nuoc"];
+                        
+                        int internet = (int)jsonObject["internet"];
+
+                        string maHoKhau = (string)jsonObject["maHoKhau"];
+                        var phiSinhHoat = new PhiSinhHoat();
+                        phiSinhHoat.Dien = dien;
+                        phiSinhHoat.Nuoc = nuoc;
+                        phiSinhHoat.Internet = internet;
+                        phiSinhHoat.MaHoKhau = maHoKhau;
+
+                        dsPhiSinhHoat.Add(phiSinhHoat);
+                    }
+                }
 
                 foreach (var hoKhau in listHoKhau)
                 {
@@ -77,10 +99,6 @@ namespace CNPM.Repository.Implementations
                     khoanThuTheoHo.UserUpdate = khoanThu.UserUpdate;
                     khoanThuTheoHo.CreateTime = DateTime.Now;
                     khoanThuTheoHo.UpdateTime = DateTime.Now;
-                    
-                    PhiDichVu phiDichVu = JObject.Parse(khoanThu.ChiTiet).ToObject<PhiDichVu>();
-                    PhiGuiXe phiGuiXe = JObject.Parse(khoanThu.ChiTiet).ToObject<PhiGuiXe>();
-                    PhiQuanLy phiQuanLy = JObject.Parse(khoanThu.ChiTiet).ToObject<PhiQuanLy>();
 
                     // Access the deserialized object
                     if (khoanThu.LoaiKhoanThu == 1)
@@ -90,18 +108,21 @@ namespace CNPM.Repository.Implementations
                     }
                     else if (khoanThu.LoaiKhoanThu == 2)
                     {
+                        PhiDichVu phiDichVu = JObject.Parse(khoanThu.ChiTiet).ToObject<PhiDichVu>();
                         var phong = _dbcontext.Phong.Where(o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == hoKhau.MaHoKhau).FirstOrDefault();
                         if (phong == null) continue;
                         khoanThuTheoHo.SoTien = (int)Math.Ceiling(phiDichVu.DichVu.SoTien * phong.DienTich);
                     }
                     else if (khoanThu.LoaiKhoanThu == 3)
                     {
+                        PhiQuanLy phiQuanLy = JObject.Parse(khoanThu.ChiTiet).ToObject<PhiQuanLy>();
                         var phong = _dbcontext.Phong.Where(o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == hoKhau.MaHoKhau).FirstOrDefault();
                         if (phong == null) continue;
                         khoanThuTheoHo.SoTien = (int)Math.Ceiling(phiQuanLy.QuanLy.SoTien * phong.DienTich);
                     }
                     else if (khoanThu.LoaiKhoanThu == 4)
                     {
+                        PhiGuiXe phiGuiXe = JObject.Parse(khoanThu.ChiTiet).ToObject<PhiGuiXe>();
                         var xeMay = _dbcontext.Xe.Where(o => o.Delete == Constant.NOT_DELETE && o.MaLoaiXe == "LX001" && o.MaHoKhau == hoKhau.MaHoKhau).ToArray();
                         var xeOto = _dbcontext.Xe.Where(o => o.Delete == Constant.NOT_DELETE && o.MaLoaiXe == "LX002" && o.MaHoKhau == hoKhau.MaHoKhau).ToArray();
                         khoanThuTheoHo.SoTien = phiGuiXe.XeMay.SoTien * xeMay.Length + phiGuiXe.XeOto.SoTien * xeOto.Length;

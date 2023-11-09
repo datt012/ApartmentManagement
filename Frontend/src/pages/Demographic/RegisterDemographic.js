@@ -13,7 +13,8 @@ import demographicService from "../../Services/API/demographicService";
 import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
 
@@ -22,22 +23,24 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
     const [date, setDate] = useState(dayjs(new Date()));
 
     const handleFormSubmit = (values) => {
-        demographicService.postDemographic({
-            hoTen: values.hoTen,
-            canCuocCongDan: values.canCuocCongDan,
-            ngaySinh: date,
-            noiSinh: values.noiSinh,
-            danToc: values.danToc,
-            ngheNghiep: values.ngheNghiep,
-            trangThai: values.trangThai,
-            quanHe: values.quanHe,
-            ghiChu: values.ghiChu,
-        }).then(mes => {
-            alert(mes.message);
-            setOpenPopup(!openPopup);
-            dispatch(fetchAllDemographic());
-
-        })
+        if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+            demographicService.postDemographic({
+                hoTen: values.hoTen,
+                canCuocCongDan: values.canCuocCongDan,
+                ngaySinh: date,
+                noiSinh: values.noiSinh,
+                danToc: values.danToc,
+                ngheNghiep: values.ngheNghiep,
+                trangThai: values.trangThai,
+                quanHe: values.quanHe,
+                ghiChu: values.ghiChu,
+            }).then(mes => {
+                toast(mes.message);
+                setOpenPopup(!openPopup);
+                dispatch(fetchAllDemographic());
+    
+            })
+        }
     };
     const initialValues = {
         hoTen: "",
@@ -213,6 +216,7 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
                         )}
                     </Formik>
                 </Box>
+                <ToastContainer />
             </DialogContent>
         </Dialog>
 

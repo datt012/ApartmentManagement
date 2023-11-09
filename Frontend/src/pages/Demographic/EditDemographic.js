@@ -14,6 +14,8 @@ import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { da } from "date-fns/locale";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
@@ -25,23 +27,24 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
     const colors = tokens(theme.palette.mode);
 
     const handleFormSubmit = (values) => {
-        demographicService.putDemographic(values.maNhanKhau, {
-            hoTen: values.hoTen,
-            canCuocCongDan: values.canCuocCongDan,
-            ngaySinh: newDate,
-            noiSinh: values.noiSinh,
-            danToc: values.danToc,
-            ngheNghiep: values.ngheNghiep,
-            trangThai: values.trangThai,
-            quanHe: values.quanHe,
-            ghiChu: values.ghiChu,
-            version: data.version
-        }).then(mes => {
-            alert(mes.message);
-            setOpenInPopup(!openInPopup)
-            dispatch(fetchAllDemographic());
-
-        })
+        if(window.confirm("Bạn chắc chắn muốn lưu") == true) {
+            demographicService.putDemographic(values.maNhanKhau, {
+                hoTen: values.hoTen,
+                canCuocCongDan: values.canCuocCongDan,
+                ngaySinh: newDate,
+                noiSinh: values.noiSinh,
+                danToc: values.danToc,
+                ngheNghiep: values.ngheNghiep,
+                trangThai: values.trangThai,
+                quanHe: values.quanHe,
+                ghiChu: values.ghiChu,
+                version: data.version
+            }).then(mes => {
+                toast(mes.message);
+                setOpenInPopup(!openInPopup)
+                dispatch(fetchAllDemographic());
+            })
+        }
     };
     const initialValues = {
         maNhanKhau: data.maNhanKhau,
@@ -225,7 +228,7 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                                     <Button onClick={() => {
                                         if (window.confirm('Bạn thật sự muốn xóa?')) {
                                             demographicService.deleteDemographic(values.maNhanKhau, data.version).then(mes => {
-                                                alert(mes.message);
+                                                toast(mes.message);
                                                 setOpenInPopup(!openInPopup);
                                                 dispatch(fetchAllDemographic());
                                             })
@@ -243,6 +246,7 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                         )}
                     </Formik>
                 </Box>
+                <ToastContainer />
             </DialogContent>
         </Dialog>
 

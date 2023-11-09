@@ -10,6 +10,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import tabernacleService from "../../Services/API/tabernacleService";
 import { fetchAllTabernacles } from "../../Redux/tabernacleSlice";
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
   const dispatch = useDispatch();
@@ -133,9 +135,9 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                 <Box display="flex" justifyContent="end" mt="20px" >
 
                   <Button onClick={() => {
-                    if(window.confirm("Bạn thật sự muốn xóa?")){
+                    if (window.confirm("Bạn thật sự muốn xóa?")) {
                       tabernacleService.deleteTabernacle(data.maTamTru, data.version).then(mes => {
-                        alert(mes.message);
+                        toast(mes.message);
                         setOpenInPopup(!openInPopup);
                         dispatch(fetchAllTabernacles());
                       })
@@ -145,17 +147,19 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                     variant="contained" startIcon={<DeleteSweepIcon />}>Xóa
                   </Button>
                   <Button onClick={() => {
-                    tabernacleService.putTabernacle(data.maTamTru, {
-                      hoTen: values.hoTen,
-                      diaChiThuongTru: values.diaChiThuongTru,
-                      diaChiTamTru: values.diaChiTamTru,
-                      canCuocCongDan: values.canCuocCongDan,
-                      version: data.version,
-                    }).then(mes => {
-                      alert(mes.message);
-                      setOpenInPopup(!openInPopup);
-                      dispatch(fetchAllTabernacles());
-                    })
+                    if(window.confirm("Bạn chắc chắn muốn lưu?")) {
+                      tabernacleService.putTabernacle(data.maTamTru, {
+                        hoTen: values.hoTen,
+                        diaChiThuongTru: values.diaChiThuongTru,
+                        diaChiTamTru: values.diaChiTamTru,
+                        canCuocCongDan: values.canCuocCongDan,
+                        version: data.version,
+                      }).then(mes => {
+                        toast(mes.message);
+                        setOpenInPopup(!openInPopup);
+                        dispatch(fetchAllTabernacles());
+                      })
+                    }
                   }}
                     type="submit" color="secondary" variant="contained" startIcon={<SaveAsIcon />}>
                     Lưu
@@ -165,6 +169,7 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
             )}
           </Formik>
         </Box>
+        <ToastContainer />
       </DialogContent>
     </Dialog>
   );

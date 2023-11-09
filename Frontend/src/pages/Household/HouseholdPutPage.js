@@ -27,6 +27,8 @@ import householdService from "../../Services/API/householdService";
 import roomService from "../../Services/API/roomService";
 import RegisterXe from "./RegisterXe";
 import EditXe from "./EditXe";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const HouseholdAddPage = () => {
@@ -51,23 +53,25 @@ const HouseholdAddPage = () => {
   };
   const handleUpdate = (values) => {
     console.log('values', values);
-    householdService.addRoomToHouseHold(values.maHoKhau, roomId).then((result) => {
-      console.log('result', result);
-    }).catch(e => {
-
-    })
-    householdService.updateHouseHold(values.maHoKhau, {
-      "diaChiThuongTru": values.diaChiThuongTru,
-      "noiCap": values.noiCap,
-      "ngayCap": values.ngayCap,
-      "danhSachNhanKhau": selectOption.map((nhankhau) => {
-        return nhankhau.value;
-      }),
-      "version": initialValues.version,
-    }).then((result) => {
-      alert(result.message);
-    }).catch(e =>
-      alert(e.response.message))
+    if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+      householdService.addRoomToHouseHold(values.maHoKhau, roomId).then((result) => {
+        console.log('result', result);
+      }).catch(e => {
+  
+      })
+      householdService.updateHouseHold(values.maHoKhau, {
+        "diaChiThuongTru": values.diaChiThuongTru,
+        "noiCap": values.noiCap,
+        "ngayCap": values.ngayCap,
+        "danhSachNhanKhau": selectOption.map((nhankhau) => {
+          return nhankhau.value;
+        }),
+        "version": initialValues.version,
+      }).then((result) => {
+        toast(result.message);
+      }).catch(e =>
+        toast(e.response.message))
+    }
   }
   const [initialValues, setInitialValues] = useState({});
   const handleGetData = async () => {
@@ -136,10 +140,10 @@ const HouseholdAddPage = () => {
       return
     }
     householdService.removeXe(maXe).then((result) => {
-      alert(result.message);
+      toast(result.message);
       handleGetData();
     }).catch(e => {
-      alert(e.response.data.message);
+      toast(e.response.data.message);
     })
   }
   useEffect(() => {
@@ -304,6 +308,7 @@ const HouseholdAddPage = () => {
           </form>
         )}
       </Formik>
+      <ToastContainer />
     </Box>
   );
 };

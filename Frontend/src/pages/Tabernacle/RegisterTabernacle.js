@@ -10,7 +10,8 @@ import { useDispatch } from "react-redux";
 import { fetchAllTabernacles } from "../../Redux/tabernacleSlice";
 import CloseIcon from '@mui/icons-material/Close';
 import tabernacleService from "../../Services/API/tabernacleService";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
@@ -18,17 +19,19 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
   const dispatch = useDispatch();
   const handleFormSubmit = (values) => {
     /*alert(JSON.stringify(values, null, 2));*/
-    tabernacleService.postTabernacle({
-      hoTen: values.hoTen,
-      diaChiThuongTru: values.diaChiThuongTru,
-      diaChiTamTru: values.diaChiTamTru,
-      canCuocCongDan: values.canCuocCongDan,
-    }).then(mes => {
-      alert(mes.message);
-      setOpenPopup(!openPopup);
-      dispatch(fetchAllTabernacles());
-      
-    })
+    if(window.confirm("Bạn chắc chắn muốn lưu?")) {
+      tabernacleService.postTabernacle({
+        hoTen: values.hoTen,
+        diaChiThuongTru: values.diaChiThuongTru,
+        diaChiTamTru: values.diaChiTamTru,
+        canCuocCongDan: values.canCuocCongDan,
+      }).then(mes => {
+        toast(mes.message);
+        setOpenPopup(!openPopup);
+        dispatch(fetchAllTabernacles());
+  
+      })
+    }
   };
   const initialValues = {
     hoTen: "",
@@ -45,8 +48,9 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
           <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
             {"ĐĂNG KÝ TẠM TRÚ"}
           </Typography>
-          <IconButton aria-label="close" onClick={() => { 
-            setOpenPopup(!openPopup) }}>
+          <IconButton aria-label="close" onClick={() => {
+            setOpenPopup(!openPopup)
+          }}>
             <CloseIcon></CloseIcon>
           </IconButton>
         </div>
@@ -138,6 +142,7 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
             )}
           </Formik>
         </Box>
+        <ToastContainer />
       </DialogContent>
     </Dialog>
 

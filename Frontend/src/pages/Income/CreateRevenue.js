@@ -17,6 +17,8 @@ import { LIST_LOAI_KHOAN_THU } from "../../Services/Utils/const";
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import { useTheme } from "@mui/material";
 import CreateListRevenue from "./CreateListRevenue";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateRevenue = ({ openPopup, setOpenPopup }) => {
   const theme = useTheme();
@@ -25,16 +27,21 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
   const [dateEnd, setDateEnd] = useState(dayjs(new Date()));
   const dispatch = useDispatch();
   const colors = tokens(theme.palette.mode);
-  const [listHouseHold, setListHouseHold] = useState([]);
+  const [dataHouseHold, setDataHouseHold] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const handleFormSubmit = (values) => {
-    var data;
+    var data = '';
     switch (values.loaiKhoanThu) {
       case 0:
         data = '{\"quanLy\":{\"soTien\":10000,\"donVi\":\"m2\"}}';
         break;
       case 1:
-        data = '[{\"dien\":' + values.dien + ', \"nuoc\":' + values.nuoc + ', \"internet\":' + values.internet + ', \"maHoKhau\": \"' + 0 + '\"}]';
+        data = '[';
+        for (let i = 0; i < dataHouseHold.length; i++) {
+          data += '{\"dien\":' + dataHouseHold[i].dien + ', \"nuoc\":' + dataHouseHold[i].nuoc + ', \"internet\":' + dataHouseHold[i].internet + ', \"maHoKhau\": "' + dataHouseHold[i].maHoKhau + '"},';
+        }
+        data += ']';
+        console.log(data);
         break;
       case 2:
         data = '{\"dichVu\":{\"soTien\":' + values.dichvu + ',\"donVi\":\"m2\"}}';
@@ -45,18 +52,20 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
       case 4:
         data = '{\"xeMay\":{\"soTien\":' + values.xeMay + ',\"donVi\":\"xe\"},\"xeOto\":{\"soTien\":' + values.xeOto + ',\"donVi\":\"xe\"}}';
     }
-    revenueService.postRevenue({
-      tenKhoanThu: values.tenKhoanThu,
-      ghiChu: values.ghiChu,
-      loaiKhoanThu: values.loaiKhoanThu,
-      thoiGianBatDau: dateStart,
-      thoiGianKetThuc: dateEnd,
-      chiTiet: data,
-    }).then(mes => {
-      alert(mes.message);
-      setOpenPopup(!openPopup);
-      dispatch(fetchAllRevenue());
-    })
+    if(window.confirm("Bạn chắc chắn muốn lưu?")) {
+      revenueService.postRevenue({
+        tenKhoanThu: values.tenKhoanThu,
+        ghiChu: values.ghiChu,
+        loaiKhoanThu: values.loaiKhoanThu,
+        thoiGianBatDau: dateStart,
+        thoiGianKetThuc: dateEnd,
+        chiTiet: data,
+      }).then(mes => {
+        setOpenPopup(!openPopup);
+        toast("Tạo khoản thu thành công");
+        dispatch(fetchAllRevenue());
+      })
+    }
   };
   //phi cố định ban đầu
   const initialValues = {
@@ -66,10 +75,6 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
     quanly: 0,
     xeMay: 0,
     xeOto: 0,
-    dien: 0,
-    nuoc: 0,
-    internet: 0,
-    maHoKhau: "",
     ghiChu: "",
   };
   return (
@@ -89,7 +94,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
         </div>
       </DialogTitle>
       <DialogContent dividers>
-        <CreateListRevenue openModal={openModal} setOpenModal={setOpenModal} listHouseHold={listHouseHold} setListHouseHold={setListHouseHold}/>
+        <CreateListRevenue openModal={openModal} setOpenModal={setOpenModal} dataHouseHold={dataHouseHold} setDataHouseHold={setDataHouseHold} />
         <Box m="20px">
           <Formik
             onSubmit={handleFormSubmit}
@@ -150,48 +155,6 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                       return <MenuItem key={index} value={khoanThu.id}>{khoanThu.label}</MenuItem>
                     })}
                   </TextField>
-                  {values.loaiKhoanThu === 1 && [<TextField
-                    fullWidth
-                    variant="filled"
-                    type="number"
-                    label="Tiền điện (VNĐ)"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.dien}
-                    name="dien"
-                    error={!!touched.dien && !!errors.dien}
-                    helperText={touched.dien && errors.dien}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                  />
-                  ]}
-                  {values.loaiKhoanThu === 1 && [<TextField
-                    fullWidth
-                    variant="filled"
-                    type="number"
-                    label="Tiền nước (VNĐ)"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.nuoc}
-                    name="nuoc"
-                    error={!!touched.nuoc && !!errors.nuoc}
-                    helperText={touched.nuoc && errors.nuoc}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                  />
-                  ]}
-                  {values.loaiKhoanThu === 1 && [<TextField
-                    fullWidth
-                    variant="filled"
-                    type="number"
-                    label="Tiền internet (VNĐ)"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.internet}
-                    name="internet"
-                    error={!!touched.internet && !!errors.internet}
-                    helperText={touched.internet && errors.internet}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                  />
-                  ]}
                   {values.loaiKhoanThu === 2 && <TextField
                     fullWidth
                     variant="filled"
@@ -226,7 +189,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.xeOto}
-                    name="phiOto"
+                    name="xeOto"
                     error={!!touched.xeOto && !!errors.xeOto}
                     helperText={touched.xeOto && errors.xeOto}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
@@ -239,7 +202,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.xeMay}
-                    name="phiOto"
+                    name="xeMay"
                     error={!!touched.xeMay && !!errors.xeMay}
                     helperText={touched.xeMay && errors.xeMay}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
@@ -261,7 +224,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     </DesktopDatePicker>
                   </LocalizationProvider>
                   {values.loaiKhoanThu === 1 && <Button
-                    onClick={() => { setOpenModal(true)}}
+                    onClick={() => { setOpenModal(true) }}
                     startIcon={<FactCheckIcon />}
                     variant="contained"
                     style={{ backgroundColor: colors.greenAccent[500], border: "none" }}>Tạo khoản thu theo hộ
@@ -277,6 +240,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
             )}
           </Formik>
         </Box>
+        <ToastContainer/>
       </DialogContent>
     </Dialog>
 

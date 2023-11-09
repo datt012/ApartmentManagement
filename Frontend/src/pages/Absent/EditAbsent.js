@@ -10,9 +10,11 @@ import { useDispatch } from "react-redux";
 import { fetchAllAbsents } from "../../Redux/absentSlice";
 import CloseIcon from '@mui/icons-material/Close';
 import absentService from "../../Services/API/absentService";
-import { DesktopDatePicker, LocalizationProvider,} from "@mui/x-date-pickers";
+import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
   const theme = useTheme();
@@ -23,27 +25,29 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
   const handleFormSubmit = (values) => {
     console.log(newDate);
     console.log(values);
-    absentService.putAbsent(values.maTamVang,{
-      maNhanKhau: values.maNhanKhau,
-      thoiHan: newDate,
-      lyDo: values.lyDo,
-      version: data.version,
-    }).then(mes => {
-      alert(mes.message);
-      setOpenInPopup(!openInPopup);
-      dispatch(fetchAllAbsents());
-    })
+    if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+      absentService.putAbsent(values.maTamVang, {
+        maNhanKhau: values.maNhanKhau,
+        thoiHan: newDate,
+        lyDo: values.lyDo,
+        version: data.version,
+      }).then(mes => {
+        toast(mes.message);
+        setOpenInPopup(!openInPopup);
+        dispatch(fetchAllAbsents());
+      })
+    }
 
   };
   const handleOnChange = (newValue) => {
     setNewDate(newValue);
   }
-  
+
   useEffect(() => {
     console.log(data.thoiHan);
     setNewDate(data.thoiHan);
   }, [data.thoiHan]);
-  
+
   const initialValues = {
     maNhanKhau: data.maNhanKhau,
     hoTen: data.hoTen,
@@ -52,7 +56,7 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
     thoiHan: dayjs(data.thoiHan),
     lyDo: data.lyDo,
   };
-  
+
   return (
     <Dialog open={openInPopup} maxWidth="md" style={{ backgroundColor: "transparent" }}>
       <DialogTitle>
@@ -154,22 +158,22 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                   />
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DesktopDatePicker label="Thời điểm bắt đầu"
-                    inputFormat="DD/MM/YYYY"
-                    onChange={handleOnChange}
-                    name="thoiHan"
-                    value={newDate}
-                    renderInput={(params) => <TextField {...params} />}>
+                    <DesktopDatePicker label="Thời điểm bắt đầu"
+                      inputFormat="DD/MM/YYYY"
+                      onChange={handleOnChange}
+                      name="thoiHan"
+                      value={newDate}
+                      renderInput={(params) => <TextField {...params} />}>
 
-                  </DesktopDatePicker>
+                    </DesktopDatePicker>
                   </LocalizationProvider>
                 </Box>
                 <Box display="flex" justifyContent="end" mt="20px" >
 
                   <Button onClick={() => {
-                    if(window.confirm('Bạn thật sự muốn xóa?')) {
+                    if (window.confirm('Bạn thật sự muốn xóa?')) {
                       absentService.deleteAbsent(values.maTamVang, data.version).then(mes => {
-                        alert(mes.message);
+                        toast(mes.message);
                         setOpenInPopup(!openInPopup);
                         dispatch(fetchAllAbsents());
                       })
@@ -187,6 +191,7 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
             )}
           </Formik>
         </Box>
+        <ToastContainer />
       </DialogContent>
     </Dialog>
   );
