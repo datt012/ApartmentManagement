@@ -69,20 +69,11 @@ namespace CNPM.Controllers.Authorize
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
-        [HttpPost("ho-khau/add-phong-to-ho-khau")]
-        public IActionResult AddPhongToHoKhau(string maHoKhau, int maPhong)
+        [HttpPost("ho-khau/add-can-ho-to-ho-khau")]
+        public IActionResult AddCanHoToHoKhau(string maHoKhau, int maCanHo)
         {
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
-            return _hoKhauService.AddPhongToHoKhau(token, maHoKhau, maPhong);
-        }
-
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
-        Roles = Constant.Administrator + ", " + Constant.Manager)]
-        [HttpPost("ho-khau/remove-phong-from-ho-khau")]
-        public IActionResult RemovePhongFromHoKhau(string maHoKhau)
-        {
-            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
-            return _hoKhauService.RemovePhongFromHoKhau(token, maHoKhau);
+            return _hoKhauService.AddCanHoToHoKhau(token, maHoKhau, maCanHo);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,

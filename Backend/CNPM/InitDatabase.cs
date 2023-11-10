@@ -65,11 +65,11 @@ namespace CNPM
                 Delete = 0
             };
             dbcontext.Add(superAdmin);
-            var listPhongEntity = new List<PhongEntity>()
+            var listPhongEntity = new List<CanHoEntity>()
             {
-                new PhongEntity
+                new CanHoEntity
                 {
-                    TenPhong = "P501",
+                    TenCanHo = "P501",
                     Tang = "5",
                     DienTich = 40,
                     CreateTime = today,
@@ -79,9 +79,9 @@ namespace CNPM
                     Version = 0,
                     Delete = 0
                 },
-                new PhongEntity
+                new CanHoEntity
                 {
-                    TenPhong = "P502",
+                    TenCanHo = "P502",
                     Tang = "5",
                     DienTich = 50,
                     CreateTime = today,
@@ -91,9 +91,9 @@ namespace CNPM
                     Version = 0,
                     Delete = 0
                 },
-                new PhongEntity
+                new CanHoEntity
                 {
-                    TenPhong = "P503",
+                    TenCanHo = "P503",
                     Tang = "5",
                     DienTich = 55,
                     CreateTime = today,

@@ -5,7 +5,7 @@ using CNPM.Core.Models;
 using CNPM.Core.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using CNPM.Service.Implementations;
-using CNPM.Core.Models.Phong;
+using CNPM.Core.Models.CanHo;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace CNPM.Controllers.Authorize
@@ -15,63 +15,63 @@ namespace CNPM.Controllers.Authorize
     [ApiController]
     [Route(Constant.API_BASE)]
 
-    public class PhongController : ControllerBase
+    public class CanHoController : ControllerBase
     {
-        private readonly IPhongService _phongService;
-        public PhongController(IPhongService phongService)
+        private readonly ICanHoService _canHoService;
+        public CanHoController(ICanHoService canHoService)
         {
-            _phongService = phongService;
+            _canHoService = canHoService;
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
-        [HttpGet("phong/danh-sach-phong")]
-        public IActionResult GetListPhong(int index, int limit)
+        [HttpGet("can-ho/danh-sach-can-ho")]
+        public IActionResult GetListcanHo(int index, int limit)
         {
-            return _phongService.GetListPhong(index, limit);
+            return _canHoService.GetListCanHo(index, limit);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
-        [HttpGet("phong")]
-        public IActionResult GetPhong(int maPhong)
+        [HttpGet("can-ho")]
+        public IActionResult GetcanHo(int maCanHo)
         {
-            return _phongService.GetPhong(maPhong);
+            return _canHoService.GetCanHo(maCanHo);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
-        [HttpPost("phong")]
-        public IActionResult CreatePhong([FromBody] PhongDto1000 phong)
+        [HttpPost("can-ho")]
+        public IActionResult CreatecanHo([FromBody] CanHoDto1000 canHo)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(phong);
+                return BadRequest(canHo);
             }
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
-            return _phongService.CreatePhong(token, phong);
+            return _canHoService.CreateCanHo(token, canHo);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
-        [HttpPut("phong")]
-        public IActionResult UpdatePhong([FromBody] PhongDto1002 newPhong, int maPhong)
+        [HttpPut("can-ho")]
+        public IActionResult UpdatecanHo([FromBody] CanHoDto1002 newcanHo, int maCanHo)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(newPhong);
+                return BadRequest(newcanHo);
             }
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
-            return _phongService.UpdatePhong(token, maPhong, newPhong);
+            return _canHoService.UpdateCanHo(token, maCanHo, newcanHo);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
-        [HttpDelete("phong")]
-        public IActionResult DeletePhong(int maPhong, int version)
+        [HttpDelete("canHo")]
+        public IActionResult DeletecanHo(int maCanHo, int version)
         {
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
-            return _phongService.DeletePhong(maPhong, token, version);
+            return _canHoService.DeleteCanHo(maCanHo, token, version);
         }
 
     }

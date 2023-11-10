@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using CNPM.Core.Models.HoKhau;
 using CNPM.Core.Models.LichSu;
 using CNPM.Core.Models.Xe;
-using CNPM.Core.Models.Phong;
+using CNPM.Core.Models.CanHo;
 
 namespace CNPM.Service.Implementations
 {
@@ -28,14 +28,14 @@ namespace CNPM.Service.Implementations
         private readonly IHoKhauRepository _hoKhauRepository;
         private readonly INhanKhauRepository _nhanKhauRepository;
         private readonly IXeRepository _xeRepository;
-        private readonly IPhongRepository _phongRepository;
+        private readonly ICanHoRepository _canHoRepository;
         private readonly IMapper _mapper;
-        public HoKhauService(IHoKhauRepository hoKhauRepository, INhanKhauRepository nhanKhauRepository, IXeRepository xeRepository, IPhongRepository phongRepository)
+        public HoKhauService(IHoKhauRepository hoKhauRepository, INhanKhauRepository nhanKhauRepository, IXeRepository xeRepository, ICanHoRepository canHoRepository)
         {
             _hoKhauRepository = hoKhauRepository;
             _nhanKhauRepository = nhanKhauRepository;
             _xeRepository = xeRepository;
-            _phongRepository = phongRepository;
+            _canHoRepository = canHoRepository;
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new MappingProfile());
@@ -85,14 +85,14 @@ namespace CNPM.Service.Implementations
                 var listNhanKhauDto = _mapper.Map<List<NhanKhauEntity>, List<NhanKhauDto1001> >(listNhanKhauEntity);
                 var lichSuEntity = _hoKhauRepository.GetLichSu(maHoKhau);
                 var lichSuDto= _mapper.Map<List<LichSuEntity>, List<LichSuDto1000>>(lichSuEntity);
-                var phongEntity = _phongRepository.GetPhongByHoKhau(maHoKhau);
-                var phong1001 = _mapper.Map<PhongEntity, PhongDto1001 >(phongEntity);
+                var phongEntity = _canHoRepository.GetCanHoByHoKhau(maHoKhau);
+                var phong1001 = _mapper.Map<CanHoEntity, CanHoDto1001 >(phongEntity);
                 var listXeEntity = _xeRepository.GetListXeByHoKhau(maHoKhau);
                 var listXe1001 = _mapper.Map<List<XeEntity>, List<XeDto1001> >(listXeEntity);
 
                 if (phong1001 != null)
                 {
-                    hoKhau1001.MaPhong = phong1001.MaPhong;
+                    hoKhau1001.MaCanHo = phong1001.MaCanHo;
                 }
        
                 hoKhau1001.DanhSachXe = listXe1001;
@@ -200,7 +200,7 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public IActionResult AddPhongToHoKhau(string token, string maHoKhau, int maPhong)
+        public IActionResult AddCanHoToHoKhau(string token, string maHoKhau, int maPhong)
         {
             try
             {
@@ -215,38 +215,6 @@ namespace CNPM.Service.Implementations
                 bool add = _hoKhauRepository.AddPhongToHoKhau(maHoKhau, maPhong, userName);
 
                 if (add)
-                {
-                    return new OkObjectResult(new
-                    {
-                        message = Constant.UPDATE_HO_KHAU_SUCCESSFULLY,
-                        data = new { maHoKhau = maHoKhau }
-                    });
-                }
-                return new BadRequestObjectResult(new
-                {
-                    message = Constant.UPDATE_HO_KHAU_FAILED
-                });
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-        public IActionResult RemovePhongFromHoKhau(string token, string maHoKhau)
-        {
-            try
-            {
-                var userName = Helpers.DecodeJwt(token, "username");
-                var hoKhau = _hoKhauRepository.GetHoKhau(maHoKhau);
-                if (hoKhau == null) return new BadRequestObjectResult(new
-                {
-                    message = Constant.UPDATE_HO_KHAU_FAILED,
-                    reason = Constant.MA_HO_KHAU_NOT_EXIST
-                });
-                // bỏ check version
-                bool remove = _hoKhauRepository.RemovePhongFromHoKhau(maHoKhau, userName);
-
-                if (remove)
                 {
                     return new OkObjectResult(new
                     {

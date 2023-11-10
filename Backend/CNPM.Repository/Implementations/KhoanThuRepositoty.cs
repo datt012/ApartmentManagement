@@ -109,14 +109,14 @@ namespace CNPM.Repository.Implementations
                     else if (khoanThu.LoaiKhoanThu == 2)
                     {
                         PhiDichVu phiDichVu = JObject.Parse(khoanThu.ChiTiet).ToObject<PhiDichVu>();
-                        var phong = _dbcontext.Phong.Where(o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == hoKhau.MaHoKhau).FirstOrDefault();
+                        var phong = _dbcontext.CanHo.Where(o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == hoKhau.MaHoKhau).FirstOrDefault();
                         if (phong == null) continue;
                         khoanThuTheoHo.SoTien = (int)Math.Ceiling(phiDichVu.DichVu.SoTien * phong.DienTich);
                     }
                     else if (khoanThu.LoaiKhoanThu == 3)
                     {
                         PhiQuanLy phiQuanLy = JObject.Parse(khoanThu.ChiTiet).ToObject<PhiQuanLy>();
-                        var phong = _dbcontext.Phong.Where(o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == hoKhau.MaHoKhau).FirstOrDefault();
+                        var phong = _dbcontext.CanHo.Where(o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == hoKhau.MaHoKhau).FirstOrDefault();
                         if (phong == null) continue;
                         khoanThuTheoHo.SoTien = (int)Math.Ceiling(phiQuanLy.QuanLy.SoTien * phong.DienTich);
                     }

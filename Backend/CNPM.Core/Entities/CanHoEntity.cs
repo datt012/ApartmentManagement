@@ -2,16 +2,16 @@
 using System.ComponentModel.DataAnnotations;
 namespace CNPM.Core.Entities
 {
-    [Table("phong")]
-    public class PhongEntity : BaseEntity
+    [Table("canho")]
+    public class CanHoEntity : BaseEntity
     {
         [Key]
         [Required]
-        public int MaPhong { get; set; }
+        public int MaCanHo { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string TenPhong { get; set; }
+        public string TenCanHo { get; set; }
 
         public string? Tang { get; set; }
 

@@ -12,15 +12,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CNPM.Core.Models.Phong
+namespace CNPM.Core.Models.CanHo
 {
-    public class PhongDto1001 // response 
+    public class CanHoDto1001 // response 
     {
-        [JsonProperty("maPhong")]
-        public int MaPhong { get; set; }
+        [JsonProperty("maCanHo")]
+        public int MaCanHo { get; set; }
 
-        [JsonProperty("tenPhong")]
-        public string TenPhong { get; set; }
+        [JsonProperty("tenCanHo")]
+        public string TenCanHo { get; set; }
 
         [JsonProperty("tang")]
         public string Tang { get; set; }

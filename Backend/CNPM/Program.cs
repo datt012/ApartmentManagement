@@ -82,8 +82,8 @@ builder.Services.AddSingleton<ITamVangRepository, TamVangRepository>();
 
 builder.Services.AddSingleton<IXeRepository, XeRepository>();
 
-builder.Services.AddSingleton<IPhongRepository, PhongRepository>();
-builder.Services.AddSingleton<IPhongService, PhongService>();
+builder.Services.AddSingleton<ICanHoRepository, CanHoRepository>();
+builder.Services.AddSingleton<ICanHoService, CanHoService>();
 
 builder.Services.AddHttpClient();
 

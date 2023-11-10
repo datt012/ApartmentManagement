@@ -14,30 +14,30 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using CNPM.Repository.Implementations;
 using System.Collections.Generic;
-using CNPM.Core.Models.Phong;
+using CNPM.Core.Models.CanHo;
 
 namespace CNPM.Service.Implementations
 {
 
-    public class PhongService : IPhongService
+    public class CanHoService : ICanHoService
     {
-        private readonly IPhongRepository _phongRepository;
+        private readonly ICanHoRepository _canHoRepository;
         private readonly IMapper _mapper;
-        public PhongService(IPhongRepository phongRepository)
+        public CanHoService(ICanHoRepository canHoRepository)
         {
-            _phongRepository = phongRepository;
+            _canHoRepository = canHoRepository;
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new MappingProfile());
             });
             _mapper = config.CreateMapper();
         }
-        public IActionResult GetListPhong(int index, int limit)
+        public IActionResult GetListCanHo(int index, int limit)
         {
             try
             {
-                var listPhong = _phongRepository.GetListPhong(index, limit);
-                var arr = _mapper.Map<List<PhongEntity>, List<PhongDto1003>>(listPhong);
+                var listPhong = _canHoRepository.GetListCanHo(index, limit);
+                var arr = _mapper.Map<List<CanHoEntity>, List<CanHoDto1003>>(listPhong);
                 return new OkObjectResult(
                     new
                     {
@@ -52,10 +52,10 @@ namespace CNPM.Service.Implementations
             }
         }
 
-        public IActionResult GetPhong(int maPhong)
+        public IActionResult GetCanHo(int maPhong)
         {
             try { 
-                PhongEntity phong = _phongRepository.GetPhong(maPhong);
+                CanHoEntity phong = _canHoRepository.GetCanHo(maPhong);
 
                 if (phong == null) return new BadRequestObjectResult(
                        new
@@ -65,7 +65,7 @@ namespace CNPM.Service.Implementations
                        }
                     );
 
-                var phong1001 = _mapper.Map<PhongEntity, PhongDto1001>(phong);
+                var phong1001 = _mapper.Map<CanHoEntity, CanHoDto1001>(phong);
 
                 return new OkObjectResult(new {
                     message = Constant.GET_TAM_VANG_SUCCESSFULLY,
@@ -77,20 +77,20 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public IActionResult CreatePhong(string token, PhongDto1000 phong1000)
+        public IActionResult CreateCanHo(string token, CanHoDto1000 phong1000)
         {
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
 
-                PhongEntity phong = _mapper.Map<PhongDto1000, PhongEntity>(phong1000);
+                CanHoEntity phong = _mapper.Map<CanHoDto1000, CanHoEntity>(phong1000);
 
                 phong.CreateTime = DateTime.Now;
                 phong.UpdateTime = DateTime.Now;
                 phong.UserCreate = userName;
                 phong.UserUpdate = userName;
                 if (phong1000.MaHoKhau == "") phong.MaHoKhau = null;
-                bool created = _phongRepository.CreatePhong(phong);
+                bool created = _canHoRepository.CreateCanHo(phong);
 
                 if (created)
                 {
@@ -109,12 +109,12 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public IActionResult UpdatePhong(string token, int maPhong, PhongDto1002 newPhong)
+        public IActionResult UpdateCanHo(string token, int maPhong, CanHoDto1002 newPhong)
         {
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-                var phong = _phongRepository.GetPhong(maPhong);
+                var phong = _canHoRepository.GetCanHo(maPhong);
                 if (phong == null) return new BadRequestObjectResult(new
                 {
                     message = Constant.UPDATE_PHONG_FAILED,
@@ -129,13 +129,13 @@ namespace CNPM.Service.Implementations
 
 
                 
-                PhongEntity phongEntity = _mapper.Map<PhongDto1002, PhongEntity>(newPhong);
+                CanHoEntity phongEntity = _mapper.Map<CanHoDto1002, CanHoEntity>(newPhong);
                 if (newPhong.MaHoKhau == "") phongEntity.MaHoKhau = null;
-                phongEntity.MaPhong = maPhong;
+                phongEntity.MaCanHo = maPhong;
                 phongEntity.UserUpdate = userName;
                 phongEntity.UpdateTime = DateTime.Now;
                 phongEntity.Version += 1;
-                bool updated = _phongRepository.UpdatePhong(phongEntity);
+                bool updated = _canHoRepository.UpdateCanHo(phongEntity);
                 if (updated)
                 {
                     return new OkObjectResult(new
@@ -153,12 +153,12 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public IActionResult DeletePhong(int maPhong, string token, int version)
+        public IActionResult DeleteCanHo(int maPhong, string token, int version)
         {
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-                var phong = _phongRepository.GetPhong(maPhong);
+                var phong = _canHoRepository.GetCanHo(maPhong);
 
 
                 if (phong == null) return new BadRequestObjectResult(new
@@ -174,7 +174,7 @@ namespace CNPM.Service.Implementations
                     reason = Constant.DATA_UPDATED_BEFORE
                 });
 
-                bool delete = _phongRepository.DeletePhong(maPhong, userName);
+                bool delete = _canHoRepository.DeleteCanHo(maPhong, userName);
                 if (delete)
                 {
                     return new OkObjectResult(new

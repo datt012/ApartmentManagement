@@ -134,7 +134,7 @@ namespace CNPM.Repository.Implementations
             {
                 var _dbcontext = new MyDbContext();
 
-                var phongByMaHoKhau = _dbcontext.Phong.Where(
+                var phongByMaHoKhau = _dbcontext.CanHo.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == maHoKhau).FirstOrDefault();
 
                 if (phongByMaHoKhau != null)
@@ -142,8 +142,8 @@ namespace CNPM.Repository.Implementations
                     phongByMaHoKhau.MaHoKhau = null;
                 }
 
-                var phong = _dbcontext.Phong.Where(
-                    o => o.Delete == Constant.NOT_DELETE && o.MaPhong == maPhong).FirstOrDefault();
+                var phong = _dbcontext.CanHo.Where(
+                    o => o.Delete == Constant.NOT_DELETE && o.MaCanHo == maPhong).FirstOrDefault();
 
                 if (phong == null) return false;
                 
@@ -162,7 +162,7 @@ namespace CNPM.Repository.Implementations
             {
                 var _dbcontext = new MyDbContext();
 
-                var phong = _dbcontext.Phong.Where(
+                var phong = _dbcontext.CanHo.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == maHoKhau).FirstOrDefault();
 
                 if (phong == null) return false;

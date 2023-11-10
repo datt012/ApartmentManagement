@@ -10,14 +10,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CNPM.Core.Models.Phong
+namespace CNPM.Core.Models.CanHo
 {
-    public class PhongDto1000 // body create
+    public class CanHoDto1000 // body create
     {
         [Required]
         [MaxLength(100)]
-        [JsonProperty("tenPhong")]
-        public string TenPhong { get; set; }
+        [JsonProperty("tenCanHo")]
+        public string TenCanHo { get; set; }
 
         [Required]
         [JsonProperty("tang")]

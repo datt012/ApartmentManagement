@@ -20,7 +20,7 @@ namespace CNPM.Core.Entities
         public DbSet<KhoanThuEntity> KhoanThu { set; get; }
         public DbSet<KhoanThuTheoHoEntity> KhoanThuTheoHo { set; get; }
         public DbSet<HoaDonEntity> HoaDon { set; get; }
-        public DbSet<PhongEntity> Phong { set; get; }
+        public DbSet<CanHoEntity> CanHo { set; get; }
         public DbSet<LoaiXeEntity> LoaiXe { set; get; }
         public DbSet<XeEntity> Xe { set; get; }
 
