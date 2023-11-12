@@ -12,7 +12,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import detailroomSlice from "../../Redux/detailRoomSlice";
 import { isDetailVisibleSelector, isSelectedIdSelector } from "../../Redux/selector";
-import { deleteHouseHold } from "../../Services/API/householdService";
 import axios from "../../setups/custom_axios";
 import dayjs from "dayjs";
 import Button from "@mui/material/Button";
@@ -20,6 +19,8 @@ import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded
 import { fetchAllRevenueHouse } from "../../Redux/revenueSlice";
 import { useHistory } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
+import householdService from "../../Services/API/householdService";
+import { toast } from "react-toastify";
 
 const HouseholdPage = () => {
 
@@ -34,21 +35,29 @@ const HouseholdPage = () => {
   const handleSelectedId = (Id) => {
     dispatch(detailroomSlice.actions.isSelectedIdChange(Id));
   }
-
+  const handleDelete = (maHoKhau) => {
+    if (window.confirm('Bạn chắc chắn muốn xóa?')) {
+      householdService.deleteHouseHold(maHoKhau).then((result) => {
+        toast(result.message);
+        getListHoKhau();
+      }).catch(e => {
+        toast(e?.response?.data?.message ?? "Có lỗi xảy ra");
+      })
+    }
+  }
   const [dataHouseHold, setDataHouseHold] = useState([]);
-  const [isDelete, setIsDelete] = useState(false);
+  const getListHoKhau = async () => {
+    try {
+      const response = await axios.get(`/ho-khau/danh-sach-ho-khau`);
+      setDataHouseHold(() => response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  useEffect(
-    async () => {
-      try {
-        const response = await axios.get(`/ho-khau/danh-sach-ho-khau`);
-        setDataHouseHold(() => response.data);
-      } catch (error) {
-        console.log(error);
-      }
-
-      return
-    }, [isDelete])
+  useEffect(() => {
+    getListHoKhau()
+  }, [])
 
   const ListButton = ({ maHoKhau }) => {
     const theme = useTheme();
@@ -117,11 +126,7 @@ const HouseholdPage = () => {
       align: "center",
       renderCell: (param) =>
         <div>
-          <DeleteIcon onClick={() => {
-            deleteHouseHold(param.row.maHoKhau);
-            setIsDelete(!isDelete);
-            console.log()
-          }
+          <DeleteIcon onClick={() => handleDelete(param.row.maHoKhau)
           } />
         </div>
     },

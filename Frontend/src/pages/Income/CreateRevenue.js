@@ -72,7 +72,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
     tenKhoanThu: "",
     loaiKhoanThu: 0,
     dichvu: 0,
-    quanly: 0,
+    quanly: 7000,
     xeMay: 0,
     xeOto: 0,
     ghiChu: "",

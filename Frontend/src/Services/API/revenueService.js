@@ -18,12 +18,13 @@ const postRevenue = (data) => {
     });
 }
 const putRevenue = (maKhoanThu, data) => {
-    const {tenKhoanThu, thoiGianBatDau, thoiGianKetThuc, ghiChu, version} = data;
+    const {tenKhoanThu, thoiGianBatDau, thoiGianKetThuc, ghiChu, chiTiet, version} = data;
     return axios.put(`/khoan-thu?maKhoanThu=${maKhoanThu}`, {
         tenKhoanThu: tenKhoanThu,
         thoiGianBatDau: thoiGianBatDau,
         thoiGianKetThuc: thoiGianKetThuc,
         ghiChu: ghiChu,
+        chiTiet: chiTiet,
         version: version
     });
 }

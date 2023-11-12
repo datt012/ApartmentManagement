@@ -40,7 +40,7 @@ const EditXe = ({ xeData, onClose, onSuccess }) => {
                 onSuccess && onSuccess();
             }).catch(e => {
                 console.log(e);
-                alert(e.response.data.message)
+                toast(e?.response?.data?.message ?? "Có lỗi xảy ra");
             });
         }
     };

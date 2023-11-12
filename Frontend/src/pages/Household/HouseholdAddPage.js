@@ -29,7 +29,7 @@ const HouseholdAddPage = () => {
         toast(result.message);
         history.push(`/${maHoKhau}/edit`);
       }).catch(e => {
-  
+        toast(e?.response?.data?.message ?? "Có lỗi xảy ra");
       })
     }
   }

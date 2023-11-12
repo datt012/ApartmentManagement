@@ -24,12 +24,14 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
     const [newDateStart, setNewDateStart] = useState(dayjs(data.thoiGianBatDau));
     const [newDateEnd, setNewDateEnd] = useState(dayjs(data.thoiGianKetThuc));
     const handleFormSubmit = (values) => {
+        console.log(data);
         if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
             revenueService.putRevenue(data.maKhoanThu, {
                 tenKhoanThu: values.tenKhoanThu,
                 ghiChu: values.ghiChu,
                 thoiGianBatDau: newDateStart,
                 thoiGianKetThuc: newDateEnd,
+                chiTiet: "[{\"dien\": 500000000, \"nuoc\": 100000, \"maHoKhau\": \"HK84744454\"}]",
                 version: data.version
             }).then(mes => {
                 //alert(mes.message);

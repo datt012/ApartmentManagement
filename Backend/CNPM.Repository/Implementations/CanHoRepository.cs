@@ -122,6 +122,7 @@ namespace CNPM.Repository.Implementations
                 if (phong != null)
                 {
                     phong.Delete = Constant.DELETE;
+                    phong.MaHoKhau = null;
                     phong.UserUpdate = userNameUpdate;
                     phong.UpdateTime = DateTime.Now;
                     phong.Version++;

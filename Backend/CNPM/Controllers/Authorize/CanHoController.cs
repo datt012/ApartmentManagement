@@ -67,7 +67,7 @@ namespace CNPM.Controllers.Authorize
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
-        [HttpDelete("canHo")]
+        [HttpDelete("can-ho")]
         public IActionResult DeletecanHo(int maCanHo, int version)
         {
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);

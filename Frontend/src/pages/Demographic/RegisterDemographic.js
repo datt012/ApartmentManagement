@@ -38,8 +38,9 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
                 toast(mes.message);
                 setOpenPopup(!openPopup);
                 dispatch(fetchAllDemographic());
-    
-            })
+            }).catch(e => {
+                toast(e?.response?.data?.message ?? "Có lỗi xảy ra");
+            });
         }
     };
     const initialValues = {
@@ -216,7 +217,7 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
                         )}
                     </Formik>
                 </Box>
-                <ToastContainer />
+                {/*<ToastContainer />*/}
             </DialogContent>
         </Dialog>
 

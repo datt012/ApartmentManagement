@@ -142,9 +142,14 @@ namespace CNPM.Repository.Implementations
                     phongByMaHoKhau.MaHoKhau = null;
                 }
 
+                if (maPhong == -1)
+                {
+                    _dbcontext.SaveChanges();
+                    return true;
+                }
                 var phong = _dbcontext.CanHo.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaCanHo == maPhong).FirstOrDefault();
-
+                
                 if (phong == null) return false;
                 
                 phong.MaHoKhau = maHoKhau;

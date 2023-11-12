@@ -25,9 +25,9 @@ const RegisterRoom = ({ openPopup, setOpenPopup, onSuccess }) => {
     const [date, setDate] = useState(dayjs(new Date()));
 
     const handleFormSubmit = (values) => {
-        if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+        if (window.confirm("Bạn chắc chắn muốn lưu?") == true) {
             roomService.addRoom({
-                tenPhong: values.tenPhong,
+                tenCanHo: values.tenCanHo,
                 tang: values.tang,
                 dienTich: +values.dienTich,
                 moTa: values.moTa
@@ -36,12 +36,12 @@ const RegisterRoom = ({ openPopup, setOpenPopup, onSuccess }) => {
                 setOpenPopup(!openPopup);
                 onSuccess && onSuccess();
             }).catch(e => {
-    
+                toast(e?.response?.data?.message ?? "Có lỗi xảy ra");
             });
         }
     };
     const initialValues = {
-        tenPhong: "",
+        tenCanHo: "",
         tang: "",
         dienTich: "",
         maHoKhau: "",
@@ -94,10 +94,10 @@ const RegisterRoom = ({ openPopup, setOpenPopup, onSuccess }) => {
                                         label="Tên phòng"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        value={values.tenPhong}
-                                        name="tenPhong"
-                                        error={!!touched.tenPhong && !!errors.tenPhong}
-                                        helperText={touched.tenPhong && errors.tenPhong}
+                                        value={values.tenCanHo}
+                                        name="tenCanHo"
+                                        error={!!touched.tenCanHo && !!errors.tenCanHo}
+                                        helperText={touched.tenCanHo && errors.tenCanHo}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                                     />
                                     <TextField
@@ -174,7 +174,7 @@ const phoneRegExp =
     /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const checkoutSchema = yup.object().shape({
-    tenPhong: yup.string().required("Bạn chưa điền thông tin"),
+    tenCanHo: yup.string().required("Bạn chưa điền thông tin"),
     tang: yup.string().required("Bạn chưa điền thông tin"),
     dienTich: yup.string().required("Bạn chưa điền thông tin")
 });

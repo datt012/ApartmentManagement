@@ -19,6 +19,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditRoom from "./EditRoom";
+import { ToastContainer, toast } from 'react-toastify';
 
 const RoomPage = () => {
 
@@ -31,13 +32,29 @@ const RoomPage = () => {
   const [data, setData] = useState([]);
   const [currentRoom, setCurrentRoom] = useState();
 
-  const handleEdit = (maPhong) => {
-    roomService.getRoom(maPhong).then((result) => {
+  const handleEdit = (maCanHo) => {
+    roomService.getRoom(maCanHo).then((result) => {
       setCurrentRoom(result.data);
       setOpenEditPopup(true);
     }).catch(e => {
       console.log(e);
     })
+  }
+  const handleDeleteRoom = (maCanHo) => {
+    if (window.confirm('Bạn chắc chắn muốn xóa?')) {
+      roomService.getRoom(maCanHo).then((result) => {
+        let currentRoomTmp = result.data;
+        roomService.deleteRoom(maCanHo, currentRoomTmp.version).then((result) => {
+          handleGetListRoom();
+          toast(result.message);
+        }).catch(e => {
+          console.log(e);
+          toast(e?.response?.data?.message);
+        })
+      }).catch(e => {
+        console.log(e);
+      })
+    }
   }
   const handleGetListRoom = () => {
     roomService.getListRoom().then((result) => {
@@ -52,12 +69,12 @@ const RoomPage = () => {
 
   const columns = useMemo(() => [
     {
-      field: "maPhong",
+      field: "maCanHo",
       headerName: "Mã phòng",
       flex: 0.5,
     },
     {
-      field: "tenPhong",
+      field: "tenCanHo",
       headerName: "Tên phòng",
       flex: 0.75,
     },
@@ -88,7 +105,7 @@ const RoomPage = () => {
       align: "center",
       renderCell: (param) => {
         // const link = param.row.maHoKhau + "/edit";
-        return <div onClick={() => handleEdit(param.row.maPhong)}><EditIcon /> </div>
+        return <div onClick={() => handleEdit(param.row.maCanHo)}><EditIcon /> </div>
       }
     },
     {
@@ -98,7 +115,7 @@ const RoomPage = () => {
       align: "center",
       renderCell: (param) =>
         <div>
-          <DeleteIcon onClick={() => { }} />
+          <DeleteIcon onClick={() => handleDeleteRoom(param.row.maCanHo)} />
         </div>
     }
   ]);
@@ -124,10 +141,9 @@ const RoomPage = () => {
         }}
       >
         <RegisterRoom openPopup={openPopup} setOpenPopup={setOpenPopup} onSuccess={() => handleGetListRoom()} />
-        {openEditPopup && <EditRoom onClose={() => setOpenEditPopup(false)} roomData={currentRoom} onSuccess={() => handleGetListRoom()}/>}
-
+        {openEditPopup && <EditRoom onClose={() => setOpenEditPopup(false)} roomData={currentRoom} onSuccess={() => handleGetListRoom()} />}
         <DataGrid
-          getRowId={(r) => r.maPhong}
+          getRowId={(r) => r.maCanHo}
           rows={data}
           columns={columns}
           components={{ Toolbar: GridToolbar }}

@@ -26,6 +26,7 @@ export default function AddRoomModal() {
                 setDanhSachNhanKhau(response.data.danhSachNhanKhau);
             } catch (error) {
                 console.log(error);
+                //toast(error?.response?.data?.message ?? "Có lỗi xảy ra");
             }
         }, [isDetailVisible, isSelectedId]
     )

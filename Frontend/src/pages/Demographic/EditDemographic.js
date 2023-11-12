@@ -226,7 +226,7 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
 
                                 <Box display="flex" justifyContent="end" mt="20px" >
                                     <Button onClick={() => {
-                                        if (window.confirm('Bạn thật sự muốn xóa?')) {
+                                        if (window.confirm('Bạn chắc chắn muốn xóa?')) {
                                             demographicService.deleteDemographic(values.maNhanKhau, data.version).then(mes => {
                                                 toast(mes.message);
                                                 setOpenInPopup(!openInPopup);
@@ -246,7 +246,7 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                         )}
                     </Formik>
                 </Box>
-                <ToastContainer />
+                {/*<ToastContainer />*/}
             </DialogContent>
         </Dialog>
 

@@ -9,7 +9,7 @@ using CNPM.Repository.Implementations;
 using System.Text;
 using CNPM;
 
-// InitDatabase
+//InitDatabase
 //InitDatabase.ResetDb();
 
 

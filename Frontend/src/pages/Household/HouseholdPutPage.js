@@ -59,6 +59,7 @@ const HouseholdAddPage = () => {
       }).catch(e => {
   
       })
+      console.log('selectOption', selectOption);
       householdService.updateHouseHold(values.maHoKhau, {
         "diaChiThuongTru": values.diaChiThuongTru,
         "noiCap": values.noiCap,
@@ -69,8 +70,9 @@ const HouseholdAddPage = () => {
         "version": initialValues.version,
       }).then((result) => {
         toast(result.message);
+        handleGetData();
       }).catch(e =>
-        toast(e.response.message))
+        toast(e?.response?.data?.message))
     }
   }
   const [initialValues, setInitialValues] = useState({});
@@ -95,21 +97,23 @@ const HouseholdAddPage = () => {
       const response = await axios.get(`ho-khau?maHoKhau=${id}`)
       setdetailHouseHoldData(response.data);
       console.log(response.data);
-      setRoomId(response.data.maPhong.toString());
+      setRoomId(response.data.maCanHo.toString());
       setXeArr(response.data.danhSachXe);
+      const datamapNhanKhau = response.data.danhSachNhanKhau.map((data) => {
+        const label = data.hoTen + " " + data.maNhanKhau
+        return {
+          label,
+          value: data.maNhanKhau
+        }
+      })
+      setSelectOption(datamapNhanKhau);
       setInitialValues({
         maHoKhau: response.data.maHoKhau,
         diaChiThuongTru: response.data.diaChiThuongTru,
         noiCap: response.data.noiCap,
         ngayCap: dayjs(response.data.ngayCap).format('YYYY-MM-DD'),
-        danhSachNhanKhau: response.data.danhSachNhanKhau.map((data) => {
-          const label = data.hoTen + " " + data.maNhanKhau
-          return {
-            label,
-            value: data.maNhanKhau
-          }
-        }),
-        maPhong: response.data.maPhong,
+        danhSachNhanKhau: datamapNhanKhau,
+        maCanHo: response.data.maCanHo,
         version: response.data.version,
       })
       setIsLoading(false);
@@ -117,15 +121,17 @@ const HouseholdAddPage = () => {
       history.push('/household');
     }
     roomService.getListRoom().then((result) => {
-      const datas = result.data;
+      let datas = result.data;
+      console.log(datas);
+      datas = datas.filter(o => !o.maHoKhau || o.maHoKhau === id)
       const datamap = datas.map((data) => {
-        const label = data.tenPhong;
+        const label = data.tenCanHo;
         return {
           label,
-          value: data.maPhong.toString()
+          value: data.maCanHo.toString()
         }
       })
-      console.log('datamap phong', datamap);
+      console.log('datamap canHo', datamap);
       setDataPhong(datamap);
     }).catch(e => {
       console.log(e);
@@ -135,7 +141,7 @@ const HouseholdAddPage = () => {
   const [dataPhong, setDataPhong] = useState([]);
   const handleRemoveXe = (maXe) => {
 
-    let text = "Bạn có chắc chắn muốn xóa xe này không?";
+    let text = "Bạn chắc chắn muốn xóa?";
     if (!window.confirm(text)) {
       return
     }
@@ -143,7 +149,7 @@ const HouseholdAddPage = () => {
       toast(result.message);
       handleGetData();
     }).catch(e => {
-      toast(e.response.data.message);
+      toast(e?.response?.data?.message);
     })
   }
   useEffect(() => {
@@ -250,17 +256,17 @@ const HouseholdAddPage = () => {
                 </div>
                 <div>
                   <select
-                    onChange={(e) => setRoomId(e.target.value)}
+                    onChange={(e) => setRoomId(+e.target.value)}
                     value={roomId} style={{ height: 40, width: 100, border: '1px solid #ccc', borderRadius: 5 }}>
-                    <option value={""}>Chọn căn hộ</option>
-                    {dataPhong?.map((phong, index) => {
-                      return <option key={index} value={phong.value}>{phong.label}</option>
+                    <option value={"-1"}>Chọn căn hộ</option>
+                    {dataPhong?.map((canHo, index) => {
+                      return <option key={index} value={canHo.value}>{canHo.label}</option>
                     })}
                   </select>
                 </div>
                 <div style={{ width: '60vh', marginBottom: 10, marginTop: 10 }}>
 
-                  <table class="custom-table">
+                  <table className="custom-table">
                     <thead>
                       <tr>
                         <th>Mã xe</th>
@@ -301,14 +307,14 @@ const HouseholdAddPage = () => {
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button startIcon={<SaveAsIcon />}
-                type="submit" color="secondary" variant="contained" onClick={() => console.log(values.maPhong)}>
+                type="submit" color="secondary" variant="contained" onClick={() => console.log(values.maCanHo)}>
                 Lưu
               </Button>
             </Box>
           </form>
         )}
       </Formik>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </Box>
   );
 };

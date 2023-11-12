@@ -363,6 +363,9 @@ namespace CNPM.Service.Implementations
                     reason = Constant.DATA_UPDATED_BEFORE
                 });*/
                 // xóa tất cả nhân khẩu trong hộ khẩu
+                // xóa phòng mà hộ khẩu đã ở
+
+                _hoKhauRepository.AddPhongToHoKhau(maHoKhau, -1, userName);
 
                 bool remove = _hoKhauRepository.RemoveNhanKhauFromHoKhau(maHoKhau, userName);
                 if (remove)

@@ -40,7 +40,7 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
                 onSuccess && onSuccess();
             }).catch(e => {
                 console.log(e);
-                toast(e.response.data.message)
+                toast(e?.response?.data?.message)
             });
         }
     };
@@ -151,7 +151,7 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
                         )}
                     </Formik>
                 </Box>
-                <ToastContainer />
+                {/* <ToastContainer /> */}
             </DialogContent>
         </Dialog>
 
