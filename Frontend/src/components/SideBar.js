@@ -12,55 +12,48 @@ export const SidebarDataAdmin =  [
     icon: <AiIcons.AiFillHome/>
   },
   {
-    title: 'Quản lý nhân khẩu',
-    path: "/demographic",
-    icon: <BsIcons.BsFillPersonLinesFill/>,
-  },
-  {
-    title: 'Quản lý hộ khẩu',
-    path: '/household',
+    title: 'Quản lý hộ gia đình',
     icon: <FaIcons.FaAddressBook />,
-    // subNav: [
-    //   {
-    //     title: 'Danh sách hộ khẩu',
-    //     path: '/household',
-    //     icon: <FaIcons.FaListAlt />
-    //   },
-    //   {
-    //     title: 'Thêm hộ khẩu',
-    //     path: '/household-add',
-    //     icon: <AiIcons.AiFillPlusCircle />,
-    //   }
-    // ]
+    subNav: [
+      {
+        title: 'Hộ khẩu',
+        path: '/household',
+        icon: <FaIcons.FaListAlt />
+      },
+      {
+        title: 'Căn hộ',
+        path: '/room',
+        icon: <AiIcons.AiFillPlusCircle />,
+      }
+    ]
   },
   {
-    title: 'Quản lý tạm trú',
-    path: '/tabernacle',
-    icon: <BsIcons.BsPersonPlusFill/>,
-
-  },
-  {
-    title: 'Quản lý tạm vắng',
-    path: '/absent',
-    icon: <BsIcons.BsPersonDashFill />,
-
+    title: 'Quản lý nhân dân',
+    icon: <FaIcons.FaAddressBook />,
+    subNav: [
+      {
+        title: 'Nhân khẩu',
+        path: '/demographic',
+        icon: <FaIcons.FaListAlt />
+      },
+      {
+        title: 'Tạm trú',
+        path: '/tabernacle',
+        icon: <AiIcons.AiFillPlusCircle />,
+      },
+      {
+        title: 'Tạm vắng',
+        path: '/absent',
+        icon: <BsIcons.BsPersonDashFill />,
+    
+      }
+    ]
   },
   {
     title: 'Quản lý khoản thu',
     path: '/revenue',
     icon: <AiIcons.AiFillMoneyCollect />
-  },
-  {
-    title: 'Quản lý căn hộ',
-    path: '/room',
-    icon: <AiIcons.AiFillMoneyCollect />
-  },
-  {
-    title: 'About',
-    path: '/about',
-    icon: <SiIcons.SiAboutdotme />
-  },
-  
+  }
 ];
 
 export const SidebarDataKeToan =  [

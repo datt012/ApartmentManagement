@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, MenuItem, TextField } from "@mui/material";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -40,7 +40,7 @@ const HouseholdAddPage = () => {
   const [detailHouseholdData, setdetailHouseHoldData] = useState({})
   const [isLoading, setIsLoading] = useState(true);
   const [selectOption, setSelectOption] = useState([]);
-  const [roomId, setRoomId] = useState();
+  const [roomId, setRoomId] = useState("-1");
   const [xeArr, setXeArr] = useState([]);
 
   const [addXe, setAddXe] = useState(false);
@@ -53,11 +53,11 @@ const HouseholdAddPage = () => {
   };
   const handleUpdate = (values) => {
     console.log('values', values);
-    if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+    if (window.confirm("Bạn chắc chắn muốn lưu?") == true) {
       householdService.addRoomToHouseHold(values.maHoKhau, roomId).then((result) => {
         console.log('result', result);
       }).catch(e => {
-  
+
       })
       console.log('selectOption', selectOption);
       householdService.updateHouseHold(values.maHoKhau, {
@@ -155,7 +155,7 @@ const HouseholdAddPage = () => {
   useEffect(() => {
     handleGetData();
   }, []);
-  console.log('xeArr', xeArr);
+  console.log('roomId', roomId);
   if (isLoading) {
     return <div>Loading....</div>
   }
@@ -182,90 +182,104 @@ const HouseholdAddPage = () => {
           handleSubmit,
         }) => (
           <form onSubmit={handleSubmit}>
-            <Box
-              display="grid"
-              gap="30px"
-              gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-              sx={{
-                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-              }}
-            >
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Mã hộ khẩu"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={id}
-                name="maHoKhau"
-                error={!!touched.maHoKhau && !!errors.maHoKhau}
-                helperText={touched.maHoKhau && errors.maHoKhau}
-                sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Địa chỉ"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.diaChiThuongTru}
-                name="diaChiThuongTru"
-                error={!!touched.diaChiThuongTru && !!errors.diaChiThuongTru}
-                helperText={touched.diaChiThuongTru && errors.diaChiThuongTru}
-                sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Nơi cấp"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.noiCap}
-                name="noiCap"
-                error={!!touched.noiCap && !!errors.noiCap}
-                helperText={touched.noiCap && errors.noiCap}
-                sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type='date'
-                label="Ngày cấp"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.ngayCap}
-                name="ngayCap"
-                error={!!touched.ngayCap && !!errors.ngayCap}
-                helperText={touched.ngayCap && errors.ngayCap}
-                sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
-              />
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ width: '500px', marginBottom: 20 }}>
-                  <Select
-                    name="danhSachNhanKhau"
-                    options={dataNhanKhau.concat(values.danhSachNhanKhau)}
-                    component={CustomSelect}
-                    placeholder="Danh sách mã nhân khẩu "
-                    isMulti={true}
-                    defaultValue={values.danhSachNhanKhau}
-                    onChange={handleSelect}
-                  />
-                </div>
-                <div>
-                  <select
-                    onChange={(e) => setRoomId(+e.target.value)}
-                    value={roomId} style={{ height: 40, width: 100, border: '1px solid #ccc', borderRadius: 5 }}>
-                    <option value={"-1"}>Chọn căn hộ</option>
-                    {dataPhong?.map((canHo, index) => {
-                      return <option key={index} value={canHo.value}>{canHo.label}</option>
-                    })}
-                  </select>
-                </div>
-                <div style={{ width: '60vh', marginBottom: 10, marginTop: 10 }}>
+            <div style={{ display: 'flex', flexDirection: 'row', marginTop: 100 }}>
+              <Box
+                display="grid"
+                gap="30px"
+                gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                sx={{
+                  "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                }}
+              >
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Mã hộ khẩu"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={id}
+                  name="maHoKhau"
+                  error={!!touched.maHoKhau && !!errors.maHoKhau}
+                  helperText={touched.maHoKhau && errors.maHoKhau}
+                  sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Địa chỉ"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.diaChiThuongTru}
+                  name="diaChiThuongTru"
+                  error={!!touched.diaChiThuongTru && !!errors.diaChiThuongTru}
+                  helperText={touched.diaChiThuongTru && errors.diaChiThuongTru}
+                  sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Nơi cấp"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.noiCap}
+                  name="noiCap"
+                  error={!!touched.noiCap && !!errors.noiCap}
+                  helperText={touched.noiCap && errors.noiCap}
+                  sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type='date'
+                  label="Ngày cấp"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.ngayCap}
+                  name="ngayCap"
+                  error={!!touched.ngayCap && !!errors.ngayCap}
+                  helperText={touched.ngayCap && errors.ngayCap}
+                  sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                />
+                <TextField
+                  variant="filled"
+                  select
+                  label="Căn hộ"
+                  onBlur={handleBlur}
+                  name="canHo"
+                  onChange={(e) => setRoomId(+e.target.value)}
+                  value={roomId}
+                  sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}>
+                  <MenuItem value={"-1"}>None</MenuItem>
+                  {dataPhong.map((canHo, index) => {
+                    return <MenuItem key={index} value={canHo.value}>{canHo.label}</MenuItem>
+                  })}
+                </TextField>
 
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+
+                  {/* <div>
+                    <select
+                      onChange={(e) => setRoomId(+e.target.value)}
+                      value={roomId} style={{ height: 40, width: 100, border: '1px solid #ccc', borderRadius: 5 }}>
+                      <option value={"-1"}>Chọn căn hộ</option>
+                      {dataPhong?.map((canHo, index) => {
+                        return <option key={index} value={canHo.value}>{canHo.label}</option>
+                      })}
+                    </select>
+                  </div> */}
+
+                </div>
+
+              </Box>
+              <Box>
+                <div style={{ width: '60vh', marginBottom: 10, marginLeft: 10, marginTop: -32 }}>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Button onClick={() => setAddXe(true)}
+                      size="small" variant="contained" color="info" style={{ marginBottom: 5, color: 'white' }}>Thêm xe</Button>
+                  </div>
                   <table className="custom-table">
                     <thead>
                       <tr>
@@ -300,11 +314,21 @@ const HouseholdAddPage = () => {
                       })}
                     </tbody>
                   </table>
-                  <Button onClick={() => setAddXe(true)}
-                    size="small" variant="contained" color="info" style={{ marginTop: 5, color: 'white' }}>Thêm xe</Button>
+
                 </div>
-              </div>
-            </Box>
+              </Box>
+            </div>
+            <div style={{ width: '500px', marginTop: 20 }}>
+              <Select
+                name="danhSachNhanKhau"
+                options={dataNhanKhau.concat(values.danhSachNhanKhau)}
+                component={CustomSelect}
+                placeholder="Danh sách mã nhân khẩu "
+                isMulti={true}
+                defaultValue={values.danhSachNhanKhau}
+                onChange={handleSelect}
+              />
+            </div>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button startIcon={<SaveAsIcon />}
                 type="submit" color="secondary" variant="contained" onClick={() => console.log(values.maCanHo)}>

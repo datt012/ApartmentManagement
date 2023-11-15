@@ -21,7 +21,7 @@ const Item = ({ title, to, icon, selected, setSelected, data }) => {
 
       icon={icon}
     >
-      <Typography>{title}</Typography>
+      <Typography style={{fontSize: 14}}>{title}</Typography>
       <Link to={to} />
     </MenuItem>
   );
@@ -144,7 +144,7 @@ const Sidebar = () => {
               </Box>
             )}
 
-            <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+            <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{color: 'black'}}>
               {SidebarData?.map((item, index) => {
                 if (item.subNav) {
                   return (

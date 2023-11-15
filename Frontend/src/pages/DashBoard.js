@@ -26,7 +26,11 @@ const DashBoard = () => {
     <div style={{
       margin: 'auto',
       width: '70%',
-      padding: '10px'
+      padding: '10px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh'
     }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'auto auto auto' }}>
         {(user?.roleId === 1 || user?.roleId == 2) &&
@@ -124,6 +128,25 @@ const DashBoard = () => {
               </Typography>
               <Typography variant="body2" color="black">
                 Quản lý thu phí vệ sinh, các khoản đóng góp
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        <Card onClick={() => history.push('/revenue')}
+          sx={{ width: 300, backgroundColor: 'white', margin: '10px' }}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="100"
+              image={require('../assets/quan-ly-can-ho.jpg')}
+              alt="green iguana"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div" color="black">
+                Quản lý căn hộ
+              </Typography>
+              <Typography variant="body2" color="black">
+                Quản lý các căn hộ trong chung cư
               </Typography>
             </CardContent>
           </CardActionArea>
