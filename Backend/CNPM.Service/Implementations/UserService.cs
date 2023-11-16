@@ -40,7 +40,7 @@ namespace CNPM.Service.Implementations
                 var userVersion = Int32.Parse(Helpers.DecodeJwt(token, "version"));
                 var user = _userRepository.GetUser(userName);
                 var checkToken = _userRepository.CheckToken(userName, token);
-                if (user == null || user.RoleId != roleId || user.Version != userVersion || !checkToken)
+                if (user == null || user.RoleId != roleId || !checkToken)
                     return new BadRequestObjectResult(new{
                         message = Constant.INVALID_TOKEN
                     });

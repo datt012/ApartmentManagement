@@ -70,7 +70,8 @@ const HouseholdPage = () => {
         }}
           startIcon={<ManageAccountsRoundedIcon />}
           variant="contained"
-          style={{ backgroundColor: colors.greenAccent[700], border: "none" }}>Khoản thu
+          color="info"
+          style={{ }}>Khoản thu
         </Button>
       </Link>
     );
@@ -158,7 +159,7 @@ const HouseholdPage = () => {
         title="Quản lý hộ khẩu"
       />
       <Button onClick={() => history.push('/household-add')}
-        color="secondary" variant="contained" style={{ fontWeight: "bold" }}>
+        color="info" variant="contained" style={{ fontWeight: "bold" }}>
         Đăng ký hộ khẩu
       </Button>
       <Box

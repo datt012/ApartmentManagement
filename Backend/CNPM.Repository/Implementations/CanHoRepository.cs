@@ -66,12 +66,12 @@ namespace CNPM.Repository.Implementations
             }
         }
 
-        public bool CreateCanHo(CanHoEntity phong)
+        public bool CreateCanHo(CanHoEntity canHo)
         {
             try
             {
                 var _dbcontext = new MyDbContext();
-                _dbcontext.CanHo.Add(phong);
+                _dbcontext.CanHo.Add(canHo);
 
                 int number_rows = _dbcontext.SaveChanges();
 
@@ -84,24 +84,24 @@ namespace CNPM.Repository.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public bool UpdateCanHo(CanHoEntity newPhong)
+        public bool UpdateCanHo(CanHoEntity newCanHo)
         {
             try
             {
                 var _dbcontext = new MyDbContext();
-                var phong = _dbcontext.CanHo.FirstOrDefault(
-                    o => o.MaCanHo == newPhong.MaCanHo && o.Delete == Constant.NOT_DELETE);
+                var canHo = _dbcontext.CanHo.FirstOrDefault(
+                    o => o.MaCanHo == newCanHo.MaCanHo && o.Delete == Constant.NOT_DELETE);
 
-                if (phong != null)
+                if (canHo != null)
                 {
-                    phong.UserUpdate = newPhong.UserUpdate;
-                    phong.UpdateTime = newPhong.UpdateTime;
-                    phong.TenCanHo = newPhong.TenCanHo;
-                    phong.Tang = newPhong.Tang;
-                    phong.DienTich = newPhong.DienTich;
-                    phong.MaHoKhau = newPhong.MaHoKhau;
-                    phong.MoTa = newPhong.MoTa;
-                    phong.Version = newPhong.Version;
+                    canHo.UserUpdate = newCanHo.UserUpdate;
+                    canHo.UpdateTime = newCanHo.UpdateTime;
+                    canHo.TenCanHo = newCanHo.TenCanHo;
+                    canHo.Tang = newCanHo.Tang;
+                    canHo.DienTich = newCanHo.DienTich;
+                    canHo.MaHoKhau = newCanHo.MaHoKhau;
+                    canHo.MoTa = newCanHo.MoTa;
+                    canHo.Version = newCanHo.Version;
                     _dbcontext.SaveChanges();
                     return true;
                 }
@@ -117,15 +117,15 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var phong = _dbcontext.CanHo.FirstOrDefault(
+                var canHo = _dbcontext.CanHo.FirstOrDefault(
                     o => o.MaCanHo == maCanHo && o.Delete == Constant.NOT_DELETE);
-                if (phong != null)
+                if (canHo != null)
                 {
-                    phong.Delete = Constant.DELETE;
-                    phong.MaHoKhau = null;
-                    phong.UserUpdate = userNameUpdate;
-                    phong.UpdateTime = DateTime.Now;
-                    phong.Version++;
+                    canHo.Delete = Constant.DELETE;
+                    canHo.MaHoKhau = null;
+                    canHo.UserUpdate = userNameUpdate;
+                    canHo.UpdateTime = DateTime.Now;
+                    canHo.Version++;
                     _dbcontext.SaveChanges();
                     return true;
                 }

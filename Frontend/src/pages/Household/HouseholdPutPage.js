@@ -19,7 +19,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
-
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useHistory } from 'react-router-dom';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import dayjs from "dayjs";
@@ -29,6 +29,7 @@ import RegisterXe from "./RegisterXe";
 import EditXe from "./EditXe";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ModalDetailDemographic from "./ModalDetailDemographic";
 
 
 const HouseholdAddPage = () => {
@@ -42,7 +43,7 @@ const HouseholdAddPage = () => {
   const [selectOption, setSelectOption] = useState([]);
   const [roomId, setRoomId] = useState("-1");
   const [xeArr, setXeArr] = useState([]);
-
+  const [showDetailMember, setShowDetailMember] = useState(false);
   const [addXe, setAddXe] = useState(false);
   const [editXe, setEditXe] = useState(false);
 
@@ -189,6 +190,7 @@ const HouseholdAddPage = () => {
                 gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                 sx={{
                   "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                  width: '100%'
                 }}
               >
                 <TextField
@@ -287,7 +289,7 @@ const HouseholdAddPage = () => {
                         <th>Biển kiểm soát</th>
                         <th>Loại xe</th>
                         <th>Tên xe</th>
-                        <th>Mô tả</th>
+                        {/* <th>Mô tả</th> */}
                         <th>Hành động</th>
                       </tr>
                     </thead>
@@ -298,7 +300,7 @@ const HouseholdAddPage = () => {
                           <td>{row.bienKiemSoat}</td>
                           <td>{row.maLoaiXe === "LX001" ? "Xe máy" : "Xe ô tô"}</td>
                           <td>{row.tenXe}</td>
-                          <td>{row.moTa}</td>
+                          {/* <td>{row.moTa}</td> */}
                           <td>
                             <div style={{
                               display: 'flex',
@@ -318,16 +320,22 @@ const HouseholdAddPage = () => {
                 </div>
               </Box>
             </div>
-            <div style={{ width: '500px', marginTop: 20 }}>
-              <Select
-                name="danhSachNhanKhau"
-                options={dataNhanKhau.concat(values.danhSachNhanKhau)}
-                component={CustomSelect}
-                placeholder="Danh sách mã nhân khẩu "
-                isMulti={true}
-                defaultValue={values.danhSachNhanKhau}
-                onChange={handleSelect}
-              />
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <div style={{ width: '500px', marginTop: 20 }}>
+                <Select
+                  name="danhSachNhanKhau"
+                  options={dataNhanKhau.concat(values.danhSachNhanKhau)}
+                  component={CustomSelect}
+                  placeholder="Danh sách mã nhân khẩu "
+                  isMulti={true}
+                  defaultValue={values.danhSachNhanKhau}
+                  onChange={handleSelect}
+                />
+
+              </div>
+              <div style={{marginTop: 25, marginLeft: 10}}>
+                <VisibilityIcon style={{cursor: 'pointer'}} onClick={() => setShowDetailMember(true)} />
+              </div>
             </div>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button startIcon={<SaveAsIcon />}
@@ -338,6 +346,7 @@ const HouseholdAddPage = () => {
           </form>
         )}
       </Formik>
+      {showDetailMember && <ModalDetailDemographic memberData={detailHouseholdData?.danhSachNhanKhau} onClose={() => setShowDetailMember(false)} />}
       {/* <ToastContainer /> */}
     </Box>
   );

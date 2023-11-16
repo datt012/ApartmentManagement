@@ -35,7 +35,7 @@ const TabernaclePage = () => {
         }}
           startIcon={<ManageAccountsRoundedIcon />}
           variant="contained"
-          style={{ backgroundColor: colors.greenAccent[700], border: "none" }}>Chi tiết
+          color="info">Chi tiết
         </Button>
     );
   }
@@ -81,11 +81,11 @@ const TabernaclePage = () => {
   return (
     <Box m="20px">
       <Header
-        title="DANH SÁCH TẠM TRÚ"
+        title="Danh sách tạm trú"
       />
       <Button onClick={()=>{
         setOpenPopup(!openPopup);}}
-        color="secondary" variant="contained" style={{ fontWeight: "bold" }}>
+        color="info" variant="contained" style={{ fontWeight: "bold" }}>
         Đăng ký tạm trú</Button>
       <Box
         m="40px 0 0 0"

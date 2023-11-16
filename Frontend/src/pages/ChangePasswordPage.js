@@ -4,6 +4,8 @@ import axios from '../setups/custom_axios';
 import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "../Redux/authSlice";
+import { Button } from "@mui/material";
+import { toast } from "react-toastify";
 export default function ChangePasswordPage() {
 
   const dispatch = useDispatch();
@@ -17,15 +19,15 @@ export default function ChangePasswordPage() {
   const handleSubmit = async () => {
 
     if (oldPassword === '') {
-      alert('Hãy nhập password cũ!');
+      toast('Hãy nhập password cũ!');
       return;
     }
     if (newPassword === '') {
-      alert('Hãy nhập password mới!');
+      toast('Hãy nhập password mới!');
       return;
     }
     if (newPassword !== confirmPassword) {
-      alert('Confirm password không chính xác!');
+      toast('Confirm password không chính xác!');
       return;
     }
     try {
@@ -34,11 +36,11 @@ export default function ChangePasswordPage() {
         oldPassword,
         newPassword
       });
-      alert(res?.message);
+      toast(res?.message);
       dispatch(logout());
     }
     catch (e) {
-      alert('Mật khẩu không đúng!');
+      toast('Đổi mật khẩu thất bại!');
       return;
     }
 
@@ -49,7 +51,7 @@ export default function ChangePasswordPage() {
 
   return (
     <div>
-      <div style={{ margin: "auto", width: '40%' }}>
+      <div className="input-custome" style={{ margin: "auto", width: '40%' }}>
         <div className="text-center mt-3 mb-3" >
           <h3>ĐỔI MẬT KHẨU</h3>
         </div>
@@ -102,8 +104,8 @@ export default function ChangePasswordPage() {
               placeholder="Xác nhận mật khẩu mới . . ."
             />
           </div>
-          <button onClick={() => handleSubmit()}
-            className="btn btn-warning" style={{ width: 100, margin: 'auto' }}>Gửi</button>
+          <Button onClick={() => handleSubmit()} variant="contained" color="info"
+           style={{ width: 100, margin: 'auto' }}>Gửi</Button>
         </div>
       </div>
     </div>

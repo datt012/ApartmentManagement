@@ -94,7 +94,7 @@ const RevenueHouse = () => {
     return (
         <Box m="20px">
             <Header
-                title="DANH SÁCH KHOẢN THU THEO HỘ"
+                title="Danh sách khoản thu theo hộ"
             />
             <Box
                 m="40px 0 0 0"

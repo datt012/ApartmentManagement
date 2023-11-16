@@ -16,7 +16,6 @@ namespace CNPM.Core.Entities
         public DbSet<NhanKhauEntity> NhanKhau { set; get; }
         public DbSet<TamTruEntity> TamTru { set; get; }
         public DbSet<TamVangEntity> TamVang { set; get; }
-        public DbSet<LichSuEntity> LichSu { set; get; }
         public DbSet<KhoanThuEntity> KhoanThu { set; get; }
         public DbSet<KhoanThuTheoHoEntity> KhoanThuTheoHo { set; get; }
         public DbSet<HoaDonEntity> HoaDon { set; get; }

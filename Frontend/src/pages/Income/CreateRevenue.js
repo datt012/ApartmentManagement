@@ -73,8 +73,8 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
     loaiKhoanThu: 0,
     dichvu: 0,
     quanly: 7000,
-    xeMay: 0,
-    xeOto: 0,
+    xeMay: 70000,
+    xeOto: 1200000,
     ghiChu: "",
   };
   return (
@@ -251,6 +251,12 @@ const idRegEXp = /^\d+$/;
 
 const checkoutSchema = yup.object().shape({
   tenKhoanThu: yup.string().required("Bạn chưa điền thông tin"),
+  dichvu:  yup
+  .number()
+  .typeError("Vui lòng nhập một số")
+  .required("Bạn chưa điền thông tin")
+  .min(2500, "Số tiền phải lớn hơn hoặc bằng 2500")
+  .max(16500, "Số tiền phải nhỏ hơn hoặc bằng 16500"),
 });
 
 export default CreateRevenue;

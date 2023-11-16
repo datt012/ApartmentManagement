@@ -1,6 +1,5 @@
 ﻿using CNPM.Core.Entities;
 using CNPM.Core.Models.NhanKhau;
-using CNPM.Core.Models.LichSu;
 using CNPM.Core.Utils;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;

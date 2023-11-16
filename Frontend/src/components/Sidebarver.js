@@ -21,7 +21,7 @@ const Item = ({ title, to, icon, selected, setSelected, data }) => {
 
       icon={icon}
     >
-      <Typography style={{fontSize: 14}}>{title}</Typography>
+      <Typography style={{fontSize: 15}}>{title}</Typography>
       <Link to={to} />
     </MenuItem>
   );

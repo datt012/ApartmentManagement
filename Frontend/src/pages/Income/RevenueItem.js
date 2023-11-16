@@ -42,7 +42,7 @@ const RevenueItem = () => {
             }}
                 startIcon={<ManageAccountsRoundedIcon />}
                 variant="contained"
-                style={{ backgroundColor: colors.greenAccent[700], border: "none" }}>Thanh toán
+                color="info">Thanh toán
             </Button>
         );
     }
@@ -95,7 +95,7 @@ const RevenueItem = () => {
     return (
         <Box m="20px">
             <Header
-                title="DANH SÁCH CÁC HỘ CẦN THU PHÍ"
+                title="Danh sách các hộ cần thu phí"
             />
             <Box
                 m="40px 0 0 0"

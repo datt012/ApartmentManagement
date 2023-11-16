@@ -16,7 +16,6 @@ using CNPM.Core.Models.NhanKhau;
 using CNPM.Repository.Implementations;
 using System.Collections.Generic;
 using CNPM.Core.Models.HoKhau;
-using CNPM.Core.Models.LichSu;
 using CNPM.Core.Models.Xe;
 using CNPM.Core.Models.CanHo;
 
@@ -83,8 +82,6 @@ namespace CNPM.Service.Implementations
                 var hoKhau1001 = _mapper.Map<HoKhauEntity, HoKhauDto1001>(hoKhau);
                 var listNhanKhauEntity = _nhanKhauRepository.GetListNhanKhauInHoKhau(maHoKhau);
                 var listNhanKhauDto = _mapper.Map<List<NhanKhauEntity>, List<NhanKhauDto1001> >(listNhanKhauEntity);
-                var lichSuEntity = _hoKhauRepository.GetLichSu(maHoKhau);
-                var lichSuDto= _mapper.Map<List<LichSuEntity>, List<LichSuDto1000>>(lichSuEntity);
                 var phongEntity = _canHoRepository.GetCanHoByHoKhau(maHoKhau);
                 var phong1001 = _mapper.Map<CanHoEntity, CanHoDto1001 >(phongEntity);
                 var listXeEntity = _xeRepository.GetListXeByHoKhau(maHoKhau);
@@ -98,7 +95,6 @@ namespace CNPM.Service.Implementations
                 hoKhau1001.DanhSachXe = listXe1001;
                 hoKhau1001.DanhSachNhanKhau = listNhanKhauDto;
                 hoKhau1001.SoThanhVien = listNhanKhauDto.FindAll(o => o.TrangThai == Constant.ALIVE).ToList().Count();
-                hoKhau1001.LichSu = lichSuDto;
                 return new OkObjectResult(new {
                     message = Constant.GET_HO_KHAU_SUCCESSFULLY,
                     data = hoKhau1001
@@ -200,7 +196,7 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public IActionResult AddCanHoToHoKhau(string token, string maHoKhau, int maPhong)
+        public IActionResult AddCanHoToHoKhau(string token, string maHoKhau, int maCanHo)
         {
             try
             {
@@ -212,7 +208,7 @@ namespace CNPM.Service.Implementations
                     reason = Constant.MA_HO_KHAU_NOT_EXIST
                 });
                 // bỏ check version
-                bool add = _hoKhauRepository.AddPhongToHoKhau(maHoKhau, maPhong, userName);
+                bool add = _hoKhauRepository.AddCanHoToHoKhau(maHoKhau, maCanHo, userName);
 
                 if (add)
                 {
@@ -356,16 +352,10 @@ namespace CNPM.Service.Implementations
                     message = Constant.DELETE_HO_KHAU_FAILED,
                     reason = Constant.MA_HO_KHAU_NOT_EXIST
                 });
-
-                /*if (hoKhau.Version != version) return new BadRequestObjectResult(new
-                {
-                    message = Constant.DELETE_HO_KHAU_FAILED,
-                    reason = Constant.DATA_UPDATED_BEFORE
-                });*/
                 // xóa tất cả nhân khẩu trong hộ khẩu
                 // xóa phòng mà hộ khẩu đã ở
 
-                _hoKhauRepository.AddPhongToHoKhau(maHoKhau, -1, userName);
+                _hoKhauRepository.AddCanHoToHoKhau(maHoKhau, -1, userName);
 
                 bool remove = _hoKhauRepository.RemoveNhanKhauFromHoKhau(maHoKhau, userName);
                 if (remove)

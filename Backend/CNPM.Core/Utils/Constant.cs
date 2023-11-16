@@ -59,8 +59,8 @@
         public const string GET_LIST_TAM_VANG_SUCCESSFULLY = "Lấy danh sách tạm vắng thành công";
         public const string GET_LIST_TAM_VANG_FAILED = "Lấy danh sách tạm vắng thất bại";
 
-        public const string GET_LIST_PHONG_SUCCESSFULLY = "Lấy danh sách căn hộ thành công";
-        public const string GET_LIST_PHONG_FAILED = "Lấy danh sách căn hộ thất bại";
+        public const string GET_LIST_CAN_HO_SUCCESSFULLY = "Lấy danh sách căn hộ thành công";
+        public const string GET_LIST_CAN_HO_FAILED = "Lấy danh sách căn hộ thất bại";
 
         public const string GET_NHAN_KHAU_SUCCESSFULLY = "Lấy thông tin nhân khẩu thành công";
         public const string GET_NHAN_KHAU_FAILED = "Lấy thông tin nhân khẩu thất bại";
@@ -80,8 +80,8 @@
         public const string GET_TAM_VANG_SUCCESSFULLY = "Lấy thông tin tạm vắng thành công";
         public const string GET_TAM_VANG_FAILED = "Lấy thông tin tạm vắng thất bại";
 
-        public const string GET_PHONG_SUCCESSFULLY = "Lấy thông tin căn hộ thành công";
-        public const string GET_PHONG_FAILED = "Lấy thông tin căn hộ thất bại";
+        public const string GET_CAN_HO_SUCCESSFULLY = "Lấy thông tin căn hộ thành công";
+        public const string GET_CAN_HO_FAILED = "Lấy thông tin căn hộ thất bại";
 
         public const string CREATE_NHAN_KHAU_SUCCESSFULLY = "Thêm mới nhân khẩu thành công";
         public const string CREATE_NHAN_KHAU_FAILED = "Thêm mới nhân khẩu thất bại";
@@ -105,8 +105,8 @@
         public const string CREATE_TAM_VANG_FAILED = "Thêm mới tạm vắng thất bại";
         public const string REASON_NHAN_KHAU_TAM_VANG_EXISTED = "Nhân khẩu này đã đăng ký tạm vắng";
 
-        public const string CREATE_PHONG_SUCCESSFULLY = "Thêm mới căn hộ thành công";
-        public const string CREATE_PHONG_FAILED = "Thêm mới căn hộ thất bại";
+        public const string CREATE_CAN_HO_SUCCESSFULLY = "Thêm mới căn hộ thành công";
+        public const string CREATE_CAN_HO_FAILED = "Thêm mới căn hộ thất bại";
 
         public const string UPDATE_NHAN_KHAU_SUCCESSFULLY = "Cập nhật thông tin nhân khẩu thành công";
         public const string UPDATE_NHAN_KHAU_FAILED = "Cập nhật thông tin nhân khẩu thất bại";
@@ -125,9 +125,9 @@
         public const string UPDATE_TAM_VANG_FAILED = "Cập nhật thông tin tạm vắng thất bại";
         public const string MA_TAM_VANG_NOT_EXIST = "Mã tạm vắng không tồn tại";
 
-        public const string UPDATE_PHONG_SUCCESSFULLY = "Cập nhật thông tin căn hộ thành công";
-        public const string UPDATE_PHONG_FAILED = "Cập nhật thông tin căn hộ thất bại";
-        public const string MA_PHONG_NOT_EXIST = "Mã căn hộ không tồn tại";
+        public const string UPDATE_CAN_HO_SUCCESSFULLY = "Cập nhật thông tin căn hộ thành công";
+        public const string UPDATE_CAN_HO_FAILED = "Cập nhật thông tin căn hộ thất bại";
+        public const string MA_CAN_HO_NOT_EXIST = "Mã căn hộ không tồn tại";
 
         public const string UPDATE_HO_KHAU_SUCCESSFULLY = "Cập nhật thông tin hộ khẩu thành công";
         public const string UPDATE_HO_KHAU_FAILED = "Cập nhật thông tin hộ khẩu thất bại";
@@ -157,8 +157,8 @@
         public const string DELETE_TAM_VANG_SUCCESSFULLY = "Xóa thông tin tạm vắng thành công";
         public const string DELETE_TAM_VANG_FAILED = "Xoá thông tin tạm vắng thất bại";
 
-        public const string DELETE_PHONG_SUCCESSFULLY = "Xóa thông tin căn hộ thành công";
-        public const string DELETE_PHONG_FAILED = "Xoá thông tin căn hộ thất bại";
+        public const string DELETE_CAN_HO_SUCCESSFULLY = "Xóa thông tin căn hộ thành công";
+        public const string DELETE_CAN_HO_FAILED = "Xoá thông tin căn hộ thất bại";
 
         public const string THANH_TOAN_SUCCESSFULLY = "Thanh toán thành công";
         public const string THANH_TOAN_FAILED = "Thanh toán thất bại";

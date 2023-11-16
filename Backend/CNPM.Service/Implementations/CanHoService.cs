@@ -36,12 +36,12 @@ namespace CNPM.Service.Implementations
         {
             try
             {
-                var listPhong = _canHoRepository.GetListCanHo(index, limit);
-                var arr = _mapper.Map<List<CanHoEntity>, List<CanHoDto1003>>(listPhong);
+                var listCanHo = _canHoRepository.GetListCanHo(index, limit);
+                var arr = _mapper.Map<List<CanHoEntity>, List<CanHoDto1003>>(listCanHo);
                 return new OkObjectResult(
                     new
                     {
-                        message = Constant.GET_LIST_PHONG_SUCCESSFULLY,
+                        message = Constant.GET_LIST_CAN_HO_SUCCESSFULLY,
                         data = arr
                     }
                 );
@@ -52,24 +52,24 @@ namespace CNPM.Service.Implementations
             }
         }
 
-        public IActionResult GetCanHo(int maPhong)
+        public IActionResult GetCanHo(int maCanHo)
         {
             try { 
-                CanHoEntity phong = _canHoRepository.GetCanHo(maPhong);
+                CanHoEntity canHo = _canHoRepository.GetCanHo(maCanHo);
 
-                if (phong == null) return new BadRequestObjectResult(
+                if (canHo == null) return new BadRequestObjectResult(
                        new
                        {
-                           message = Constant.GET_PHONG_FAILED,
-                           reason = Constant.MA_PHONG_NOT_EXIST
+                           message = Constant.GET_CAN_HO_FAILED,
+                           reason = Constant.MA_CAN_HO_NOT_EXIST
                        }
                     );
 
-                var phong1001 = _mapper.Map<CanHoEntity, CanHoDto1001>(phong);
+                var canHoDto1001 = _mapper.Map<CanHoEntity, CanHoDto1001>(canHo);
 
                 return new OkObjectResult(new {
                     message = Constant.GET_TAM_VANG_SUCCESSFULLY,
-                    data = phong1001
+                    data = canHoDto1001
                 });
             }
             catch (Exception ex)
@@ -77,31 +77,31 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public IActionResult CreateCanHo(string token, CanHoDto1000 phong1000)
+        public IActionResult CreateCanHo(string token, CanHoDto1000 canHo1000)
         {
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
 
-                CanHoEntity phong = _mapper.Map<CanHoDto1000, CanHoEntity>(phong1000);
+                CanHoEntity canHo = _mapper.Map<CanHoDto1000, CanHoEntity>(canHo1000);
 
-                phong.CreateTime = DateTime.Now;
-                phong.UpdateTime = DateTime.Now;
-                phong.UserCreate = userName;
-                phong.UserUpdate = userName;
-                if (phong1000.MaHoKhau == "") phong.MaHoKhau = null;
-                bool created = _canHoRepository.CreateCanHo(phong);
+                canHo.CreateTime = DateTime.Now;
+                canHo.UpdateTime = DateTime.Now;
+                canHo.UserCreate = userName;
+                canHo.UserUpdate = userName;
+                if (canHo1000.MaHoKhau == "") canHo.MaHoKhau = null;
+                bool created = _canHoRepository.CreateCanHo(canHo);
 
                 if (created)
                 {
                     return new OkObjectResult(new
                     {
-                        message = Constant.CREATE_PHONG_SUCCESSFULLY
+                        message = Constant.CREATE_CAN_HO_SUCCESSFULLY
                     });
                 }
                 return new BadRequestObjectResult(new
                 {
-                    message = Constant.CREATE_PHONG_FAILED
+                    message = Constant.CREATE_CAN_HO_FAILED
                 });
             }
             catch (Exception ex)
@@ -109,43 +109,43 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public IActionResult UpdateCanHo(string token, int maPhong, CanHoDto1002 newPhong)
+        public IActionResult UpdateCanHo(string token, int maCanHo, CanHoDto1002 newCanHo)
         {
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-                var phong = _canHoRepository.GetCanHo(maPhong);
-                if (phong == null) return new BadRequestObjectResult(new
+                var canHo = _canHoRepository.GetCanHo(maCanHo);
+                if (canHo == null) return new BadRequestObjectResult(new
                 {
-                    message = Constant.UPDATE_PHONG_FAILED,
-                    reason = Constant.MA_PHONG_NOT_EXIST
+                    message = Constant.UPDATE_CAN_HO_FAILED,
+                    reason = Constant.MA_CAN_HO_NOT_EXIST
                 });
 
-                if (phong.Version != newPhong.Version) return new BadRequestObjectResult(new
+                if (canHo.Version != newCanHo.Version) return new BadRequestObjectResult(new
                 {
-                    message = Constant.UPDATE_PHONG_FAILED,
+                    message = Constant.UPDATE_CAN_HO_FAILED,
                     reason = Constant.DATA_UPDATED_BEFORE
                 });
 
 
                 
-                CanHoEntity phongEntity = _mapper.Map<CanHoDto1002, CanHoEntity>(newPhong);
-                if (newPhong.MaHoKhau == "") phongEntity.MaHoKhau = null;
-                phongEntity.MaCanHo = maPhong;
-                phongEntity.UserUpdate = userName;
-                phongEntity.UpdateTime = DateTime.Now;
-                phongEntity.Version += 1;
-                bool updated = _canHoRepository.UpdateCanHo(phongEntity);
+                CanHoEntity canHoEntity = _mapper.Map<CanHoDto1002, CanHoEntity>(newCanHo);
+                if (newCanHo.MaHoKhau == "") canHoEntity.MaHoKhau = null;
+                canHoEntity.MaCanHo = maCanHo;
+                canHoEntity.UserUpdate = userName;
+                canHoEntity.UpdateTime = DateTime.Now;
+                canHoEntity.Version += 1;
+                bool updated = _canHoRepository.UpdateCanHo(canHoEntity);
                 if (updated)
                 {
                     return new OkObjectResult(new
                     {
-                        message = Constant.UPDATE_PHONG_SUCCESSFULLY
+                        message = Constant.UPDATE_CAN_HO_SUCCESSFULLY
                     });
                 }
                 return new BadRequestObjectResult(new
                 {
-                    message = Constant.UPDATE_PHONG_FAILED
+                    message = Constant.UPDATE_CAN_HO_FAILED
                 });
             }
             catch (Exception ex)
@@ -153,38 +153,38 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public IActionResult DeleteCanHo(int maPhong, string token, int version)
+        public IActionResult DeleteCanHo(int maCanHo, string token, int version)
         {
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-                var phong = _canHoRepository.GetCanHo(maPhong);
+                var canHo = _canHoRepository.GetCanHo(maCanHo);
 
 
-                if (phong == null) return new BadRequestObjectResult(new
+                if (canHo == null) return new BadRequestObjectResult(new
                 {
-                    message = Constant.DELETE_PHONG_FAILED,
-                    reason = Constant.MA_PHONG_NOT_EXIST
+                    message = Constant.DELETE_CAN_HO_FAILED,
+                    reason = Constant.MA_CAN_HO_NOT_EXIST
                 });
 
 
-                if (phong.Version != version) return new BadRequestObjectResult(new
+                if (canHo.Version != version) return new BadRequestObjectResult(new
                 {
-                    message = Constant.DELETE_PHONG_FAILED,
+                    message = Constant.DELETE_CAN_HO_FAILED,
                     reason = Constant.DATA_UPDATED_BEFORE
                 });
 
-                bool delete = _canHoRepository.DeleteCanHo(maPhong, userName);
+                bool delete = _canHoRepository.DeleteCanHo(maCanHo, userName);
                 if (delete)
                 {
                     return new OkObjectResult(new
                     {
-                        message = Constant.DELETE_PHONG_SUCCESSFULLY,
+                        message = Constant.DELETE_CAN_HO_SUCCESSFULLY,
                     });
                 }
                 return new BadRequestObjectResult(new
                 {
-                    message = Constant.DELETE_PHONG_FAILED
+                    message = Constant.DELETE_CAN_HO_FAILED
                 });
             }
             catch (Exception ex)

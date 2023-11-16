@@ -35,7 +35,7 @@ const AbsentPage = () => {
         }}
           startIcon={<ManageAccountsRoundedIcon />}
           variant="contained"
-          style={{ backgroundColor: colors.greenAccent[700], border: "none" }}>Chi tiết
+          color="info">Chi tiết
         </Button>
     );
   }
@@ -80,11 +80,11 @@ const AbsentPage = () => {
   return (
     <Box m="20px">
       <Header
-        title="DANH SÁCH TẠM VẮNG"
+        title="Danh sách tạm vắng"
       />
       <Button onClick={()=>{
         setOpenPopup(!openPopup);}}
-        color="secondary" variant="contained" style={{ fontWeight: "bold" }}>
+        color="info" variant="contained" style={{ fontWeight: "bold" }}>
         Đăng ký tạm vắng</Button>
       <Box
         m="40px 0 0 0"

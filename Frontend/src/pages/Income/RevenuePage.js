@@ -34,14 +34,16 @@ const RevenuePage = () => {
     const colors = tokens(theme.palette.mode);
 
     return (
-      <div onClick={() => {
+      <Button onClick={() => {
         revenueService.getRevenue(maKhoanThu).then(mes => {
           setData(mes.data);
           setOpenInPopup(!openInPopup);
         })
-      }}>
-        <EditIcon/>
-      </div>
+      }}
+        startIcon={<EditIcon />}
+        variant="contained"
+        color="info">Chi tiết
+      </Button>
     );
   }
   const ListButton = ({ maKhoanThu, loaiKhoanThu }) => {
@@ -57,7 +59,7 @@ const RevenuePage = () => {
         }}
           startIcon={<FactCheckIcon />}
           variant="contained"
-          style={{ backgroundColor: colors.greenAccent[500], border: "none" }}>Danh sách hộ
+          color="info">Danh sách hộ
         </Button>
       </Link>
     );
@@ -116,12 +118,12 @@ const RevenuePage = () => {
   return (
     <Box m="20px">
       <Header
-        title="DANH SÁCH KHOẢN THU"
+        title="Danh sách khoản thu"
       />
       <Button onClick={() => {
         setOpenPopup(!openPopup);
       }}
-        color="secondary" variant="contained" style={{ fontWeight: "bold" }}>
+        color="info" variant="contained" style={{ fontWeight: "bold" }}>
         Tạo khoản thu phí</Button>
       <Box
         m="40px 0 0 0"

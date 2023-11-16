@@ -86,6 +86,7 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                                     gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                                     sx={{
                                         "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                                        width: 500
                                     }}
                                 >
                                     <TextField
@@ -99,7 +100,7 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                                         name="tenCanHo"
                                         error={!!touched.tenCanHo && !!errors.tenCanHo}
                                         helperText={touched.tenCanHo && errors.tenCanHo}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                                     />
                                     <TextField
                                         fullWidth
@@ -112,7 +113,7 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                                         name="tang"
                                         error={!!touched.tang && !!errors.tang}
                                         helperText={touched.tang && errors.tang}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                                     />
                                     <TextField
                                         fullWidth
@@ -125,7 +126,7 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                                         name="dienTich"
                                         error={!!touched.dienTich && !!errors.dienTich}
                                         helperText={touched.dienTich && errors.dienTich}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                                     />
                                     {/* <TextField
                                         fullWidth
@@ -140,7 +141,7 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                                         helperText={touched.ngheNghiep && errors.ngheNghiep}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                                     /> */}
-                                    <TextField
+                                    {/* <TextField
                                         fullWidth
                                         variant="filled"
                                         type="text"
@@ -152,7 +153,7 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                                         error={!!touched.moTa && !!errors.moTa}
                                         helperText={touched.moTa && errors.moTa}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                                    />
+                                    /> */}
                                 </Box>
                                 <Box display="flex" justifyContent="end" mt="20px" >
                                     <Button

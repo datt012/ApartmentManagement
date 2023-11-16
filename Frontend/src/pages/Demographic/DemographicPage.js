@@ -39,7 +39,8 @@ const DemographicPage = () => {
       }}
         startIcon={<ManageAccountsRoundedIcon />}
         variant="contained"
-        style={{ backgroundColor: colors.greenAccent[700], border: "none" }}>Chi tiết
+        color="info">
+        Chi tiết
       </Button>
     );
   }
@@ -92,7 +93,7 @@ const DemographicPage = () => {
       field: "chiTiet",
       headerName: "",
       flex: 1,
-      renderCell: (param) => <EditButton maNhanKhau={param.row.maNhanKhau} openInPopup={openInPopup} setOpenInPopup={setOpenInPopup}/>,
+      renderCell: (param) => <EditButton maNhanKhau={param.row.maNhanKhau} openInPopup={openInPopup} setOpenInPopup={setOpenInPopup} />,
     }
 
   ]);
@@ -100,11 +101,12 @@ const DemographicPage = () => {
   return (
     <Box m="20px">
       <Header
-        title="Quản lý Nhân khẩu"
+        title="Danh sách nhân khẩu"
       />
-      <Button onClick={()=>{
-        setOpenPopup(!openPopup);}}
-        color="secondary" variant="contained" style={{ fontWeight: "bold" }}>
+      <Button onClick={() => {
+        setOpenPopup(!openPopup);
+      }}
+        color="info" variant="contained" style={{ fontWeight: "bold" }}>
         Đăng ký nhân khẩu</Button>
       <Box
         m="40px 0 0 0"
@@ -116,8 +118,8 @@ const DemographicPage = () => {
           }
         }}
       >
-        <RegisterDemographic openPopup={openPopup} setOpenPopup={setOpenPopup}/>
-        <EditDemographic openInPopup={openInPopup} setOpenInPopup={setOpenInPopup} data={data}/>
+        <RegisterDemographic openPopup={openPopup} setOpenPopup={setOpenPopup} />
+        <EditDemographic openInPopup={openInPopup} setOpenInPopup={setOpenInPopup} data={data} />
 
         {isLoading ? (
           <div className="loading-container d-flex flex-column align-items-center ustify-content-center">

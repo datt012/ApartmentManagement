@@ -28,6 +28,7 @@ import RevenueHouse from "./pages/Income/RevenueHouse";
 import AddRoomModal from "./components/AddRoomModals";
 import HouseholdPutPage from "./pages/Household/HouseholdPutPage";
 import RoomPage from "./pages/Room/RoomPage";
+import ChangeInfoPage from "./pages/ChangeInfoPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ function App() {
                   <Route path="/login" exact component={Login} />
                   <Route path="/about" exact component={About} />
                   <Route path="/change-password" exact component={ChangePasswordPage} />
+                  <Route path="/change-info" exact component={ChangeInfoPage} />
                   <Route path="/revenue" exact component={RevenuePage} />
                   <Route path="/revenue-item" exact component={RevenueItem} />
                   <Route path="/revenue-house" exact component={RevenueHouse} />

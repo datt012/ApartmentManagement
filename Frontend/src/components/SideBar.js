@@ -7,7 +7,7 @@ import * as BsIcons from "react-icons/bs";
 
 export const SidebarDataAdmin =  [
   {
-    title: 'Home',
+    title: 'Trang chủ',
     path: "/",
     icon: <AiIcons.AiFillHome/>
   },
@@ -23,7 +23,7 @@ export const SidebarDataAdmin =  [
       {
         title: 'Căn hộ',
         path: '/room',
-        icon: <AiIcons.AiFillPlusCircle />,
+        icon: <BsIcons.BsHouseDoorFill  />,
       }
     ]
   },
@@ -34,12 +34,12 @@ export const SidebarDataAdmin =  [
       {
         title: 'Nhân khẩu',
         path: '/demographic',
-        icon: <FaIcons.FaListAlt />
+        icon: <BsIcons.BsPersonCheckFill  />
       },
       {
         title: 'Tạm trú',
         path: '/tabernacle',
-        icon: <AiIcons.AiFillPlusCircle />,
+        icon: <BsIcons.BsPersonPlusFill />,
       },
       {
         title: 'Tạm vắng',
@@ -66,11 +66,5 @@ export const SidebarDataKeToan =  [
     title: 'Quản lý khoản thu',
     path: '/revenue',
     icon: <AiIcons.AiFillMoneyCollect />
-  },
-  {
-    title: 'About',
-    path: '/about',
-    icon: <SiIcons.SiAboutdotme />
-  },
-  
+  }
 ];

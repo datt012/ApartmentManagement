@@ -49,20 +49,6 @@ namespace CNPM.Repository.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public List<LichSuEntity> GetLichSu(string maHoKhau)
-        {
-            try
-            {
-                var _dbcontext = new MyDbContext();
-                List<LichSuEntity> lichSu = _dbcontext.LichSu.Where(
-                    o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == maHoKhau).ToList();
-                return lichSu;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
         public string CreateHoKhau(HoKhauEntity hoKhau)
         {
             try
@@ -107,20 +93,6 @@ namespace CNPM.Repository.Implementations
                     }
                 }
                 _dbcontext.SaveChanges();
-                LichSuEntity lichSu = new LichSuEntity();
-                if (listMaNhanKhau != "")
-                {
-                    lichSu.CreateTime = DateTime.Now;
-                    lichSu.UpdateTime = DateTime.Now;
-                    lichSu.UserUpdate = userName;
-                    lichSu.UserCreate = userName;
-                    lichSu.MaHoKhau = maHoKhau;
-                    lichSu.NoiDung = "Cập nhật danh sách nhân khẩu trong hộ khẩu: " + listMaNhanKhau;
-                    lichSu.Version = 0;
-                    lichSu.Delete = 0;
-                    _dbcontext.LichSu.Add(lichSu);
-                    _dbcontext.SaveChanges();
-                }
                 return true;
             }
             catch(Exception ex)
@@ -128,31 +100,31 @@ namespace CNPM.Repository.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public bool AddPhongToHoKhau(string maHoKhau, int maPhong, string userName)
+        public bool AddCanHoToHoKhau(string maHoKhau, int maCanHo, string userName)
         {
             try
             {
                 var _dbcontext = new MyDbContext();
 
-                var phongByMaHoKhau = _dbcontext.CanHo.Where(
+                var canHoByMaHoKhau = _dbcontext.CanHo.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == maHoKhau).FirstOrDefault();
 
-                if (phongByMaHoKhau != null)
+                if (canHoByMaHoKhau != null)
                 {
-                    phongByMaHoKhau.MaHoKhau = null;
+                    canHoByMaHoKhau.MaHoKhau = null;
                 }
 
-                if (maPhong == -1)
+                if (maCanHo == -1)
                 {
                     _dbcontext.SaveChanges();
                     return true;
                 }
-                var phong = _dbcontext.CanHo.Where(
-                    o => o.Delete == Constant.NOT_DELETE && o.MaCanHo == maPhong).FirstOrDefault();
+                var canHo = _dbcontext.CanHo.Where(
+                    o => o.Delete == Constant.NOT_DELETE && o.MaCanHo == maCanHo).FirstOrDefault();
                 
-                if (phong == null) return false;
+                if (canHo == null) return false;
                 
-                phong.MaHoKhau = maHoKhau;
+                canHo.MaHoKhau = maHoKhau;
                 _dbcontext.SaveChanges();
                 return true;
             }
@@ -161,18 +133,18 @@ namespace CNPM.Repository.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public bool RemovePhongFromHoKhau(string maHoKhau, string userName)
+        public bool RemoveCanHoFromHoKhau(string maHoKhau, string userName)
         {
             try
             {
                 var _dbcontext = new MyDbContext();
 
-                var phong = _dbcontext.CanHo.Where(
+                var canHo = _dbcontext.CanHo.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == maHoKhau).FirstOrDefault();
 
-                if (phong == null) return false;
+                if (canHo == null) return false;
 
-                phong.MaHoKhau = null;
+                canHo.MaHoKhau = null;
                 _dbcontext.SaveChanges();
                 return true;
             }
@@ -280,20 +252,6 @@ namespace CNPM.Repository.Implementations
                     }
                     hoKhau.Version = newHoKhau.Version;
                     _dbcontext.SaveChanges();
-                    LichSuEntity lichSu = new LichSuEntity();
-                    if (ghiChu != "")
-                    {
-                        lichSu.CreateTime = DateTime.Now;
-                        lichSu.UpdateTime = DateTime.Now;
-                        lichSu.UserCreate = newHoKhau.UserUpdate;
-                        lichSu.UserUpdate = newHoKhau.UserUpdate;
-                        lichSu.MaHoKhau = newHoKhau.MaHoKhau;
-                        lichSu.NoiDung = ghiChu;
-                        lichSu.Version = 0;
-                        lichSu.Delete = 0;
-                        _dbcontext.LichSu.Add(lichSu);
-                        _dbcontext.SaveChanges();
-                    }
                     return newHoKhau.MaHoKhau;
                 }
                 else return "";

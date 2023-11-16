@@ -128,7 +128,7 @@ const RoomPage = () => {
       <Button onClick={() => {
         setOpenPopup(!openPopup);
       }}
-        color="secondary" variant="contained" style={{ fontWeight: "bold" }}>
+        color="info" variant="contained" style={{ fontWeight: "bold" }}>
         Thêm căn hộ</Button>
       <Box
         m="40px 0 0 0"

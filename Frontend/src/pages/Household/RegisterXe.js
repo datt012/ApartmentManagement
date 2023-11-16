@@ -86,6 +86,7 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
                                     gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                                     sx={{
                                         "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                                        width: 500
                                     }}
                                 >
                                     <TextField
@@ -99,7 +100,7 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
                                         name="tenXe"
                                         error={!!touched.tenXe && !!errors.tenXe}
                                         helperText={touched.tenXe && errors.tenXe}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                                     />
                                     <TextField
                                         fullWidth
@@ -112,7 +113,7 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
                                         name="bienKiemSoat"
                                         error={!!touched.bienKiemSoat && !!errors.bienKiemSoat}
                                         helperText={touched.bienKiemSoat && errors.bienKiemSoat}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                                     />
                                     <TextField
                                         variant="filled"
@@ -122,12 +123,12 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
                                         name="maLoaiXe"
                                         onChange={handleChange}
                                         defaultValue={values.maLoaiXe}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}>
+                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}>
                                         {LIST_LOAI_XE.map((loaiXe, index) => {
                                             return <MenuItem key={index} value={loaiXe.id}>{loaiXe.label}</MenuItem>
                                         })}
                                     </TextField>
-                                    <TextField
+                                    {/* <TextField
                                         fullWidth
                                         variant="filled"
                                         type="text"
@@ -139,7 +140,7 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
                                         error={!!touched.moTa && !!errors.moTa}
                                         helperText={touched.moTa && errors.moTa}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                                    />
+                                    /> */}
                                 </Box>
                                 <Box display="flex" justifyContent="end" mt="20px" >
                                     <Button
