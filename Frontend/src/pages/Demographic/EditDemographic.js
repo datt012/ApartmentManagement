@@ -25,7 +25,6 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
     const [newDate, setNewDate] = useState(dayjs(data.ngaySinh));
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-
     const handleFormSubmit = (values) => {
         if(window.confirm("Bạn chắc chắn muốn lưu") == true) {
             demographicService.putDemographic(values.maNhanKhau, {
@@ -57,6 +56,10 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
         quanHe: data.quanHe,
         ghiChu: data.ghiChu,
     };
+    useEffect(() => {
+        setNewDate(data.ngaySinh);
+    }, [data])
+    console.log('newDate', newDate);
     return (
         <Dialog open={openInPopup} maxWidth="md" style={{ backgroundColor: "transparent" }}
             sx={{
@@ -64,7 +67,7 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
             <DialogTitle>
                 <div style={{ display: 'flex' }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-                        {"ĐĂNG KÝ NHÂN KHẨU"}
+                        {"THÔNG TIN NHÂN KHẨU"}
                     </Typography>
                     <IconButton aria-label="close" onClick={() => {
                         setOpenInPopup(!openInPopup)
@@ -192,7 +195,7 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                                         onChange={handleChange}
                                         defaultValue={values.trangThai}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}>
-                                        <MenuItem value={0}>Đã chết</MenuItem>
+                                        <MenuItem value={0}>Đã mất</MenuItem>
                                         <MenuItem value={1}>Còn sống</MenuItem>
                                     </TextField>
                                     <TextField

@@ -15,7 +15,7 @@ const Topbar = () => {
         {user && isAuthenticated === true ? // user && isAuthenticated
           (
             <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
+              <Dropdown.Toggle style={{backgroundColor: '#0288d1'}} id="dropdown-basic">
                 {<AccountCircleIcon />}
               </Dropdown.Toggle>
 

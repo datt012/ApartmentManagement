@@ -1,5 +1,5 @@
 import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
@@ -18,6 +18,8 @@ import revenueService from "../../Services/API/revenueService";
 import { Link } from "react-router-dom";
 import PayRevenue from "./PayRevenue";
 import { useHistory } from "react-router-dom";
+import moment from "moment";
+
 const RevenueHouse = () => {
     const theme = useTheme();
     const history = useHistory();
@@ -46,7 +48,8 @@ const RevenueHouse = () => {
             }}
                 startIcon={<ManageAccountsRoundedIcon />}
                 variant="contained"
-                style={{ backgroundColor: colors.greenAccent[700], border: "none" }}>Thanh toán
+                color="info"
+                style={{ border: "none" }}>Thanh toán
             </Button>
         );
     }
@@ -76,7 +79,7 @@ const RevenueHouse = () => {
             headerName: "Tình trạng",
             flex: 1,
             valueGetter: (param) => {
-                if (param.row.soTien == null) return ("Ủng hộ");
+                if (param.row.soTien == null) return ("Phí đóng góp");
                 return ((param.row.soTienDaNop >= param.row.soTien) ? "Đã nộp đủ" : ("Còn thiếu " + (param.row.soTien - param.row.soTienDaNop) + " đồng"));
             },
         },
@@ -84,6 +87,7 @@ const RevenueHouse = () => {
             field: "thanhToan",
             headerName: "Thanh toán",
             flex: 1,
+            disableExport: true,
             renderCell: (param) => {
                 return (param.row.soTienDaNop < param.row.soTien || param.row.loaiKhoanThu === 0) && <PayButton openPopup={openPopup}
                     soTienCanThu={param.row.soTien - param.row.soTienDaNop} loaiKhoanThu={param.row.loaiKhoanThu} maHoKhau={param.row.maHoKhau}
@@ -123,11 +127,25 @@ const RevenueHouse = () => {
                         getRowId={(r) => r.maKhoanThu}
                         rows={revenueHouse}
                         columns={columns}
-                        components={{ Toolbar: GridToolbar }}
+                        components={{ Toolbar: CustomToolbar }}
                     />
                 )}
             </Box>
         </Box>
     );
 };
+function CustomToolbar() {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarColumnsButton />
+        <GridToolbarFilterButton />
+        <GridToolbarDensitySelector />
+        <GridToolbarExport csvOptions={{
+          fileName: `Danh sách khoản thu theo hộ ${moment().format('YYYY-MM-DD')}`,
+          utf8WithBom: true,
+        }}
+        />
+      </GridToolbarContainer>
+    );
+  }
 export default RevenueHouse;

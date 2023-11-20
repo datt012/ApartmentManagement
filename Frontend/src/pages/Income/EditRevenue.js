@@ -134,7 +134,7 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
                                         InputProps={{
                                             readOnly: true,
                                         }}
-                                        defaultValue={initialValues.loaiKhoanThu ? ("Thu phí") : ("Ủng hộ")}
+                                        defaultValue={initialValues.loaiKhoanThu ? ("Thu phí") : ("Phí đóng góp")}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                                     />
                                     <TextField

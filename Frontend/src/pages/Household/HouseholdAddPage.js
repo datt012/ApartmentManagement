@@ -10,19 +10,23 @@ import { useState, useEffect } from "react";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import { useHistory } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
+import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import 'react-toastify/dist/ReactToastify.css';
+import dayjs from "dayjs";
 
 const HouseholdAddPage = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const history = useHistory();
   const [dataNhanKhau, setDataNhanKhau] = useState([]);
+  const [ngayCap, setNgayCap] = useState();
   const handleSubmit = (values) => {
     if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
       householdService.addHouseHold({
         "maHoKhau": values.maHoKhau,
         "diaChiThuongTru": values.diaChiThuongTru,
         "noiCap": values.noiCap,
-        "ngayCap": values.ngayCap,
+        "ngayCap": dayjs(ngayCap).format('YYYY-MM-DD'),
         "danhSachNhanKhau": values.danhSachNhanKhau
       }).then((result) => {
         const maHoKhau = result.data.maHoKhau;
@@ -116,9 +120,17 @@ const HouseholdAddPage = () => {
                 name="noiCap"
                 error={!!touched.noiCap && !!errors.noiCap}
                 helperText={touched.noiCap && errors.noiCap}
-                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 4" }}
+                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 2" }}
               />
-              <TextField
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DesktopDatePicker label="Ngày cấp"
+                    inputFormat="DD/MM/YYYY"
+                    onChange={setNgayCap}
+                    value={ngayCap}
+                    renderInput={(params) => <TextField {...params} />}>
+                  </DesktopDatePicker>
+                </LocalizationProvider>
+              {/* <TextField
                 fullWidth
                 variant="filled"
                 type='date'
@@ -130,7 +142,8 @@ const HouseholdAddPage = () => {
                 error={!!touched.ngayCap && !!errors.ngayCap}
                 helperText={touched.ngayCap && errors.ngayCap}
                 sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 4" }}
-              />
+              /> */}
+              <br />
               <Field
                 fullWidth
                 className="custom-select"
@@ -153,7 +166,7 @@ const HouseholdAddPage = () => {
           </form>
         )}
       </Formik>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </Box>
   );
 };

@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import RegisterTabernacle from "./RegisterTabernacle";
 import EditTabernacle from "./EditTabernacle";
 import tabernacleService from "../../Services/API/tabernacleService";
+import moment from "moment";
 
 const TabernaclePage = () => {
   const theme = useTheme();
@@ -75,6 +76,7 @@ const TabernaclePage = () => {
       field: "chiTiet",
       headerName: "",
       flex: 1,
+      disableExport: true,
       renderCell: (param) => <EditButton maTamTru={param.row.maTamTru} openInPopup={openInPopup} setOpenInPopup={setOpenInPopup}/>,
     }
   ]);
@@ -116,11 +118,25 @@ const TabernaclePage = () => {
             getRowId={(r) => r.maTamTru}
             rows={tabernacleList}
             columns={columns}
-            components={{ Toolbar: GridToolbar }}
+            components={{ Toolbar: CustomToolbar }}
           />
         )}
       </Box>
     </Box>
   );
 };
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarFilterButton />
+      <GridToolbarDensitySelector />
+      <GridToolbarExport csvOptions={{
+        fileName: `Danh sách tạm trú ${moment().format('YYYY-MM-DD')}`,
+        utf8WithBom: true,
+      }}
+      />
+    </GridToolbarContainer>
+  );
+}
 export default TabernaclePage;

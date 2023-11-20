@@ -68,7 +68,7 @@ const ModalDetailDemographic = ({ memberData, onClose, onSuccess }) => {
                           <td>{row.ngheNghiep}</td>
                           <td>{row.quanHe}</td>
                           <td>
-                            {row.trangThai === 1 ? 'Còn sống' : 'Đã chết'}
+                            {row.trangThai === 1 ? 'Còn sống' : 'Đã mất'}
                           </td>
                         </tr>
                       })}

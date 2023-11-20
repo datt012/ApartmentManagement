@@ -141,7 +141,7 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                                         helperText={touched.ngheNghiep && errors.ngheNghiep}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                                     /> */}
-                                    {/* <TextField
+                                    <TextField
                                         fullWidth
                                         variant="filled"
                                         type="text"
@@ -152,8 +152,8 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                                         name="moTa"
                                         error={!!touched.moTa && !!errors.moTa}
                                         helperText={touched.moTa && errors.moTa}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                                    /> */}
+                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                                    />
                                 </Box>
                                 <Box display="flex" justifyContent="end" mt="20px" >
                                     <Button

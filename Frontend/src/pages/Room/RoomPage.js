@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
@@ -20,6 +20,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditRoom from "./EditRoom";
 import { ToastContainer, toast } from 'react-toastify';
+import moment from "moment";
 
 const RoomPage = () => {
 
@@ -85,7 +86,7 @@ const RoomPage = () => {
     },
     {
       field: "dienTich",
-      headerName: "Diện tích",
+      headerName: "Diện tích (m2)",
       flex: 0.5
     },
     {
@@ -93,16 +94,17 @@ const RoomPage = () => {
       headerName: "Mã hộ khẩu",
       flex: 0.5
     },
-    {
-      field: "moTa",
-      headerName: "Mô tả",
-      flex: 0.5,
-    },
+    // {
+    //   field: "moTa",
+    //   headerName: "Mô tả",
+    //   flex: 0.5,
+    // },
     {
       field: "put",
       headerName: "",
       flex: 0.25,
       align: "center",
+      disableExport: true,
       renderCell: (param) => {
         // const link = param.row.maHoKhau + "/edit";
         return <div onClick={() => handleEdit(param.row.maCanHo)}><EditIcon /> </div>
@@ -113,6 +115,7 @@ const RoomPage = () => {
       headerName: "",
       flex: 0.25,
       align: "center",
+      disableExport: true,
       renderCell: (param) =>
         <div>
           <DeleteIcon onClick={() => handleDeleteRoom(param.row.maCanHo)} />
@@ -146,11 +149,24 @@ const RoomPage = () => {
           getRowId={(r) => r.maCanHo}
           rows={data}
           columns={columns}
-          components={{ Toolbar: GridToolbar }}
+          components={{ Toolbar: CustomToolbar }}
         />
       </Box>
     </Box>
   );
 };
-
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarFilterButton />
+      <GridToolbarDensitySelector />
+      <GridToolbarExport csvOptions={{
+        fileName: `Danh sách căn hộ ${moment().format('YYYY-MM-DD')}`,
+        utf8WithBom: true,
+      }}
+      />
+    </GridToolbarContainer>
+  );
+}
 export default RoomPage;

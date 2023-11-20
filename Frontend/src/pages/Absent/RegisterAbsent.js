@@ -38,6 +38,8 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
         setCanCuoc("");
         setShow(false);
         dispatch(fetchAllAbsents());
+      }).catch(e => {
+        toast(e?.response?.data?.reason || "Thêm mới tạm vắng thất bại")
       })
     }
   };
@@ -90,7 +92,8 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
                   gap="30px"
                   gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                   sx={{
-                    "& > div": { gridColumn: isNonMobile ? undefined : "span 2" },
+                    "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                    width: 500
                   }}
                 >
                   <TextField
@@ -104,7 +107,7 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
                     name="maNhanKhau"
                     error={!!touched.maNhanKhau && !!errors.maNhanKhau}
                     helperText={touched.maNhanKhau && errors.maNhanKhau}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -115,6 +118,11 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
                                 setName(mes.data.hoTen);
                                 setCanCuoc(mes.data.canCuocCongDan);
                                 setShow(true);
+                              }).catch(e => {
+                                toast(e?.response?.data?.reason || "Lấy thông tin nhân khẩu thất bại")
+                                setName();
+                                setCanCuoc();
+                                setShow(false);
                               })
                             }
 
@@ -125,6 +133,34 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
                       )
                     }}
                   />
+                  
+                  {show && (
+                    <>
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Họ và tên"
+                        name="hoTen"
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        value={name}
+                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                      ></TextField>
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Căn cước công dân"
+                        name="canCuocCongDan"
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        value={canCuoc}
+                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                      ></TextField></>
+                  )}
                   <TextField
                     fullWidth
                     variant="filled"
@@ -138,39 +174,12 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
                     helperText={touched.lyDo && errors.lyDo}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                   />
-                  {show && (
-                    <>
-                      <TextField
-                        fullWidth
-                        variant="filled"
-                        type="text"
-                        label="Họ và tên"
-                        name="hoTen"
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                        value={name}
-                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                      ></TextField>
-                      <TextField
-                        fullWidth
-                        variant="filled"
-                        type="text"
-                        label="Căn cước công dân"
-                        name="canCuocCongDan"
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                        value={canCuoc}
-                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                      ></TextField></>
-                  )}
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DesktopDatePicker label="Thời điểm bắt đầu"
                       inputFormat="DD/MM/YYYY"
                       onChange={handleOnChange}
                       value={date}
-                      renderInput={(params) => <TextField {...params} />}>
+                      renderInput={(params) => <TextField style={{width: 150}} {...params} />}>
 
                     </DesktopDatePicker>
                   </LocalizationProvider>
@@ -185,7 +194,7 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
             )}
           </Formik>
         </Box>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </DialogContent>
     </Dialog>
 

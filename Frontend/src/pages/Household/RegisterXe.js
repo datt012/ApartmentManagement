@@ -128,7 +128,7 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
                                             return <MenuItem key={index} value={loaiXe.id}>{loaiXe.label}</MenuItem>
                                         })}
                                     </TextField>
-                                    {/* <TextField
+                                    <TextField
                                         fullWidth
                                         variant="filled"
                                         type="text"
@@ -139,8 +139,8 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
                                         name="moTa"
                                         error={!!touched.moTa && !!errors.moTa}
                                         helperText={touched.moTa && errors.moTa}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                                    /> */}
+                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
+                                    />
                                 </Box>
                                 <Box display="flex" justifyContent="end" mt="20px" >
                                     <Button

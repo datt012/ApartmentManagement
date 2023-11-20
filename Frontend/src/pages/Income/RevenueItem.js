@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
@@ -16,6 +16,7 @@ import EditRevenue from "./EditRevenue";
 import revenueService from "../../Services/API/revenueService";
 import PayRevenue from "./PayRevenue";
 import { useHistory } from "react-router-dom";
+import moment from "moment";
 
 const RevenueItem = () => {
     const theme = useTheme();
@@ -72,7 +73,7 @@ const RevenueItem = () => {
             headerName: "Tình trạng",
             flex: 1,
             valueGetter: (param) => {
-                if (loaiKhoanThu == 0) return ("Tiền ủng hộ");
+                if (loaiKhoanThu == 0) return ("Tiền phí đóng góp");
                 return ((param.row.soTienDaNop >= param.row.soTien) ? "Đã nộp đủ" : ("Còn thiếu " + (param.row.soTien - param.row.soTienDaNop) + " đồng"));
             },
         },
@@ -80,6 +81,7 @@ const RevenueItem = () => {
             field: "thanhToan",
             headerName: "Thanh toán",
             flex: 1,
+            disableExport: true,
             renderCell: (param) => {
                 return (param.row.soTienDaNop < param.row.soTien || loaiKhoanThu === 0) && <PayButton openPopup={openPopup}
                     soTienCanThu={param.row.soTien - param.row.soTienDaNop}
@@ -123,11 +125,25 @@ const RevenueItem = () => {
                         getRowId={(r) => r.maKhoanThuTheoHo}
                         rows={revenueItem}
                         columns={columns}
-                        components={{ Toolbar: GridToolbar }}
+                        components={{ Toolbar: CustomToolbar }}
                     />
                 )}
             </Box>
         </Box>
     );
 };
+function CustomToolbar() {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarColumnsButton />
+        <GridToolbarFilterButton />
+        <GridToolbarDensitySelector />
+        <GridToolbarExport csvOptions={{
+          fileName: `Danh sách các hộ cần thu phí ${moment().format('YYYY-MM-DD')}`,
+          utf8WithBom: true,
+        }}
+        />
+      </GridToolbarContainer>
+    );
+  }
 export default RevenueItem;

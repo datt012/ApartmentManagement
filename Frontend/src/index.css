@@ -17,6 +17,7 @@ body,
 }
 
 ::-webkit-scrollbar {
+  overflow: hidden;
   width: 10px;
 }
 
@@ -33,5 +34,8 @@ body,
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+body {
+  overflow: hidden;
 }
 

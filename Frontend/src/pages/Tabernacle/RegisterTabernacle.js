@@ -77,6 +77,7 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
                   gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                   sx={{
                     "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                    width: 500
                   }}
                 >
                   <TextField
@@ -90,7 +91,7 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
                     name="hoTen"
                     error={!!touched.hoTen && !!errors.hoTen}
                     helperText={touched.hoTen && errors.hoTen}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 5" }}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 10" }}
                   />
                   <TextField
                     fullWidth
@@ -103,7 +104,7 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
                     name="canCuocCongDan"
                     error={!!touched.canCuocCongDan && !!errors.canCuocCongDan}
                     helperText={touched.canCuocCongDan && errors.canCuocCongDan}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 5" }}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 10" }}
                   />
                   <TextField
                     fullWidth

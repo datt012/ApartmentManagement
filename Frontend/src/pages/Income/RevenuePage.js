@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
@@ -17,6 +17,7 @@ import revenueService from "../../Services/API/revenueService";
 import { Link } from "react-router-dom";
 import { LIST_LOAI_KHOAN_THU } from "../../Services/Utils/const";
 import EditIcon from '@mui/icons-material/Edit';
+import moment from "moment";
 
 const RevenuePage = () => {
   const theme = useTheme();
@@ -106,12 +107,14 @@ const RevenuePage = () => {
       field: "chiTiet",
       headerName: "",
       flex: 1,
+      disableExport: true,
       renderCell: (param) => <EditButton maKhoanThu={param.row.maKhoanThu} openInPopup={openInPopup} setOpenInPopup={setOpenInPopup} />,
     },
     {
       field: "danhSach",
       headerName: "",
       flex: 1,
+      disableExport: true,
       renderCell: (param) => <ListButton maKhoanThu={param.row.maKhoanThu} loaiKhoanThu={param.row.loaiKhoanThu} />,
     }
   ]);
@@ -152,11 +155,25 @@ const RevenuePage = () => {
             getRowId={(r) => r.maKhoanThu}
             rows={revenueList}
             columns={columns}
-            components={{ Toolbar: GridToolbar }}
+            components={{ Toolbar: CustomToolbar }}
           />
         )}
       </Box>
     </Box>
   );
 };
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarFilterButton />
+      <GridToolbarDensitySelector />
+      <GridToolbarExport csvOptions={{
+        fileName: `Danh sách khoản thu ${moment().format('YYYY-MM-DD')}`,
+        utf8WithBom: true,
+      }}
+      />
+    </GridToolbarContainer>
+  );
+}
 export default RevenuePage;

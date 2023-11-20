@@ -176,7 +176,7 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
                                         onChange={handleChange}
                                         defaultValue={values.trangThai}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}>
-                                        <MenuItem value={0}>Đã chết</MenuItem>
+                                        <MenuItem value={0}>Đã mất</MenuItem>
                                         <MenuItem value={1}>Còn sống</MenuItem>
                                     </TextField>
                                     <TextField

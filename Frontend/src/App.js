@@ -12,7 +12,6 @@ import TabernaclePage from "./pages/Tabernacle/TabernaclePage";
 import AbsentPage from "./pages/Absent/AbsentPage";
 import HouseholdAddPage from "./pages/Household/HouseholdAddPage";
 import { Triangle } from "react-loader-spinner";
-import About from "./pages/About";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./Redux/authSlice";
 import { useEffect, useState } from "react";
@@ -25,7 +24,6 @@ import ChangePasswordPage from "./pages/ChangePasswordPage";
 import RevenuePage from "./pages/Income/RevenuePage";
 import RevenueItem from "./pages/Income/RevenueItem";
 import RevenueHouse from "./pages/Income/RevenueHouse";
-import AddRoomModal from "./components/AddRoomModals";
 import HouseholdPutPage from "./pages/Household/HouseholdPutPage";
 import RoomPage from "./pages/Room/RoomPage";
 import ChangeInfoPage from "./pages/ChangeInfoPage";
@@ -54,7 +52,6 @@ function App() {
                 <Switch>
                   <Route path="/" exact component={DashBoard} />
                   <Route path="/login" exact component={Login} />
-                  <Route path="/about" exact component={About} />
                   <Route path="/change-password" exact component={ChangePasswordPage} />
                   <Route path="/change-info" exact component={ChangeInfoPage} />
                   <Route path="/revenue" exact component={RevenuePage} />
@@ -73,7 +70,6 @@ function App() {
                   <Route path="*" component={NotfoundPage} />
                 </Switch>
               </main>
-              <AddRoomModal />
             </div>
           </ThemeProvider>
         </ColorModeContext.Provider>

@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
@@ -13,7 +13,7 @@ import EditAbsent from "./EditAbsent";
 import RegisterAbsent from "./RegisterAbsent";
 import absentService from "../../Services/API/absentService";
 import dayjs from "dayjs";
-
+import moment from "moment";
 const AbsentPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -74,6 +74,7 @@ const AbsentPage = () => {
       field: "chiTiet",
       headerName: "",
       flex: 1,
+      disableExport: true,
       renderCell: (param) => <EditButton maTamVang={param.row.maTamVang} openInPopup={openInPopup} setOpenInPopup={setOpenInPopup}/>,
     }
   ]);
@@ -115,11 +116,25 @@ const AbsentPage = () => {
             getRowId={(r) => r.maTamVang}
             rows={absentList}
             columns={columns}
-            components={{ Toolbar: GridToolbar }}
+            components={{ Toolbar: CustomToolbar }}
           />
         )}
       </Box>
     </Box>
   );
 };
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarFilterButton />
+      <GridToolbarDensitySelector />
+      <GridToolbarExport csvOptions={{
+        fileName: `Danh sách tạm vắng ${moment().format('YYYY-MM-DD')}`,
+        utf8WithBom: true,
+      }}
+      />
+    </GridToolbarContainer>
+  );
+}
 export default AbsentPage;

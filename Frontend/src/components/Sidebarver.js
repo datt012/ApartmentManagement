@@ -77,7 +77,7 @@ const Sidebar = () => {
             backgroundColor: "transparent !important",
           },
           "& .pro-inner-item": {
-            padding: "5px 35px 5px 20px !important",
+            padding: "5px 25px 5px 20px !important",
           },
           "& .pro-inner-item:hover": {
             color: "#868dfb !important",
@@ -95,7 +95,7 @@ const Sidebar = () => {
               onClick={() => setIsCollapsed(!isCollapsed)}
               icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
               style={{
-                margin: "10px 0 20px 0",
+                margin: "10px 0 10px 0",
                 color: colors.grey[100],
               }}
             >
@@ -104,12 +104,12 @@ const Sidebar = () => {
                   display="flex"
                   justifyContent="space-between"
                   alignItems="center"
-                  ml="15px"
+                  ml="10px"
                 >
-                  <Typography variant="h3" color={colors.grey[100]}>
-                    QUẢN LÝ DÂN CƯ
+                  <Typography variant="h3" color={colors.grey[100]} style={{fontSize: 22}}>
+                    QUẢN LÝ CHUNG CƯ
                   </Typography>
-                  <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                  <IconButton style={{zIndex: 1000}} onClick={() => setIsCollapsed(!isCollapsed)}>
                     <MenuOutlinedIcon />
                   </IconButton>
                 </Box>
@@ -133,7 +133,7 @@ const Sidebar = () => {
                     variant="h2"
                     color={colors.grey[100]}
                     fontWeight="bold"
-                    sx={{ m: "10px 0 0 0" }}
+                    sx={{ m: "10px 0 0 0", fontSize: 22 }}
                   >
                     {user?.firstName + " " + user?.lastName}
                   </Typography>

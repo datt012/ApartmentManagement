@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
@@ -14,6 +14,7 @@ import { fetchAllDemographic } from "../../Redux/demographicSlice";
 import demographicService from "../../Services/API/demographicService";
 import RegisterDemographic from "./RegisterDemographic";
 import EditDemographic from "./EditDemographic";
+import moment from "moment";
 
 const DemographicPage = () => {
 
@@ -87,12 +88,13 @@ const DemographicPage = () => {
       field: "trangThai",
       headerName: "Trạng Thái",
       flex: 0.5,
-      valueGetter: (param) => { return ((param.row.trangThai == 1) ? "Còn sống" : "Đã chết") },
+      valueGetter: (param) => { return ((param.row.trangThai == 1) ? "Còn sống" : "Đã mất") },
     },
     {
       field: "chiTiet",
       headerName: "",
       flex: 1,
+      disableExport: true,
       renderCell: (param) => <EditButton maNhanKhau={param.row.maNhanKhau} openInPopup={openInPopup} setOpenInPopup={setOpenInPopup} />,
     }
 
@@ -136,12 +138,25 @@ const DemographicPage = () => {
             getRowId={(r) => r.maNhanKhau}
             rows={demographicList}
             columns={columns}
-            components={{ Toolbar: GridToolbar }}
+            components={{ Toolbar: CustomToolbar }}
           />
         )}
       </Box>
     </Box>
   );
 };
-
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarFilterButton />
+      <GridToolbarDensitySelector />
+      <GridToolbarExport csvOptions={{
+        fileName: `Danh sách nhân khẩu ${moment().format('YYYY-MM-DD')}`,
+        utf8WithBom: true,
+      }}
+      />
+    </GridToolbarContainer>
+  );
+}
 export default DemographicPage;

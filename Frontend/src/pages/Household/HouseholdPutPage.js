@@ -30,6 +30,8 @@ import EditXe from "./EditXe";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModalDetailDemographic from "./ModalDetailDemographic";
+import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 
 const HouseholdAddPage = () => {
@@ -46,6 +48,7 @@ const HouseholdAddPage = () => {
   const [showDetailMember, setShowDetailMember] = useState(false);
   const [addXe, setAddXe] = useState(false);
   const [editXe, setEditXe] = useState(false);
+  const [ngayCap, setNgayCap] = useState();
 
   const [currentXe, setCurrentXe] = useState({});
 
@@ -61,10 +64,11 @@ const HouseholdAddPage = () => {
 
       })
       console.log('selectOption', selectOption);
+      console.log('ngayCap', ngayCap);
       householdService.updateHouseHold(values.maHoKhau, {
         "diaChiThuongTru": values.diaChiThuongTru,
         "noiCap": values.noiCap,
-        "ngayCap": values.ngayCap,
+        "ngayCap": dayjs(ngayCap).format('YYYY-MM-DD'),
         "danhSachNhanKhau": selectOption.map((nhankhau) => {
           return nhankhau.value;
         }),
@@ -108,11 +112,11 @@ const HouseholdAddPage = () => {
         }
       })
       setSelectOption(datamapNhanKhau);
+      setNgayCap(response.data.ngayCap);
       setInitialValues({
         maHoKhau: response.data.maHoKhau,
         diaChiThuongTru: response.data.diaChiThuongTru,
         noiCap: response.data.noiCap,
-        ngayCap: dayjs(response.data.ngayCap).format('YYYY-MM-DD'),
         danhSachNhanKhau: datamapNhanKhau,
         maCanHo: response.data.maCanHo,
         version: response.data.version,
@@ -204,7 +208,7 @@ const HouseholdAddPage = () => {
                   name="maHoKhau"
                   error={!!touched.maHoKhau && !!errors.maHoKhau}
                   helperText={touched.maHoKhau && errors.maHoKhau}
-                  sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                  sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                 />
                 <TextField
                   fullWidth
@@ -217,7 +221,7 @@ const HouseholdAddPage = () => {
                   name="diaChiThuongTru"
                   error={!!touched.diaChiThuongTru && !!errors.diaChiThuongTru}
                   helperText={touched.diaChiThuongTru && errors.diaChiThuongTru}
-                  sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                  sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                 />
                 <TextField
                   fullWidth
@@ -232,7 +236,15 @@ const HouseholdAddPage = () => {
                   helperText={touched.noiCap && errors.noiCap}
                   sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                 />
-                <TextField
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DesktopDatePicker label="Ngày cấp"
+                    inputFormat="DD/MM/YYYY"
+                    onChange={setNgayCap}
+                    value={ngayCap}
+                    renderInput={(params) => <TextField {...params} />}>
+                  </DesktopDatePicker>
+                </LocalizationProvider>
+                {/* <TextField
                   fullWidth
                   variant="filled"
                   type='date'
@@ -244,7 +256,7 @@ const HouseholdAddPage = () => {
                   error={!!touched.ngayCap && !!errors.ngayCap}
                   helperText={touched.ngayCap && errors.ngayCap}
                   sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                />
+                /> */}
                 <TextField
                   variant="filled"
                   select
@@ -253,7 +265,7 @@ const HouseholdAddPage = () => {
                   name="canHo"
                   onChange={(e) => setRoomId(+e.target.value)}
                   value={roomId}
-                  sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}>
+                  sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}>
                   <MenuItem value={"-1"}>None</MenuItem>
                   {dataPhong.map((canHo, index) => {
                     return <MenuItem key={index} value={canHo.value}>{canHo.label}</MenuItem>
@@ -333,8 +345,8 @@ const HouseholdAddPage = () => {
                 />
 
               </div>
-              <div style={{marginTop: 25, marginLeft: 10}}>
-                <VisibilityIcon style={{cursor: 'pointer'}} onClick={() => setShowDetailMember(true)} />
+              <div style={{ marginTop: 25, marginLeft: 10 }}>
+                <VisibilityIcon style={{ cursor: 'pointer' }} onClick={() => setShowDetailMember(true)} />
               </div>
             </div>
             <Box display="flex" justifyContent="end" mt="20px">
@@ -356,7 +368,6 @@ const checkoutSchema = yup.object().shape({
   maHoKhau: yup.string().required("required"),
   diaChiThuongTru: yup.string().required("required"),
   noiCap: yup.string().required("required"),
-  ngayCap: yup.date().required("required"),
   danhSachNhanKhau: yup.array().required("required")
 });
 

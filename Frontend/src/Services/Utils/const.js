@@ -1,7 +1,7 @@
 export const LIST_LOAI_KHOAN_THU = [
     {
         id: 0,
-        label: "Ủng hộ" 
+        label: "Phí đóng góp" 
     },
     {
         id: 1,

@@ -93,6 +93,7 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
                   gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                   sx={{
                     "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                    width: 500
                   }}
                 >
                   <TextField
@@ -106,7 +107,7 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
                       readOnly: true,
                     }}
                     defaultValue={initialValues.hoTen}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 3" }}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                   />
                   <TextField
                     fullWidth
@@ -118,7 +119,7 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
                       readOnly: true,
                     }}
                     defaultValue={initialValues.maTamVang}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                   />
                   <TextField
                     fullWidth
@@ -130,7 +131,7 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
                       readOnly: true,
                     }}
                     defaultValue={initialValues.maNhanKhau}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                   />
                   <TextField
                     fullWidth
@@ -142,7 +143,7 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
                       readOnly: true,
                     }}
                     defaultValue={initialValues.canCuocCongDan}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                   />
                   <TextField
                     fullWidth
@@ -163,7 +164,7 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
                       onChange={handleOnChange}
                       name="thoiHan"
                       value={newDate}
-                      renderInput={(params) => <TextField {...params} />}>
+                      renderInput={(params) => <TextField style={{width: 150}} {...params} />}>
 
                     </DesktopDatePicker>
                   </LocalizationProvider>

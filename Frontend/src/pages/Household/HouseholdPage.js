@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataHousehold } from "../../Services/MOCK/householddata";
 import Header from "../../components/Header";
@@ -21,6 +21,7 @@ import { useHistory } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import householdService from "../../Services/API/householdService";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 const HouseholdPage = () => {
 
@@ -71,7 +72,7 @@ const HouseholdPage = () => {
           startIcon={<ManageAccountsRoundedIcon />}
           variant="contained"
           color="info"
-          style={{ }}>Khoản thu
+          style={{}}>Khoản thu
         </Button>
       </Link>
     );
@@ -113,6 +114,7 @@ const HouseholdPage = () => {
       headerName: "",
       flex: 0.25,
       align: "center",
+      disableExport: true,
       renderCell: (param) => {
         const link = param.row.maHoKhau + "/edit";
         return <div onClick={() => {
@@ -125,6 +127,7 @@ const HouseholdPage = () => {
       headerName: "",
       flex: 0.25,
       align: "center",
+      disableExport: true,
       renderCell: (param) =>
         <div>
           <DeleteIcon onClick={() => handleDelete(param.row.maHoKhau)
@@ -149,6 +152,7 @@ const HouseholdPage = () => {
       field: "khoanThu",
       headerName: "",
       flex: 0.6,
+      disableExport: true,
       renderCell: (param) => <ListButton maHoKhau={param.row.maHoKhau}></ListButton>,
     }
   ]);
@@ -177,11 +181,24 @@ const HouseholdPage = () => {
           // response.data
           rows={dataHouseHold}
           columns={columns}
-          components={{ Toolbar: GridToolbar }}
+          components={{ Toolbar: CustomToolbar }}
         />
       </Box>
     </Box>
   );
 };
-
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarFilterButton />
+      <GridToolbarDensitySelector />
+      <GridToolbarExport csvOptions={{
+        fileName: `Danh sách hộ khẩu ${moment().format('YYYY-MM-DD')}`,
+        utf8WithBom: true,
+      }}
+      />
+    </GridToolbarContainer>
+  );
+}
 export default HouseholdPage;

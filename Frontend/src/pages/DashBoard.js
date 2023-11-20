@@ -132,7 +132,7 @@ const DashBoard = () => {
             </CardContent>
           </CardActionArea>
         </Card>
-        <Card onClick={() => history.push('/revenue')}
+        <Card onClick={() => history.push('/room')}
           sx={{ width: 300, backgroundColor: 'white', margin: '10px' }}>
           <CardActionArea>
             <CardMedia

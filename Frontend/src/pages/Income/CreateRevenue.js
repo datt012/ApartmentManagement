@@ -29,6 +29,13 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
   const colors = tokens(theme.palette.mode);
   const [dataHouseHold, setDataHouseHold] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [checkoutSchema, setCheckoutSchemas] = useState(checkoutSchemaAnother);
+  const handleSetCheckoutSchemas = (value) => {
+    if (value === 2) setCheckoutSchemas(checkoutSchemaDichVu);
+    else if (value === 3) setCheckoutSchemas(checkoutSchemaQuanLy);
+    else if (value ===4) setCheckoutSchemas(checkoutSchemaGuiXe);
+    else setCheckoutSchemas(checkoutSchemaAnother);
+  }
   const handleFormSubmit = (values) => {
     var data = '';
     switch (values.loaiKhoanThu) {
@@ -148,7 +155,10 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     label="Loại khoản thu"
                     onBlur={handleBlur}
                     name="loaiKhoanThu"
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      handleChange(e);
+                      handleSetCheckoutSchemas(e.target.value)
+                    }}
                     defaultValue={values.loaiKhoanThu}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}>
                     {LIST_LOAI_KHOAN_THU.map((khoanThu, index) => {
@@ -227,7 +237,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     onClick={() => { setOpenModal(true) }}
                     startIcon={<FactCheckIcon />}
                     variant="contained"
-                    style={{ backgroundColor: colors.greenAccent[500], border: "none" }}>Tạo khoản thu theo hộ
+                    style={{ backgroundColor: colors.greenAccent[500], border: "none", width: 200 }}>Tạo khoản thu theo hộ
                   </Button>}
                 </Box>
                 <Box display="flex" justifyContent="end" mt="20px" >
@@ -249,7 +259,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
 
 const idRegEXp = /^\d+$/;
 
-const checkoutSchema = yup.object().shape({
+const checkoutSchemaDichVu = yup.object().shape({
   tenKhoanThu: yup.string().required("Bạn chưa điền thông tin"),
   dichvu:  yup
   .number()
@@ -257,6 +267,30 @@ const checkoutSchema = yup.object().shape({
   .required("Bạn chưa điền thông tin")
   .min(2500, "Số tiền phải lớn hơn hoặc bằng 2500")
   .max(16500, "Số tiền phải nhỏ hơn hoặc bằng 16500"),
+});
+
+const checkoutSchemaQuanLy = yup.object().shape({
+  tenKhoanThu: yup.string().required("Bạn chưa điền thông tin"),
+  quanly:  yup
+  .number()
+  .typeError("Vui lòng nhập một số")
+  .required("Bạn chưa điền thông tin")
+});
+
+const checkoutSchemaGuiXe = yup.object().shape({
+  tenKhoanThu: yup.string().required("Bạn chưa điền thông tin"),
+  xeMay:  yup
+  .number()
+  .typeError("Vui lòng nhập một số")
+  .required("Bạn chưa điền thông tin"),
+  xeOto:  yup
+  .number()
+  .typeError("Vui lòng nhập một số")
+  .required("Bạn chưa điền thông tin")
+});
+
+const checkoutSchemaAnother = yup.object().shape({
+  tenKhoanThu: yup.string().required("Bạn chưa điền thông tin")
 });
 
 export default CreateRevenue;
