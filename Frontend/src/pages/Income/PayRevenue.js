@@ -81,7 +81,8 @@ const PayRevenue = ({ openPopup, setOpenPopup, maKhoanThuTheoHo, maKhoanThu, soT
                                     gap="30px"
                                     gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                                     sx={{
-                                        "& > div": { gridColumn: isNonMobile ? undefined : "span 2" },
+                                        "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                                        width: 500
                                     }}
                                 >
                                     <TextField
@@ -93,7 +94,7 @@ const PayRevenue = ({ openPopup, setOpenPopup, maKhoanThuTheoHo, maKhoanThu, soT
                                             readOnly: true,
                                         }}
                                         defaultValue={initialValues.maKhoanThuTheoHo}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                                     />
                                     <TextField
                                         fullWidth

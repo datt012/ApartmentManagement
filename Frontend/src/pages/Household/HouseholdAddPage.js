@@ -158,7 +158,7 @@ const HouseholdAddPage = () => {
 
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" color="secondary" variant="contained" startIcon={<SaveAsIcon />}>
+              <Button type="submit" color="info" variant="contained" startIcon={<SaveAsIcon />}>
                 Lưu
               </Button>
             </Box>

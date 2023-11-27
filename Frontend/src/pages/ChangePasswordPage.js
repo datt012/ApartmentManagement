@@ -58,7 +58,7 @@ export default function ChangePasswordPage() {
         <div className="content-body row">
           <div className="form-group">
             <label>
-              Username (<span className="text-danger">*</span>)
+              Tên đăng nhập (<span className="text-danger">*</span>)
             </label>
             <input
               type="text"

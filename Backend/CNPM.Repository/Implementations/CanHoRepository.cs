@@ -126,6 +126,11 @@ namespace CNPM.Repository.Implementations
                     canHo.UserUpdate = userNameUpdate;
                     canHo.UpdateTime = DateTime.Now;
                     canHo.Version++;
+                    var listTamTru = _dbcontext.TamTru.Where(o => o.DiaChiTamTru == canHo.TenCanHo && o.Delete == Constant.NOT_DELETE).ToList();
+                    for (int i = 0; i < listTamTru.Count; i++)
+                    {
+                        listTamTru[i].DiaChiTamTru = "";
+                    }
                     _dbcontext.SaveChanges();
                     return true;
                 }

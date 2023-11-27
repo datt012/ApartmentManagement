@@ -43,11 +43,11 @@ export default function SignIn() {
             required
             fullWidth
             id="username"
-            label="Username"
+            label="Tên đăng nhập"
             name="username"
             autoComplete="username"
-            inputProps={{ minLength: 6 }}
-            sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" } }}
+            inputProps={{ minLength: 5 }}
+            sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, "& .MuiInputLabel-asterisk" : {display: "none"} }}
             autoFocus
           />
           <TextField
@@ -55,14 +55,14 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Mật khẩu"
             type="password"
             id="password"
-            inputProps={{ minLength: 6, maxLength: 20 }}
-            sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" } }}
+            inputProps={{ minLength: 5, maxLength: 20 }}
+            sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, "& .MuiInputLabel-asterisk" : {display: "none"} }}
             autoComplete="current-password"
           />
-          <div style={{display: 'flex', justifyContent: 'flex-end', color: 'red'}}>{loginType == false ? 'Tài khoản hoặc mật khẩu không đúng' : ''}</div>
+          <div style={{display: 'flex', justifyContent: 'center', color: 'red'}}>{loginType == false ? 'Tên đăng nhập hoặc mật khẩu không đúng' : ''}</div>
           {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"

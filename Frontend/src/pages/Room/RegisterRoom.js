@@ -92,7 +92,7 @@ const RegisterRoom = ({ openPopup, setOpenPopup, onSuccess }) => {
                                         fullWidth
                                         variant="filled"
                                         type="text"
-                                        label="Tên phòng"
+                                        label="Tên căn hộ"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
                                         value={values.tenCanHo}

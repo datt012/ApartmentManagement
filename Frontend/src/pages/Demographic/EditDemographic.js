@@ -100,7 +100,7 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                                         "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                                     }}
                                 >
-                                    <TextField
+                                    {/* <TextField
                                         fullWidth
                                         variant="filled"
                                         type="text"
@@ -111,7 +111,7 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                                         }}
                                         defaultValue={initialValues.maNhanKhau}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                                    />
+                                    /> */}
                                     <TextField
                                         fullWidth
                                         variant="filled"
@@ -123,7 +123,7 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                                         name="hoTen"
                                         error={!!touched.hoTen && !!errors.hoTen}
                                         helperText={touched.hoTen && errors.hoTen}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 3" }}
+                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 5" }}
                                     />
                                     <TextField
                                         fullWidth

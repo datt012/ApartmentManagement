@@ -187,7 +187,7 @@ const HouseholdAddPage = () => {
           handleSubmit,
         }) => (
           <form onSubmit={handleSubmit}>
-            <div style={{ display: 'flex', flexDirection: 'row', marginTop: 100 }}>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
               <Box
                 display="grid"
                 gap="30px"
@@ -333,7 +333,7 @@ const HouseholdAddPage = () => {
               </Box>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <div style={{ width: '500px', marginTop: 20 }}>
+              <div style={{ width: '500px', marginTop: 0 }}>
                 <Select
                   name="danhSachNhanKhau"
                   options={dataNhanKhau.concat(values.danhSachNhanKhau)}
@@ -345,13 +345,13 @@ const HouseholdAddPage = () => {
                 />
 
               </div>
-              <div style={{ marginTop: 25, marginLeft: 10 }}>
+              <div style={{ marginTop: 9, marginLeft: 10 }}>
                 <VisibilityIcon style={{ cursor: 'pointer' }} onClick={() => setShowDetailMember(true)} />
               </div>
             </div>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button startIcon={<SaveAsIcon />}
-                type="submit" color="secondary" variant="contained" onClick={() => console.log(values.maCanHo)}>
+                type="submit" color="info" variant="contained" onClick={() => console.log(values.maCanHo)}>
                 Lưu
               </Button>
             </Box>

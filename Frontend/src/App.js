@@ -48,26 +48,26 @@ function App() {
             <div className="app">
               <Sidebar isSidebar={isSidebar} />
               <main className="content">
-                <Topbar setIsSidebar={setIsSidebar} />
+
                 <Switch>
-                  <Route path="/" exact component={DashBoard} />
-                  <Route path="/login" exact component={Login} />
-                  <Route path="/change-password" exact component={ChangePasswordPage} />
-                  <Route path="/change-info" exact component={ChangeInfoPage} />
-                  <Route path="/revenue" exact component={RevenuePage} />
-                  <Route path="/revenue-item" exact component={RevenueItem} />
-                  <Route path="/revenue-house" exact component={RevenueHouse} />
+                  <Route path="/" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><DashBoard /></>} />
+                  <Route path="/login" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><Login /></>} />
+                  <Route path="/change-password" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><ChangePasswordPage /></>} />
+                  <Route path="/change-info" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><ChangeInfoPage /></>} />
+                  <Route path="/revenue" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><RevenuePage /></>} />
+                  <Route path="/revenue-item" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><RevenueItem /></>} />
+                  <Route path="/revenue-house" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><RevenueHouse /></>} />
                   {
-                    (user?.roleId === 1 || user?.roleId == 2) && <><Route path="/demographic" exact component={DemographicPage} />
-                      <Route path="/household" exact component={HouseholdPage} />
-                      <Route path="/room" exact component={RoomPage} />
-                      <Route path="/household-add" exact component={HouseholdAddPage} />
-                      <Route path="/:id/edit" exact component={HouseholdPutPage} />
-                      <Route path="/tabernacle" exact component={TabernaclePage} />
-                      <Route path="/absent" exact component={AbsentPage} />
+                    (user?.roleId === 1 || user?.roleId == 2) && <><Route path="/demographic" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><DemographicPage /></>} />
+                      <Route path="/household" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><HouseholdPage /></>} />
+                      <Route path="/room" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><RoomPage /></>} />
+                      <Route path="/household-add" exact render={() => <><HouseholdAddPage /></>} />
+                      <Route path="/:id/edit" exact render={() => <><HouseholdPutPage /></>} />
+                      <Route path="/tabernacle" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><TabernaclePage /></>} />
+                      <Route path="/absent" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><AbsentPage /></>} />
                     </>
                   }
-                  <Route path="*" component={NotfoundPage} />
+                  <Route path="*" render={() => <><Topbar setIsSidebar={setIsSidebar} /><NotfoundPage /></>} />
                 </Switch>
               </main>
             </div>

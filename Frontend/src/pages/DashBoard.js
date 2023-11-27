@@ -73,6 +73,44 @@ const DashBoard = () => {
                 </CardContent>
               </CardActionArea>
             </Card>
+            <Card onClick={() => history.push('/revenue')}
+              sx={{ width: 300, backgroundColor: 'white', margin: '10px' }}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="100"
+                  image={require('../assets/happy-valentine.png')}
+                  alt="green iguana"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div" color="black">
+                    Quản lý khoản thu
+                  </Typography>
+                  <Typography variant="body2" color="black">
+                    Quản lý thu phí vệ sinh, các khoản đóng góp
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+            <Card onClick={() => history.push('/room')}
+              sx={{ width: 300, backgroundColor: 'white', margin: '10px' }}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="100"
+                  image={require('../assets/quan-ly-can-ho.jpg')}
+                  alt="green iguana"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div" color="black">
+                    Quản lý căn hộ
+                  </Typography>
+                  <Typography variant="body2" color="black">
+                    Quản lý các căn hộ trong chung cư
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
             <Card onClick={() => history.push('/tabernacle')}
               sx={{ width: 300, backgroundColor: 'white', margin: '10px' }}>
               <CardActionArea>
@@ -113,44 +151,8 @@ const DashBoard = () => {
             </Card>
           </>
         }
-        <Card onClick={() => history.push('/revenue')}
-          sx={{ width: 300, backgroundColor: 'white', margin: '10px' }}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="100"
-              image={require('../assets/happy-valentine.png')}
-              alt="green iguana"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div" color="black">
-                Quản lý khoản thu
-              </Typography>
-              <Typography variant="body2" color="black">
-                Quản lý thu phí vệ sinh, các khoản đóng góp
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        <Card onClick={() => history.push('/room')}
-          sx={{ width: 300, backgroundColor: 'white', margin: '10px' }}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="100"
-              image={require('../assets/quan-ly-can-ho.jpg')}
-              alt="green iguana"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div" color="black">
-                Quản lý căn hộ
-              </Typography>
-              <Typography variant="body2" color="black">
-                Quản lý các căn hộ trong chung cư
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
+
+
       </div>
     </div>
   );

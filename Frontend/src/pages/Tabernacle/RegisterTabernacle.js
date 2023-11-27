@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography, Dialog, DialogTitle, DialogContent, IconButton } from "@mui/material";
+import { Box, Button, TextField, Typography, Dialog, DialogTitle, DialogContent, IconButton, MenuItem } from "@mui/material";
 import { tokens } from "../../theme";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -12,24 +12,48 @@ import CloseIcon from '@mui/icons-material/Close';
 import tabernacleService from "../../Services/API/tabernacleService";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import roomService from "../../Services/API/roomService";
 
 
 const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
+  const [dataPhong, setDataPhong] = useState([]);
+  const [roomName, setRoomName] = useState("");
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const dispatch = useDispatch();
+  const handleGetData = async () => {
+    roomService.getListRoom().then((result) => {
+      let datas = result.data;
+      console.log(datas);
+      const datamap = datas.map((data) => {
+        const label = data.tenCanHo;
+        return {
+          label,
+          value: data.maCanHo.toString()
+        }
+      })
+      console.log('datamap canHo', datamap);
+      setDataPhong(datamap);
+    }).catch(e => {
+      console.log(e);
+    })
+  }
   const handleFormSubmit = (values) => {
     /*alert(JSON.stringify(values, null, 2));*/
-    if(window.confirm("Bạn chắc chắn muốn lưu?")) {
+    if (roomName && window.confirm("Bạn chắc chắn muốn lưu?")) {
       tabernacleService.postTabernacle({
         hoTen: values.hoTen,
         diaChiThuongTru: values.diaChiThuongTru,
-        diaChiTamTru: values.diaChiTamTru,
+        diaChiTamTru: roomName.toString(),
         canCuocCongDan: values.canCuocCongDan,
       }).then(mes => {
         toast(mes.message);
         setOpenPopup(!openPopup);
         dispatch(fetchAllTabernacles());
-  
+
+      }).catch(e => {
+        if (e.response.data.reason)
+          toast(e.response.data.reason)
+        else toast(e.response.data.message)
       })
     }
   };
@@ -37,8 +61,12 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
     hoTen: "",
     canCuocCongDan: "",
     diaChiThuongTru: "",
-    diaChiTamTru: "",
+    // diaChiTamTru: "",
   };
+  useEffect(() => {
+    handleGetData();
+    setRoomName("")
+  }, [openPopup])
   return (
     <Dialog open={openPopup} maxWidth="md" style={{ backgroundColor: "transparent" }}
       sx={{
@@ -119,7 +147,7 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
                     helperText={touched.diaChiThuongTru && errors.diaChiThuongTru}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 10" }}
                   />
-                  <TextField
+                  {/* <TextField
                     fullWidth
                     variant="filled"
                     type="text"
@@ -131,7 +159,24 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
                     error={!!touched.diaChiTamTru && !!errors.diaChiTamTru}
                     helperText={touched.diaChiTamTru && errors.diaChiTamTru}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 10" }}
-                  />
+                  /> */}
+                  <TextField
+                    variant="filled"
+                    select
+                    label="Địa chỉ tạm trú"
+                    onBlur={handleBlur}
+                    name="diaChiTamTru"
+                    onChange={(e) => setRoomName(e.target.value)}
+                    value={roomName}
+                    error={!!touched.diaChiThuongTru && !roomName}
+                    helperText={touched.diaChiThuongTru && !roomName && "Bạn chưa điền thông tin"}
+                    
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 10" }}>
+                    {/* <MenuItem value={""}>None</MenuItem> */}
+                    {dataPhong.map((canHo, index) => {
+                      return <MenuItem key={index} value={canHo.label}>{canHo.label}</MenuItem>
+                    })}
+                  </TextField>
                 </Box>
                 <Box display="flex" justifyContent="end" mt="20px" >
                   <Button
@@ -143,7 +188,7 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
             )}
           </Formik>
         </Box>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </DialogContent>
     </Dialog>
 
@@ -158,7 +203,7 @@ const checkoutSchema = yup.object().shape({
   canCuocCongDan: yup
     .string().required("Bạn chưa điền thông tin"),
   diaChiThuongTru: yup.string().required("Bạn chưa điền thông tin"),
-  diaChiTamTru: yup.string().required("Bạn chưa điền thông tin"),
+  // diaChiTamTru: yup.string().required("Bạn chưa điền thông tin"),
 });
 
 export default RegisterTabernacle;

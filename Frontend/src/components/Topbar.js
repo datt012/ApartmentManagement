@@ -5,6 +5,7 @@ import { logout } from "../Redux/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
 const Topbar = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.auth);

@@ -54,7 +54,7 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
         ghiChu: "",
     };
     return (
-        <Dialog open={openPopup} maxWidth="md" style={{ backgroundColor: "transparent" }}
+        <Dialog open={openPopup} maxWidth="md" style={{ backgroundColor: "transparent", overflow: 'hidden' }}
             sx={{
             }}>
             <DialogTitle>
@@ -104,7 +104,7 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
                                         name="hoTen"
                                         error={!!touched.hoTen && !!errors.hoTen}
                                         helperText={touched.hoTen && errors.hoTen}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 3" }}
+                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 5" }}
                                     />
                                     <TextField
                                         fullWidth

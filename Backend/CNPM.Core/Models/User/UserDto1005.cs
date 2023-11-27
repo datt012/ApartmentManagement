@@ -13,7 +13,7 @@ namespace CNPM.Core.Models
         public string UserName { get; set; }
 
         [Required]
-        [MinLength(6)]
+        [MinLength(5)]
         [JsonProperty("password")]
         public string Password { get; set; }
 

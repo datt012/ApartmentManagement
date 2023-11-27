@@ -86,6 +86,21 @@ namespace CNPM.Repository.Implementations
                 throw new Exception(ex.Message);
             }
         }
+        public bool CheckExistCanCuocCongDanTrongNhanKhau(string canCuocCongDan)
+        {
+            try
+            {
+                var _dbcontext = new MyDbContext();
+                NhanKhauEntity nhanKhau = _dbcontext.NhanKhau.Where(
+                    o => o.Delete == Constant.NOT_DELETE && o.CanCuocCongDan == canCuocCongDan).FirstOrDefault();
+                if (nhanKhau == null) return true;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public bool CheckExistCanCuocCongDanUpdate(string canCuocCongDan, int maTamTru)
         {
             try

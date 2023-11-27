@@ -71,12 +71,12 @@ const RoomPage = () => {
   const columns = useMemo(() => [
     {
       field: "maCanHo",
-      headerName: "Mã phòng",
+      headerName: "Mã căn hộ",
       flex: 0.5,
     },
     {
       field: "tenCanHo",
-      headerName: "Tên phòng",
+      headerName: "Tên căn hộ",
       flex: 0.75,
     },
     {

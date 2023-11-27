@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography, useTheme, Dialog, DialogTitle, DialogContent, IconButton } from "@mui/material";
+import { Box, Button, TextField, Typography, useTheme, Dialog, DialogTitle, DialogContent, IconButton, MenuItem } from "@mui/material";
 import { tokens } from "../../theme";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -12,13 +12,32 @@ import { fetchAllTabernacles } from "../../Redux/tabernacleSlice";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import roomService from "../../Services/API/roomService";
 
 const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
+  const [dataPhong, setDataPhong] = useState([]);
+  const [roomName, setRoomName] = useState("");
   const dispatch = useDispatch();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
-
+  const handleGetData = async () => {
+    roomService.getListRoom().then((result) => {
+      let datas = result.data;
+      console.log(datas);
+      const datamap = datas.map((data) => {
+        const label = data.tenCanHo;
+        return {
+          label,
+          value: data.maCanHo.toString()
+        }
+      })
+      console.log('datamap canHo', datamap);
+      setDataPhong(datamap);
+    }).catch(e => {
+      console.log(e);
+    })
+  }
   const handleFormSubmit = (values) => {
     console.log(values);
   };
@@ -27,8 +46,14 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
     maTamTru: data.maTamTru,
     canCuocCongDan: data.canCuocCongDan,
     diaChiThuongTru: data.diaChiThuongTru,
-    diaChiTamTru: data.diaChiTamTru,
+    // diaChiTamTru: data.diaChiTamTru,
   };
+  useEffect(() => {
+    setRoomName(data.diaChiTamTru)
+  }, [data])
+  useEffect(() => {
+    handleGetData()
+  }, [])
   return (
     <Dialog open={openInPopup} maxWidth="md" style={{ backgroundColor: "transparent" }}>
       <DialogTitle>
@@ -65,6 +90,7 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                   gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                   sx={{
                     "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                    width: 500
                   }}
                 >
                   <TextField
@@ -78,19 +104,7 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                     name="hoTen"
                     error={!!touched.hoTen && !!errors.hoTen}
                     helperText={touched.hoTen && errors.hoTen}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 3" }}
-                  />
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Mã hộ khẩu tạm trú"
-                    name="maTamTru"
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                    defaultValue={initialValues.maTamTru}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                   />
                   <TextField
                     fullWidth
@@ -103,7 +117,7 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                     name="canCuocCongDan"
                     error={!!touched.canCuocCongDan && !!errors.canCuocCongDan}
                     helperText={touched.canCuocCongDan && errors.canCuocCongDan}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                   />
                   <TextField
                     fullWidth
@@ -119,18 +133,22 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                   />
                   <TextField
-                    fullWidth
                     variant="filled"
-                    type="text"
+                    select
                     label="Địa chỉ tạm trú"
                     onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.diaChiTamTru}
                     name="diaChiTamTru"
-                    error={!!touched.diaChiTamTru && !!errors.diaChiTamTru}
-                    helperText={touched.diaChiTamTru && errors.diaChiTamTru}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
-                  />
+                    onChange={(e) => setRoomName(e.target.value)}
+                    value={roomName}
+                    error={!!touched.diaChiThuongTru && !roomName}
+                    helperText={touched.diaChiThuongTru && !roomName && "Bạn chưa điền thông tin"}
+                    
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}>
+                    {/* <MenuItem value={""}>None</MenuItem> */}
+                    {dataPhong.map((canHo, index) => {
+                      return <MenuItem key={index} value={canHo.label}>{canHo.label}</MenuItem>
+                    })}
+                  </TextField>
                 </Box>
                 <Box display="flex" justifyContent="end" mt="20px" >
 
@@ -147,17 +165,21 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                     variant="contained" startIcon={<DeleteSweepIcon />}>Xóa
                   </Button>
                   <Button onClick={() => {
-                    if(window.confirm("Bạn chắc chắn muốn lưu?")) {
+                    if (roomName && window.confirm("Bạn chắc chắn muốn lưu?")) {
                       tabernacleService.putTabernacle(data.maTamTru, {
                         hoTen: values.hoTen,
                         diaChiThuongTru: values.diaChiThuongTru,
-                        diaChiTamTru: values.diaChiTamTru,
+                        diaChiTamTru: roomName.toString(),
                         canCuocCongDan: values.canCuocCongDan,
                         version: data.version,
                       }).then(mes => {
                         toast(mes.message);
                         setOpenInPopup(!openInPopup);
                         dispatch(fetchAllTabernacles());
+                      }).catch(e => {
+                        if (e.response.data.reason)
+                          toast(e.response.data.reason)
+                        else toast(e.response.data.message)
                       })
                     }
                   }}
@@ -169,7 +191,7 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
             )}
           </Formik>
         </Box>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </DialogContent>
     </Dialog>
   );
@@ -187,7 +209,7 @@ const checkoutSchema = yup.object().shape({
   canCuocCongDan: yup
     .string().required("Bạn chưa điền thông tin"),
   diaChiThuongTru: yup.string().required("Bạn chưa điền thông tin"),
-  diaChiTamTru: yup.string().required("Bạn chưa điền thông tin"),
+  // diaChiTamTru: yup.string().required("Bạn chưa điền thông tin"),
 });
 
 export default EditTabernacle;

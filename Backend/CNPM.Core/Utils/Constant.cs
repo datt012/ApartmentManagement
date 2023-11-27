@@ -100,6 +100,7 @@
         public const string CREATE_TAM_TRU_SUCCESSFULLY = "Thêm mới tạm trú thành công";
         public const string CREATE_TAM_TRU_FAILED = "Thêm mới tạm trú thất bại";
         public const string REASON_CCCD_TAM_TRU_EXISTED = "Căn cước công dân này đã đăng ký tạm trú";
+        public const string REASON_CCCD_TAM_TRU_EXISTED_IN_NHAN_KHAU = "Nhân khẩu này không thể đăng ký tạm trú";
 
         public const string CREATE_TAM_VANG_SUCCESSFULLY = "Thêm mới tạm vắng thành công";
         public const string CREATE_TAM_VANG_FAILED = "Thêm mới tạm vắng thất bại";

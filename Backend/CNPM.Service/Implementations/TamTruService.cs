@@ -91,6 +91,15 @@ namespace CNPM.Service.Implementations
                         reason = Constant.REASON_CCCD_TAM_TRU_EXISTED
                     });
                 }
+                CCCD = _tamTruRepository.CheckExistCanCuocCongDanTrongNhanKhau(tamTru1000.CanCuocCongDan);
+                if (!CCCD)
+                {
+                    return new BadRequestObjectResult(new
+                    {
+                        message = Constant.CREATE_TAM_TRU_FAILED,
+                        reason = Constant.REASON_CCCD_TAM_TRU_EXISTED_IN_NHAN_KHAU
+                    });
+                }
                 TamTruEntity tamTru = _mapper.Map<TamTruDto1000, TamTruEntity>(tamTru1000);
 
                 tamTru.CreateTime = DateTime.Now;
@@ -135,6 +144,14 @@ namespace CNPM.Service.Implementations
                     {
                         message = Constant.UPDATE_TAM_TRU_FAILED,
                         reason = Constant.REASON_CCCD_TAM_TRU_EXISTED
+                    });
+                }
+                if (!_tamTruRepository.CheckExistCanCuocCongDanTrongNhanKhau(newTamTru.CanCuocCongDan))
+                {
+                    return new BadRequestObjectResult(new
+                    {
+                        message = Constant.UPDATE_TAM_TRU_FAILED,
+                        reason = Constant.REASON_CCCD_TAM_TRU_EXISTED_IN_NHAN_KHAU
                     });
                 }
 

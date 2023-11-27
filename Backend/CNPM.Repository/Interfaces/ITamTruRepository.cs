@@ -15,6 +15,7 @@ namespace CNPM.Repository.Interfaces
         public TamTruEntity GetTamTru(int maTamTru);
         public int CreateTamTru(TamTruEntity tamTru);
         public bool CheckExistCanCuocCongDan(string CanCuocCongDan);
+        public bool CheckExistCanCuocCongDanTrongNhanKhau(string CanCuocCongDan);
         public bool CheckExistCanCuocCongDanUpdate(string canCuocCongDan, int maTamTru);
         public int UpdateTamTru(TamTruEntity tamTru);
         public bool DeleteTamTru(int maTamTru, string userName);

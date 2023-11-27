@@ -109,7 +109,7 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
                     defaultValue={initialValues.hoTen}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                   />
-                  <TextField
+                  {/* <TextField
                     fullWidth
                     variant="filled"
                     type="text"
@@ -120,7 +120,7 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
                     }}
                     defaultValue={initialValues.maTamVang}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
-                  />
+                  /> */}
                   <TextField
                     fullWidth
                     variant="filled"
