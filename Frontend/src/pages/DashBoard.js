@@ -65,10 +65,10 @@ const DashBoard = () => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div" color="black">
-                    Danh sách nhân khẩu
+                    Quản lý nhân khẩu
                   </Typography>
                   <Typography variant="body2" color="black">
-                    Danh sách nhân khẩu, đăng ký thường trú, khai sinh, khai tử
+                    Quản lý nhân khẩu, đăng ký nhân khẩu
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -87,7 +87,7 @@ const DashBoard = () => {
                     Quản lý khoản thu
                   </Typography>
                   <Typography variant="body2" color="black">
-                    Quản lý thu phí vệ sinh, các khoản đóng góp
+                    Quản lý các khoản thu phí trong chung cư
                   </Typography>
                 </CardContent>
               </CardActionArea>

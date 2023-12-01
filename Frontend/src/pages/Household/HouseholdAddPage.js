@@ -33,7 +33,7 @@ const HouseholdAddPage = () => {
         toast(result.message);
         history.push(`/${maHoKhau}/edit`);
       }).catch(e => {
-        toast(e?.response?.data?.message ?? "Có lỗi xảy ra");
+        toast(e?.response?.data?.reason ?? e?.response?.data?.message ?? "Có lỗi xảy ra");
       })
     }
   }
@@ -173,10 +173,10 @@ const HouseholdAddPage = () => {
 
 const checkoutSchema = yup.object().shape({
   maHoKhau: yup.string(),
-  diaChiThuongTru: yup.string().required("required"),
-  noiCap: yup.string().required("required"),
-  ngayCap: yup.string().required("required"),
-  danhSachNhanKhau: yup.array().required("required")
+  diaChiThuongTru: yup.string().required("Bạn chưa điền thông tin"),
+  noiCap: yup.string().required("Bạn chưa điền thông tin"),
+  ngayCap: yup.string().required("Bạn chưa điền thông tin"),
+  danhSachNhanKhau: yup.array().required("Bạn chưa điền thông tin")
 });
 let initialValues = {
   maHoKhau: "",

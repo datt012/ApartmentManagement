@@ -212,11 +212,21 @@ namespace CNPM.Service.Implementations
                     reason = Constant.MA_NHAN_KHAU_NOT_EXIST
                 });
 
+
                 if (nhanKhau.Version != newNhanKhau.Version) return new BadRequestObjectResult(new
                 {
                     message = Constant.UPDATE_NHAN_KHAU_FAILED,
                     reason = Constant.DATA_UPDATED_BEFORE
                 });
+                bool CCCD = _nhanKhauRepository.CheckExistCanCuocCongDanUpdate(nhanKhau.MaNhanKhau, newNhanKhau.CanCuocCongDan);
+                if (!CCCD)
+                {
+                    return new BadRequestObjectResult(new
+                    {
+                        message = Constant.CREATE_NHAN_KHAU_FAILED,
+                        reason = Constant.REASON_CCCD_EXISTED
+                    });
+                }
                 // check ho khau ton tai
                 NhanKhauEntity nhanKhauEntity = _mapper.Map<NhanKhauDto1002, NhanKhauEntity>(newNhanKhau);
                 nhanKhauEntity.MaNhanKhau = maNhanKhau;

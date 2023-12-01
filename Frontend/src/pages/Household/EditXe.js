@@ -40,7 +40,7 @@ const EditXe = ({ xeData, onClose, onSuccess }) => {
                 onSuccess && onSuccess();
             }).catch(e => {
                 console.log(e);
-                toast(e?.response?.data?.message ?? "Có lỗi xảy ra");
+                toast(e?.response?.data?.reason ?? e?.response?.data?.message ?? 'Có lỗi xảy ra')
             });
         }
     };
@@ -152,7 +152,7 @@ const EditXe = ({ xeData, onClose, onSuccess }) => {
                         )}
                     </Formik>
                 </Box>
-                <ToastContainer />
+                {/* <ToastContainer /> */}
             </DialogContent>
         </Dialog>
 

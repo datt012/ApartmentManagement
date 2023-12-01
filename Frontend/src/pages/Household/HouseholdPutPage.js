@@ -365,10 +365,10 @@ const HouseholdAddPage = () => {
 };
 
 const checkoutSchema = yup.object().shape({
-  maHoKhau: yup.string().required("required"),
-  diaChiThuongTru: yup.string().required("required"),
-  noiCap: yup.string().required("required"),
-  danhSachNhanKhau: yup.array().required("required")
+  maHoKhau: yup.string().required("Bạn chưa điền thông tin"),
+  diaChiThuongTru: yup.string().required("Bạn chưa điền thông tin"),
+  noiCap: yup.string().required("Bạn chưa điền thông tin"),
+  danhSachNhanKhau: yup.array().required("Bạn chưa điền thông tin")
 });
 
 

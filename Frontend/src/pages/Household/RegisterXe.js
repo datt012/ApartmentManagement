@@ -40,7 +40,7 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
                 onSuccess && onSuccess();
             }).catch(e => {
                 console.log(e);
-                toast(e?.response?.data?.message)
+                toast(e?.response?.data?.reason ?? e?.response?.data?.message ?? 'Có lỗi xảy ra')
             });
         }
     };

@@ -25,7 +25,7 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
     const [newDateEnd, setNewDateEnd] = useState(dayjs(data.thoiGianKetThuc));
     const handleFormSubmit = (values) => {
         console.log(data);
-        if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+        if (window.confirm("Bạn chắc chắn muốn lưu?") == true) {
             revenueService.putRevenue(data.maKhoanThu, {
                 tenKhoanThu: values.tenKhoanThu,
                 ghiChu: values.ghiChu,
@@ -36,8 +36,10 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
             }).then(mes => {
                 //alert(mes.message);
                 dispatch(fetchAllRevenue());
-                toast("Lưu thành công");
+                toast(mes.message);
                 setOpenInPopup(!openInPopup);
+            }).catch(e => {
+                toast(e?.response?.data?.reason ?? e?.response?.data?.message ?? "Có lỗi xảy ra");
             });
         }
     };
@@ -205,7 +207,7 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
                                         style={{ backgroundColor: colors.redAccent[600], marginRight: 10 }}
                                         variant="contained" startIcon={<DeleteSweepIcon />}>Xóa
                                     </Button>
-                                    <Button 
+                                    <Button
                                         type="submit" color="secondary" variant="contained" startIcon={<SaveAsIcon />}>
                                         Lưu
                                     </Button>
@@ -214,7 +216,7 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
                         )}
                     </Formik>
                 </Box>
-                <ToastContainer/>
+                <ToastContainer />
             </DialogContent>
         </Dialog>
     );

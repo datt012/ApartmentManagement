@@ -32,10 +32,12 @@ const PayRevenue = ({ openPopup, setOpenPopup, maKhoanThuTheoHo, maKhoanThu, soT
             }).then(mes => {
                 //alert(mes.message);
                 setOpenPopup(!openPopup);
-                toast("Lưu thành công");
+                toast(mes.message);
                 dispatch(fetchRevenueItem(maKhoanThu));
                 dispatch(fetchAllRevenueHouse(maHoKhau));
-            })
+            }).catch(e => {
+                toast(e?.response?.data?.reason ?? e?.response?.data?.message ?? "Có lỗi xảy ra");
+            });
         }
     };
     const initialValues = {

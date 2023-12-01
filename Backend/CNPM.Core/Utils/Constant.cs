@@ -141,6 +141,7 @@
         public const string REMOVE_XE_SUCCESSFULLY = "Xóa xe thành công";
         public const string REMOVE_XE_FAILED = "Xóa xe thất bại";
         public const string XE_EXISTED = "Xe đã tồn tại";
+        public const string BIEN_SO_XE_EXISTED = "Biển số xe đã tồn tại";
         public const string XE_IS_NOT_EXIST = "Xe không tồn tại";
 
         public const string DELETE_NHAN_KHAU_SUCCESSFULLY = "Xóa thông tin nhân khẩu thành công";

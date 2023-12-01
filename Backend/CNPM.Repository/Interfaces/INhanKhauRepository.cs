@@ -18,6 +18,7 @@ namespace CNPM.Repository.Interfaces
         public NhanKhauEntity GetNhanKhau(int maNhanKhau);
         public int CreateNhanKhau(NhanKhauEntity nhanKhau);
         public bool CheckExistCanCuocCongDan(string CanCuocCongDan);
+        public bool CheckExistCanCuocCongDanUpdate(int maNhanKhau, string canCuocCongDan);
         public int UpdateNhanKhau(NhanKhauEntity nhanKhau);
         public bool DeleteNhanKhau(int maNhanKhau, string userName);
 

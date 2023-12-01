@@ -138,7 +138,7 @@ const Sidebar = () => {
                     {user?.firstName + " " + user?.lastName}
                   </Typography>
                   <Typography variant="h5" color={colors.greenAccent[500]}>
-                    {user?.roleId === 1 ? 'Ban quản trị' : user?.roleId === 2 ? 'Ban quản trị' : 'Kế toán'}
+                    Ban quản trị
                   </Typography>
                 </Box>
               </Box>

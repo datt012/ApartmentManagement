@@ -246,7 +246,8 @@ namespace CNPM.Service.Implementations
                 {
                     return new BadRequestObjectResult(new
                     {
-                        message = Constant.XE_EXISTED
+                        message = Constant.ADD_XE_FAILED,
+                        reason = Constant.BIEN_SO_XE_EXISTED
                     });
                 }
                 // bỏ check version
@@ -285,7 +286,17 @@ namespace CNPM.Service.Implementations
                 {
                     return new BadRequestObjectResult(new
                     {
-                        message = Constant.XE_IS_NOT_EXIST
+                        message = Constant.UPDATE_XE_FAILED,
+                        reason = Constant.XE_IS_NOT_EXIST
+                    });
+                }
+                XeEntity newXeByBienSoXe = _xeRepository.GetXeByBienKiemSoat(newXe.BienKiemSoat);
+                if (newXeByBienSoXe != null && newXeByBienSoXe.MaXe != maXe)
+                {
+                    return new BadRequestObjectResult(new
+                    {
+                        message = Constant.UPDATE_XE_FAILED,
+                        reason = Constant.BIEN_SO_XE_EXISTED
                     });
                 }
                 
