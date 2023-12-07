@@ -1,33 +1,17 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
+import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import Header from "../../components/Header";
-import { useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
-import { Triangle } from "react-loader-spinner";
 import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import dayjs from "dayjs";
-import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded';
 import Button from '@mui/material/Button';
-import { fetchAllDemographic } from "../../Redux/demographicSlice";
-import demographicService from "../../Services/API/demographicService";
 import RegisterRoom from "./RegisterRoom";
-import EditDemographic from "./EditRoom";
 import roomService from "../../Services/API/roomService";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditRoom from "./EditRoom";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import moment from "moment";
 
 const RoomPage = () => {
-
-  const dispatch = useDispatch();
-
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const [openPopup, setOpenPopup] = useState(false);
   const [openEditPopup, setOpenEditPopup] = useState(false);
   const [data, setData] = useState([]);

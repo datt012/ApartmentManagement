@@ -3,8 +3,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
-import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
-import { useEffect, useState, } from "react";
+import { useState, } from "react";
 import { tokens } from "../../theme";
 import { useDispatch } from "react-redux";
 import { fetchAllRevenue } from "../../Redux/revenueSlice";
@@ -257,7 +256,6 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
   );
 };
 
-const idRegEXp = /^\d+$/;
 
 const checkoutSchemaDichVu = yup.object().shape({
   tenKhoanThu: yup.string().required("Bạn chưa điền thông tin"),
@@ -275,6 +273,7 @@ const checkoutSchemaQuanLy = yup.object().shape({
   .number()
   .typeError("Vui lòng nhập một số")
   .required("Bạn chưa điền thông tin")
+  .min(0, "Số tiền không hợp lệ")
 });
 
 const checkoutSchemaGuiXe = yup.object().shape({
@@ -282,11 +281,13 @@ const checkoutSchemaGuiXe = yup.object().shape({
   xeMay:  yup
   .number()
   .typeError("Vui lòng nhập một số")
-  .required("Bạn chưa điền thông tin"),
+  .required("Bạn chưa điền thông tin")
+  .min(0, "Số tiền không hợp lệ"),
   xeOto:  yup
   .number()
   .typeError("Vui lòng nhập một số")
   .required("Bạn chưa điền thông tin")
+  .min(0, "Số tiền không hợp lệ")
 });
 
 const checkoutSchemaAnother = yup.object().shape({

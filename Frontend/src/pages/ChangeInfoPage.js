@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import axios from '../setups/custom_axios';
 import { useDispatch, useSelector } from "react-redux";
 
-import { loadUser, logout } from "../Redux/authSlice";
+import { loadUser } from "../Redux/authSlice";
 import { Button } from "@mui/material";
 import { toast } from "react-toastify";
 export default function ChangeInfoPage() {
@@ -15,7 +15,8 @@ export default function ChangeInfoPage() {
   const { user } = useSelector(
     (state) => state.auth
   );
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
       var res = await axios.put('/user', {
         "userName": user.userName,
@@ -46,7 +47,7 @@ export default function ChangeInfoPage() {
         <div className="text-center mt-3 mb-3" >
           <h3>CẬP NHẬT THÔNG TIN</h3>
         </div>
-        <div className="content-body row">
+        <form className="content-body row" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>
               Tên (<span className="text-danger">*</span>)
@@ -55,6 +56,7 @@ export default function ChangeInfoPage() {
               type="text"
               onChange={(e) => setFirstName(e.target.value)}
               className="form-control"
+              required
               value={firstName}
             />
           </div>
@@ -66,6 +68,7 @@ export default function ChangeInfoPage() {
               type="text"
               onChange={(e) => setLastName(e.target.value)}
               className="form-control"
+              required
               value={lastName}
             />
           </div>
@@ -78,13 +81,14 @@ export default function ChangeInfoPage() {
               type="text"
               className="form-control"
               value={email}
+              required
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Nhập email . . ."
             />
           </div>
-          <Button onClick={() => handleSubmit()} variant="contained" color="info"
+          <Button type="submit" variant="contained" color="info"
            style={{ width: 100, margin: 'auto' }}>Gửi</Button>
-        </div>
+        </form>
       </div>
     </div>
   );

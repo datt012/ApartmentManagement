@@ -1,8 +1,6 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
+import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import Header from "../../components/Header";
-import { useTheme } from "@mui/material";
 import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded';
 import Button from '@mui/material/Button';
 import { fetchAllAbsents } from "../../Redux/absentSlice";
@@ -15,17 +13,12 @@ import absentService from "../../Services/API/absentService";
 import dayjs from "dayjs";
 import moment from "moment";
 const AbsentPage = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const dispatch = useDispatch();
   const [openPopup, setOpenPopup] = useState(false);
   const [openInPopup, setOpenInPopup] = useState(false);
   const { absentList, isLoading } = useSelector((state) => state.absent);
   const [data, setData] = useState([]);
   const EditButton = ({ maTamVang, openInPopup, setOpenInPopup }) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-  
     return (
         <Button onClick={() => {
             absentService.getAbsent(maTamVang).then(mes => {

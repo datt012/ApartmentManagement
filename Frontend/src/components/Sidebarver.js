@@ -6,10 +6,10 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../theme";
 import { SidebarDataAdmin, SidebarDataKeToan } from './SideBar';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "../setups/custom_axios"
 
-const Item = ({ title, to, icon, selected, setSelected, data }) => {
+const Item = ({ title, to, icon }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -31,8 +31,7 @@ const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const dispatch = useDispatch();
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   // console.log("user", user);
   const [dataNhanKhau, setDataNhanKhau] = useState([]);
   const [SidebarData, setSidebarData] = useState();
@@ -101,17 +100,18 @@ const Sidebar = () => {
             >
               {!isCollapsed && (
                 <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  ml="10px"
+                  style={{textAlign: 'center'}}
+                  // display="flex"
+                  // // justifyContent="space-between"
+                  // alignItems="center"
+                  // ml="10px"
                 >
                   <Typography variant="h3" color={colors.grey[100]} style={{fontSize: 22}}>
                     QUẢN LÝ CHUNG CƯ
                   </Typography>
-                  <IconButton style={{zIndex: 1000}} onClick={() => setIsCollapsed(!isCollapsed)}>
+                  {/* <IconButton style={{zIndex: 1000}} onClick={() => setIsCollapsed(!isCollapsed)}>
                     <MenuOutlinedIcon />
-                  </IconButton>
+                  </IconButton> */}
                 </Box>
               )}
             </MenuItem>

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import absentService from "../Services/API/absentService";
-import axios from "../setups/custom_axios";
 export const fetchAllAbsents = createAsyncThunk(
     "absent/fetchAllAbsents",
     async (_, thunkAPI) => {

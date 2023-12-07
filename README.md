@@ -1,4 +1,4 @@
-# Apartment Management
+# Apartment Management : BlueMoon
 
 
 ### Install NodeJS 16.0.0
@@ -9,7 +9,7 @@ In the project directory, you can run:
 
 ### `npm i` in folder Frontend
 ### `npm start` in folder Frontend
-### CNPM.exe in forder Backend
+### `CNPM.exe` in forder Backend
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.

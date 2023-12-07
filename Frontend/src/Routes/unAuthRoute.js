@@ -1,5 +1,4 @@
 import { Route, Switch } from "react-router-dom";
-import RedirectLogin from "./redirectLogin";
 import LoginPage from "../pages/Login";
 const UnAuth = (props) => {
   return (

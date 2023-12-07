@@ -1,31 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
-
-import axios from '../setups/custom_axios';
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import axios from '../setups/custom_axios';
 import { logout } from "../Redux/authSlice";
 import { Button } from "@mui/material";
 import { toast } from "react-toastify";
 export default function ChangePasswordPage() {
-
   const dispatch = useDispatch();
-  const [userName, setUserName] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { user, isAuthenticated, isLoading } = useSelector(
+  const { user } = useSelector(
     (state) => state.auth
   );
-  const handleSubmit = async () => {
-
-    if (oldPassword === '') {
-      toast('Hãy nhập password cũ!');
-      return;
-    }
-    if (newPassword === '') {
-      toast('Hãy nhập password mới!');
-      return;
-    }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     if (newPassword !== confirmPassword) {
       toast('Confirm password không chính xác!');
       return;
@@ -40,7 +28,7 @@ export default function ChangePasswordPage() {
       dispatch(logout());
     }
     catch (e) {
-      toast('Đổi mật khẩu thất bại!');
+      toast(e?.response?.data?.reason || e?.response?.data?.message || "Có lỗi xảy ra");
       return;
     }
 
@@ -48,14 +36,13 @@ export default function ChangePasswordPage() {
   useEffect(() => {
 
   }, []);
-
   return (
     <div>
       <div className="input-custome" style={{ margin: "auto", width: '40%' }}>
         <div className="text-center mt-3 mb-3" >
           <h3>ĐỔI MẬT KHẨU</h3>
         </div>
-        <div className="content-body row">
+        <form className="content-body row" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>
               Tên đăng nhập (<span className="text-danger">*</span>)
@@ -76,6 +63,8 @@ export default function ChangePasswordPage() {
               type="password"
               className="form-control"
               value={oldPassword}
+              required
+              minLength={5}
               onChange={(e) => setOldPassword(e.target.value)}
               placeholder="Nhập mật khẩu cũ . . ."
             />
@@ -88,6 +77,8 @@ export default function ChangePasswordPage() {
               type="password"
               className="form-control"
               value={newPassword}
+              required
+              minLength={5}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="Nhập mật khẩu mới . . ."
             />
@@ -100,13 +91,15 @@ export default function ChangePasswordPage() {
               type="password"
               className="form-control"
               value={confirmPassword}
+              required
+              minLength={5}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Xác nhận mật khẩu mới . . ."
             />
           </div>
-          <Button onClick={() => handleSubmit()} variant="contained" color="info"
-           style={{ width: 100, margin: 'auto' }}>Gửi</Button>
-        </div>
+          <Button type="submit" variant="contained" color="info"
+            style={{ width: 100, margin: 'auto' }}>Gửi</Button>
+        </form>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import tabernacleService from "../../Services/API/tabernacleService";
 import { fetchAllTabernacles } from "../../Redux/tabernacleSlice";
 import { useDispatch } from "react-redux";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import roomService from "../../Services/API/roomService";
 
@@ -39,7 +39,24 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
     })
   }
   const handleFormSubmit = (values) => {
-    console.log(values);
+    console.log('roomName', roomName);
+    if (roomName && window.confirm("Bạn chắc chắn muốn lưu?")) {
+      tabernacleService.putTabernacle(data.maTamTru, {
+        hoTen: values.hoTen,
+        diaChiThuongTru: values.diaChiThuongTru,
+        diaChiTamTru: roomName.toString(),
+        canCuocCongDan: values.canCuocCongDan,
+        version: data.version,
+      }).then(mes => {
+        toast(mes.message);
+        setOpenInPopup(!openInPopup);
+        dispatch(fetchAllTabernacles());
+      }).catch(e => {
+        if (e.response.data.reason)
+          toast(e.response.data.reason)
+        else toast(e.response.data.message)
+      })
+    }
   };
   const initialValues = {
     hoTen: data.hoTen,
@@ -164,25 +181,7 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                     style={{ backgroundColor: colors.redAccent[600], marginRight: 10 }}
                     variant="contained" startIcon={<DeleteSweepIcon />}>Xóa
                   </Button>
-                  <Button onClick={() => {
-                    if (roomName && window.confirm("Bạn chắc chắn muốn lưu?")) {
-                      tabernacleService.putTabernacle(data.maTamTru, {
-                        hoTen: values.hoTen,
-                        diaChiThuongTru: values.diaChiThuongTru,
-                        diaChiTamTru: roomName.toString(),
-                        canCuocCongDan: values.canCuocCongDan,
-                        version: data.version,
-                      }).then(mes => {
-                        toast(mes.message);
-                        setOpenInPopup(!openInPopup);
-                        dispatch(fetchAllTabernacles());
-                      }).catch(e => {
-                        if (e.response.data.reason)
-                          toast(e.response.data.reason)
-                        else toast(e.response.data.message)
-                      })
-                    }
-                  }}
+                  <Button 
                     type="submit" color="secondary" variant="contained" startIcon={<SaveAsIcon />}>
                     Lưu
                   </Button>
@@ -197,17 +196,10 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
   );
 };
 
-const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
-
 const checkoutSchema = yup.object().shape({
   hoTen: yup.string().required("Bạn chưa điền thông tin"),
-  maTamTru: yup
-    .string()
-    .matches(phoneRegExp, "Mã hộ khẩu không hợp lệ")
-    .required("Bạn chưa điền thông tin"),
   canCuocCongDan: yup
-    .string().required("Bạn chưa điền thông tin"),
+    .string().required("Bạn chưa điền thông tin").max(12, "Căn cước công dân không được quá 12 ký tự"),
   diaChiThuongTru: yup.string().required("Bạn chưa điền thông tin"),
   // diaChiTamTru: yup.string().required("Bạn chưa điền thông tin"),
 });

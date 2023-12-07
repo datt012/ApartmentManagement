@@ -1,9 +1,6 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
+import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import Header from "../../components/Header";
-import { useTheme } from "@mui/material";
-import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import Button from '@mui/material/Button';
 import { useEffect, useMemo, useState } from "react";
@@ -20,8 +17,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import moment from "moment";
 
 const RevenuePage = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const dispatch = useDispatch();
   const [openPopup, setOpenPopup] = useState(false);
   const [openInPopup, setOpenInPopup] = useState(false);
@@ -31,8 +26,6 @@ const RevenuePage = () => {
   const [data, setData] = useState([]);
 
   const EditButton = ({ maKhoanThu, openInPopup, setOpenInPopup }) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
 
     return (
       <Button onClick={() => {
@@ -48,8 +41,6 @@ const RevenuePage = () => {
     );
   }
   const ListButton = ({ maKhoanThu, loaiKhoanThu }) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
 
     return (
       <Link to="/revenue-item">

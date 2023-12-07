@@ -13,8 +13,7 @@ import demographicService from "../../Services/API/demographicService";
 import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { da } from "date-fns/locale";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -258,13 +257,9 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
     );
 };
 
-const phoneRegExp =
-    /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
-
 const checkoutSchema = yup.object().shape({
     hoTen: yup.string().required("Bạn chưa điền thông tin"),
-    canCuocCongDan: yup
-        .string().required("Bạn chưa điền thông tin").max(12, "Căn cước công dân không được quá 12 ký tự"),
+    canCuocCongDan: yup.string().required("Bạn chưa điền thông tin").max(12, "Căn cước công dân không được quá 12 ký tự"),
     noiSinh: yup.string().required("Bạn chưa điền thông tin"),
     danToc: yup.string().required("Bạn chưa điền thông tin"),
     ngheNghiep: yup.string().required("Bạn chưa điền thông tin"),

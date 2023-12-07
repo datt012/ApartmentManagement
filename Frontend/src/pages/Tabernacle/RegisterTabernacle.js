@@ -1,16 +1,14 @@
 import { Box, Button, TextField, Typography, Dialog, DialogTitle, DialogContent, IconButton, MenuItem } from "@mui/material";
-import { tokens } from "../../theme";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
-import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAllTabernacles } from "../../Redux/tabernacleSlice";
 import CloseIcon from '@mui/icons-material/Close';
 import tabernacleService from "../../Services/API/tabernacleService";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import roomService from "../../Services/API/roomService";
 
@@ -193,15 +191,11 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
     </Dialog>
 
   );
-};
-
-const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
+}
 
 const checkoutSchema = yup.object().shape({
   hoTen: yup.string().required("Bạn chưa điền thông tin"),
-  canCuocCongDan: yup
-    .string().required("Bạn chưa điền thông tin"),
+  canCuocCongDan: yup.string().required("Bạn chưa điền thông tin").max(12, "Căn cước công dân không được quá 12 ký tự"),
   diaChiThuongTru: yup.string().required("Bạn chưa điền thông tin"),
   // diaChiTamTru: yup.string().required("Bạn chưa điền thông tin"),
 });

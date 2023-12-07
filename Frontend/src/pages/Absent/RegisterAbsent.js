@@ -1,11 +1,8 @@
-import { Box, Button, TextField, Typography, Dialog, DialogTitle, DialogContent, IconButton, InputAdornment } from "@mui/material";
-import { tokens } from "../../theme";
+import { Box, Button, TextField, Typography, Dialog, DialogTitle, DialogContent, IconButton, MenuItem } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
-import SearchIcon from '@mui/icons-material/Search';
-import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import { useEffect, useState, } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAllAbsents } from "../../Redux/absentSlice";
@@ -15,41 +12,47 @@ import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import axios from "../../setups/custom_axios";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const [dataNk, setDataNk] = useState([]);
   const [date, setDate] = useState(dayjs(new Date()));
-  const [name, setName] = useState("");
-  const [canCuoc, setCanCuoc] = useState("");
-  const [show, setShow] = useState(false);
+  const [maNhanKhau, setMaNhanKhau] = useState();
   const dispatch = useDispatch();
   const handleFormSubmit = (values) => {
-    if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+    if (window.confirm("Bạn chắc chắn muốn lưu?") == true) {
       absentService.postAbsent({
-        maNhanKhau: values.maNhanKhau,
+        maNhanKhau: maNhanKhau,
         thoiHan: date,
         lyDo: values.lyDo,
       }).then(mes => {
         toast(mes.message);
         setOpenPopup(!openPopup);
-        setName("");
-        setCanCuoc("");
-        setShow(false);
         dispatch(fetchAllAbsents());
       }).catch(e => {
         toast(e?.response?.data?.reason || "Thêm mới tạm vắng thất bại")
       })
     }
   };
+  const handleGetDataNhanKhauChuaDkiTamVang = () => {
+    axios.get(`/nhan-khau/danh-sach-nhan-khau-chua-dang-ky-tam-vang`).then((result) => {
+      setDataNk(result.data);
+    }).catch(e => {
+      setDataNk([]);
+    })
+  }
   const handleOnChange = (newValue) => {
     setDate(newValue);
   }
   useEffect(() => {
-  }, [name, canCuoc, show]);
+    if (openPopup){
+      handleGetDataNhanKhauChuaDkiTamVang()
+    }
+  }, [openPopup]);
   const initialValues = {
-    maNhanKhau: "",
+    nhanKhau: "",
     lyDo: "",
   };
   return (
@@ -62,10 +65,8 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
             {"ĐĂNG KÝ TẠM VẮNG"}
           </Typography>
           <IconButton aria-label="close" onClick={() => {
+            setMaNhanKhau(undefined);
             setOpenPopup(!openPopup);
-            setName("");
-            setCanCuoc("");
-            setShow(false);
           }}>
             <CloseIcon></CloseIcon>
           </IconButton>
@@ -97,70 +98,20 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
                   }}
                 >
                   <TextField
-                    fullWidth
                     variant="filled"
-                    type="text"
-                    label="Mã nhân khẩu"
+                    select
+                    label="Nhân khẩu"
                     onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.maNhanKhau}
-                    name="maNhanKhau"
-                    error={!!touched.maNhanKhau && !!errors.maNhanKhau}
-                    helperText={touched.maNhanKhau && errors.maNhanKhau}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton onClick={() => {
-                            if (!(!!touched.maNhanKhau && !!errors.maNhanKhau)) {
-                              axios.get(`/nhan-khau?maNhanKhau=${values.maNhanKhau}`).then(mes => {
-                                //alert(JSON.stringify(mes.data));
-                                setName(mes.data.hoTen);
-                                setCanCuoc(mes.data.canCuocCongDan);
-                                setShow(true);
-                              }).catch(e => {
-                                toast(e?.response?.data?.reason || "Lấy thông tin nhân khẩu thất bại")
-                                setName();
-                                setCanCuoc();
-                                setShow(false);
-                              })
-                            }
-
-                          }}>
-                            <SearchIcon />
-                          </IconButton>
-                        </InputAdornment>
-                      )
-                    }}
-                  />
-                  
-                  {show && (
-                    <>
-                      <TextField
-                        fullWidth
-                        variant="filled"
-                        type="text"
-                        label="Họ và tên"
-                        name="hoTen"
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                        value={name}
-                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
-                      ></TextField>
-                      <TextField
-                        fullWidth
-                        variant="filled"
-                        type="text"
-                        label="Căn cước công dân"
-                        name="canCuocCongDan"
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                        value={canCuoc}
-                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
-                      ></TextField></>
-                  )}
+                    name="nhanKhau"
+                    onChange={(e) => setMaNhanKhau(+e.target.value)}
+                    error={!!touched.nhanKhau && !maNhanKhau}
+                    helperText={!!touched.nhanKhau && !maNhanKhau && "Bạn chưa chọn nhân khẩu"}
+                    value={maNhanKhau}
+                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}>
+                    {dataNk.map((nhanKhau, index) => {
+                      return <MenuItem key={index} value={nhanKhau.maNhanKhau}>{nhanKhau?.canCuocCongDan + ' - ' + nhanKhau?.hoTen }</MenuItem>
+                    })}
+                  </TextField>
                   <TextField
                     fullWidth
                     variant="filled"
@@ -179,7 +130,7 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
                       inputFormat="DD/MM/YYYY"
                       onChange={handleOnChange}
                       value={date}
-                      renderInput={(params) => <TextField style={{width: 150}} {...params} />}>
+                      renderInput={(params) => <TextField style={{ width: 150 }} {...params} />}>
 
                     </DesktopDatePicker>
                   </LocalizationProvider>
@@ -201,10 +152,7 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
   );
 };
 
-const idRegEXp = /^\d+$/;
-
 const checkoutSchema = yup.object().shape({
-  maNhanKhau: yup.string().matches(idRegEXp, "Mã nhân khẩu không hợp lệ").required("Bạn chưa điền thông tin"),
   lyDo: yup.string().required("Bạn chưa điền thông tin"),
 });
 

@@ -1,17 +1,10 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { mockDataHousehold } from "../../Services/MOCK/householddata";
+import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import Header from "../../components/Header";
-import { useTheme } from "@mui/material";
-import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import DeleteIcon from '@mui/icons-material/Delete';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import detailroomSlice from "../../Redux/detailRoomSlice";
-import { isDetailVisibleSelector, isSelectedIdSelector } from "../../Redux/selector";
+import { useDispatch } from "react-redux";
 import axios from "../../setups/custom_axios";
 import dayjs from "dayjs";
 import Button from "@mui/material/Button";
@@ -26,16 +19,7 @@ import moment from "moment";
 const HouseholdPage = () => {
 
   const dispatch = useDispatch();
-
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const history = useHistory();
-  const handleDetail = () => {
-    dispatch(detailroomSlice.actions.isDetailVisibleChange())
-  }
-  const handleSelectedId = (Id) => {
-    dispatch(detailroomSlice.actions.isSelectedIdChange(Id));
-  }
   const handleDelete = (maHoKhau) => {
     if (window.confirm('Bạn chắc chắn muốn xóa?')) {
       householdService.deleteHouseHold(maHoKhau).then((result) => {
@@ -61,8 +45,7 @@ const HouseholdPage = () => {
   }, [])
 
   const ListButton = ({ maHoKhau }) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+
 
     return (
       <Link to={"/revenue-house"}>

@@ -1,23 +1,20 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllUsers } from "../Redux/userSlice";
 import "../styles/DashBoard.css";
-import _ from "lodash";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-import { loadUser } from "../Redux/authSlice";
+import { CardActionArea } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 
 const DashBoard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { user, isAuthenticated } = useSelector(
+  const { user } = useSelector(
     (state) => state.auth
   );
-  const userData = useRef({});
   useEffect(() => {
     dispatch(fetchAllUsers());
   }, []);
@@ -54,21 +51,22 @@ const DashBoard = () => {
                 </CardContent>
               </CardActionArea>
             </Card>
-            <Card onClick={() => history.push('/demographic')}
+
+            <Card onClick={() => history.push('/room')}
               sx={{ width: 300, backgroundColor: 'white', margin: '10px' }}>
               <CardActionArea>
                 <CardMedia
                   component="img"
                   height="100"
-                  image={require('../assets/quan-ly-nhan-khau.png')}
+                  image={require('../assets/quan-ly-can-ho.jpg')}
                   alt="green iguana"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div" color="black">
-                    Quản lý nhân khẩu
+                    Quản lý căn hộ
                   </Typography>
                   <Typography variant="body2" color="black">
-                    Quản lý nhân khẩu, đăng ký nhân khẩu
+                    Quản lý các căn hộ trong chung cư
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -92,21 +90,21 @@ const DashBoard = () => {
                 </CardContent>
               </CardActionArea>
             </Card>
-            <Card onClick={() => history.push('/room')}
+            <Card onClick={() => history.push('/demographic')}
               sx={{ width: 300, backgroundColor: 'white', margin: '10px' }}>
               <CardActionArea>
                 <CardMedia
                   component="img"
                   height="100"
-                  image={require('../assets/quan-ly-can-ho.jpg')}
+                  image={require('../assets/quan-ly-nhan-khau.png')}
                   alt="green iguana"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div" color="black">
-                    Quản lý căn hộ
+                    Quản lý nhân khẩu
                   </Typography>
                   <Typography variant="body2" color="black">
-                    Quản lý các căn hộ trong chung cư
+                    Quản lý nhân khẩu, đăng ký nhân khẩu
                   </Typography>
                 </CardContent>
               </CardActionArea>

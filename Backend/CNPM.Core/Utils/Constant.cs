@@ -38,6 +38,7 @@
 
         public const string CHANGE_PASSWORD_SUCCESSFULLY = "Đổi mật khẩu thành công";
         public const string CHANGE_PASSWORD_FAILED = "Đổi mật khẩu thất bại";
+        public const string NEWPASSWORD_SAME_OLDPASSWORD = "Mật khẩu mới trùng với mật khẩu cũ";
 
         public const string SYSTEM_EMAIL_ADDRESS = "no-reply-project-3@outlook.com";
         public const string SYSTEM_EMAIL_PASSWORD = "project3";

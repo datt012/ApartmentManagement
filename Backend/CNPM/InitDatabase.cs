@@ -65,46 +65,6 @@ namespace CNPM
                 Delete = 0
             };
             dbcontext.Add(superAdmin);
-            var listPhongEntity = new List<CanHoEntity>()
-            {
-                new CanHoEntity
-                {
-                    TenCanHo = "P501",
-                    Tang = "5",
-                    DienTich = 40,
-                    CreateTime = today,
-                    UpdateTime = today,
-                    UserCreate = "crackertvn",
-                    UserUpdate = "crackertvn",
-                    Version = 0,
-                    Delete = 0
-                },
-                new CanHoEntity
-                {
-                    TenCanHo = "P502",
-                    Tang = "5",
-                    DienTich = 50,
-                    CreateTime = today,
-                    UpdateTime = today,
-                    UserCreate = "crackertvn",
-                    UserUpdate = "crackertvn",
-                    Version = 0,
-                    Delete = 0
-                },
-                new CanHoEntity
-                {
-                    TenCanHo = "P503",
-                    Tang = "5",
-                    DienTich = 55,
-                    CreateTime = today,
-                    UpdateTime = today,
-                    UserCreate = "crackertvn",
-                    UserUpdate = "crackertvn",
-                    Version = 0,
-                    Delete = 0
-                }
-            };
-            listPhongEntity.ForEach(o => dbcontext.Add(o));
 
             var listLoaiXe = new List<LoaiXeEntity>()
             {

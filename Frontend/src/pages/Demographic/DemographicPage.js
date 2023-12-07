@@ -1,9 +1,6 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
+import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import Header from "../../components/Header";
-import { useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
 import { Triangle } from "react-loader-spinner";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,16 +17,12 @@ const DemographicPage = () => {
 
   const dispatch = useDispatch();
 
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const [openPopup, setOpenPopup] = useState(false);
   const [openInPopup, setOpenInPopup] = useState(false);
   const { demographicList, isLoading } = useSelector((state) => state.demographic);
   const [data, setData] = useState([]);
 
   const EditButton = ({ maNhanKhau, openInPopup, setOpenInPopup }) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
 
     return (
       <Button onClick={() => {

@@ -343,7 +343,18 @@ namespace CNPM.Service.Implementations
                     message = Constant.INVALID_PASSWORD
                 });
 
-                bool kt = _userRepository.ChangePassWord(user.UserName, Helpers.GetHashPassword(userData.NewPassword));
+                var newHashPassword = Helpers.GetHashPassword(userData.NewPassword);
+
+                if (Helpers.IsValidPassWord(userData.NewPassword, user.Password))
+                {
+                    return new BadRequestObjectResult(new
+                    {
+                        message = Constant.CHANGE_PASSWORD_FAILED,
+                        reason = Constant.NEWPASSWORD_SAME_OLDPASSWORD
+                    }); ;
+                }
+
+                bool kt = _userRepository.ChangePassWord(user.UserName, newHashPassword);
 
                 if (kt)
                 {

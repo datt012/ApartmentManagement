@@ -1,14 +1,11 @@
-import { Box, Button, TextField, Typography, Dialog, DialogTitle, DialogContent, IconButton, MenuItem } from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
+import { Box, Button, Typography, Dialog, DialogTitle, DialogContent, IconButton } from "@mui/material";
+import React, { useEffect, useMemo } from "react";
 import axios from "../../setups/custom_axios";
-import { DataGrid, GridToolbar, GridRowModel } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import CloseIcon from '@mui/icons-material/Close';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
-import Snackbar from '@mui/material/Snackbar';
 
 const CreateListRevenue = ({ openModal, setOpenModal, dataHouseHold, setDataHouseHold }) => {
-  const [snackbar, setSnackbar] = React.useState(null);
-  var tmpList = [];
   useEffect(
     async () => {
       try {
@@ -58,7 +55,7 @@ const CreateListRevenue = ({ openModal, setOpenModal, dataHouseHold, setDataHous
   };
 
   const handleProcessRowUpdateError = React.useCallback((error) => {
-    setSnackbar({ children: error.message, severity: 'error' });
+    // setSnackbar({ children: error.message, severity: 'error' });
   }, []);
 
   return <Dialog open={openModal} maxWidth="md" style={{ backgroundColor: "transparent" }}>

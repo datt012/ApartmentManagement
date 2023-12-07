@@ -1,30 +1,18 @@
 import { Box, Button, TextField, Typography, Dialog, DialogTitle, DialogContent, IconButton, MenuItem } from "@mui/material";
-import { tokens } from "../../theme";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
-import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchAllDemographic } from "../../Redux/demographicSlice";
 import CloseIcon from '@mui/icons-material/Close';
-import demographicService from "../../Services/API/demographicService";
-import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
-import roomService from "../../Services/API/roomService";
 import householdService from "../../Services/API/householdService";
 import { LIST_LOAI_XE } from "../../Services/Utils/const";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
     console.log('maHoKhau', maHoKhau);
     const isNonMobile = useMediaQuery("(min-width:600px)");
-    const dispatch = useDispatch();
-    const [date, setDate] = useState(dayjs(new Date()));
 
     const handleFormSubmit = (values) => {
         if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
@@ -158,9 +146,6 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
 
     );
 };
-
-const phoneRegExp =
-    /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const checkoutSchema = yup.object().shape({
     tenXe: yup.string().required("Bạn chưa điền thông tin"),

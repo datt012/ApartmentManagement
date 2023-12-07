@@ -60,7 +60,7 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
         loaiKhoanThu: data.loaiKhoanThu,
         ghiChu: data.ghiChu,
         thoiGianBatDau: dayjs(data.thoiGianBatDau),
-        thoiGianBatDau: dayjs(data.thoiGianKetThuc),
+        thoiGianKetThuc: dayjs(data.thoiGianKetThuc),
         tongCanThu: data.tongCanThu,
         tongDaThu: data.tongDaThu
     };
@@ -103,7 +103,7 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
                                         "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                                     }}
                                 >
-                                    <TextField
+                                    {/* <TextField
                                         fullWidth
                                         variant="filled"
                                         label="Mã khoản thu"
@@ -113,7 +113,7 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
                                         }}
                                         defaultValue={initialValues.maKhoanThu}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                                    />
+                                    /> */}
                                     <TextField
                                         fullWidth
                                         variant="filled"

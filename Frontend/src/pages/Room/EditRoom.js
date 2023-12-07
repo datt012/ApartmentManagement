@@ -1,18 +1,9 @@
-import { Box, Button, TextField, Typography, Dialog, DialogTitle, DialogContent, IconButton, MenuItem } from "@mui/material";
-import { tokens } from "../../theme";
+import { Box, Button, TextField, Typography, Dialog, DialogTitle, DialogContent, IconButton } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
-import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchAllDemographic } from "../../Redux/demographicSlice";
 import CloseIcon from '@mui/icons-material/Close';
-import demographicService from "../../Services/API/demographicService";
-import { DesktopDatePicker, LocalizationProvider, } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
 import roomService from "../../Services/API/roomService";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,7 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const EditRoom = ({ roomData, onClose, onSuccess }) => {
 
     const isNonMobile = useMediaQuery("(min-width:600px)");
-    const dispatch = useDispatch();
 
     const handleFormSubmit = (values) => {
         if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
@@ -37,7 +27,7 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                 onClose && onClose();
                 onSuccess && onSuccess();
             }).catch(e => {
-                toast(e?.response?.data?.message);
+                toast(e?.response?.data?.message ?? "Có lỗi xảy ra");
             });
         }
     };
@@ -118,7 +108,7 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                                     <TextField
                                         fullWidth
                                         variant="filled"
-                                        type="text"
+                                        type="number"
                                         label="Diện tích"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
@@ -165,20 +155,16 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                         )}
                     </Formik>
                 </Box>
-                <ToastContainer />
             </DialogContent>
         </Dialog>
 
     );
 };
 
-const phoneRegExp =
-    /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
-
 const checkoutSchema = yup.object().shape({
     tenCanHo: yup.string().required("Bạn chưa điền thông tin"),
     tang: yup.string().required("Bạn chưa điền thông tin"),
-    dienTich: yup.string().required("Bạn chưa điền thông tin")
+    dienTich: yup.number().required("Bạn chưa điền thông tin").min(0, "Diện tích không hợp lệ").max(1000, "Diện tích không hợp lệ")
 });
 
 export default EditRoom;

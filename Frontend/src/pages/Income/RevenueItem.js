@@ -1,28 +1,17 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
+import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import Header from "../../components/Header";
-import { useTheme } from "@mui/material";
 import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded';
-import FactCheckIcon from '@mui/icons-material/FactCheck';
 import Button from '@mui/material/Button';
 import { useEffect, useMemo, useState } from "react";
 import { Triangle } from "react-loader-spinner";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchAllRevenue, fetchAllRevenueHouse, fetchRevenueItem } from "../../Redux/revenueSlice";
-import dayjs from "dayjs";
-import CreateRevenue from "./CreateRevenue";
-import EditRevenue from "./EditRevenue";
-import revenueService from "../../Services/API/revenueService";
+import { useSelector } from "react-redux";
 import PayRevenue from "./PayRevenue";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
 
 const RevenueItem = () => {
-    const theme = useTheme();
     const history = useHistory();
-    const colors = tokens(theme.palette.mode);
-    const dispatch = useDispatch();
     const revenueItem = useSelector((state) => state.revenue.revenueItem)
     const isLoadingItem = useSelector((state) => state.revenue.isLoadingItem);
     const idKhoanThu = useSelector((state) => state.revenue.maKhoanThu);
@@ -32,8 +21,6 @@ const RevenueItem = () => {
     const [soTienCanThu, setSoTienCanThu] = useState(0);
 
     const PayButton = ({ maKhoanThuTheoHo, openPopup, setOpenPopup, soTienCanThu }) => {
-        const theme = useTheme();
-        const colors = tokens(theme.palette.mode);
 
         return (
             <Button onClick={() => {

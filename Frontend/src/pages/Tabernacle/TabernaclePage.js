@@ -1,8 +1,6 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
+import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import Header from "../../components/Header";
-import { useTheme } from "@mui/material";
 import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded';
 import Button from '@mui/material/Button';
 import { fetchAllTabernacles } from "../../Redux/tabernacleSlice";
@@ -15,8 +13,6 @@ import tabernacleService from "../../Services/API/tabernacleService";
 import moment from "moment";
 
 const TabernaclePage = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const dispatch = useDispatch();
   const [openPopup, setOpenPopup] = useState(false);
   const [openInPopup, setOpenInPopup] = useState(false);
@@ -24,9 +20,6 @@ const TabernaclePage = () => {
   const [data, setData] = useState([]);
 
   const EditButton = ({ maTamTru, openInPopup, setOpenInPopup }) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-  
     return (
         <Button onClick={() => {
           tabernacleService.getTabernacle(maTamTru).then(mes => {
