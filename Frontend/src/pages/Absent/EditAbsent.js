@@ -25,7 +25,7 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
   const handleFormSubmit = (values) => {
     console.log(newDate);
     console.log(values);
-    if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+    if(window.confirm("Bạn chắc chắn muốn lưu?") === true) {
       absentService.putAbsent(values.maTamVang, {
         maNhanKhau: values.maNhanKhau,
         thoiHan: newDate,
@@ -62,7 +62,7 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
       <DialogTitle>
         <div style={{ display: 'flex' }}>
           <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-            {"Thông tin chi tiết"}
+            {"Chi tiết tạm vắng"}
           </Typography>
           <IconButton aria-label="close" onClick={() => {
             setOpenInPopup(!openInPopup)
@@ -159,7 +159,7 @@ const EditAbsent = ({ openInPopup, setOpenInPopup, data }) => {
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                   />
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DesktopDatePicker label="Thời điểm bắt đầu"
+                    <DesktopDatePicker label="Thời gian bắt đầu"
                       inputFormat="DD/MM/YYYY"
                       onChange={handleOnChange}
                       name="thoiHan"

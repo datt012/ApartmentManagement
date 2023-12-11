@@ -7,14 +7,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using CNPM.Service.Implementations;
 using CNPM.Core.Models.TamVang;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-
 namespace CNPM.Controllers.Authorize
 {
-    //[VerifyToken]
     [Authorize]
     [ApiController]
     [Route(Constant.API_BASE)]
-
     public class TamVangController : ControllerBase
     {
         private readonly ITamVangService _tamVangService;
@@ -22,7 +19,6 @@ namespace CNPM.Controllers.Authorize
         {
             _tamVangService = tamVangService;
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpGet("tam-vang/danh-sach-tam-vang")]
@@ -30,7 +26,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _tamVangService.GetListTamVang(index, limit);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpGet("tam-vang")]
@@ -38,7 +33,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _tamVangService.GetTamVang(maTamVang);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPost("tam-vang")]
@@ -51,7 +45,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _tamVangService.CreateTamVang(token, tamVang);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPut("tam-vang")]
@@ -64,7 +57,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _tamVangService.UpdateTamVang(token, maTamVang, tamVang);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpDelete("tam-vang")]
@@ -73,6 +65,5 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _tamVangService.DeleteTamVang(maTamVang, token, version);
         }
-
     }
 }

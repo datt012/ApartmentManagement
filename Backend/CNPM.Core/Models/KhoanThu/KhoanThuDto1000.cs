@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.KhoanThu
 {
-    public class KhoanThuDto1000 // body create
+    public class KhoanThuDto1000 
     {
         [Required]
         [StringLength(100)]
         [JsonProperty("tenKhoanThu")]
-        public string TenKhoanThu { get; set; }
+        public string? TenKhoanThu { get; set; }
 
         [Required]
         [JsonProperty("thoiGianBatDau")]
@@ -31,7 +31,7 @@ namespace CNPM.Core.Models.KhoanThu
 
         [Required]
         [JsonProperty("chiTiet")]
-        public string ChiTiet { get; set; }
+        public string? ChiTiet { get; set; }
 
         [MaxLength(200)]
         [JsonProperty("ghiChu")]

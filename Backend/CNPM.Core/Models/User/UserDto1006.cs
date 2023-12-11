@@ -5,29 +5,28 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace CNPM.Core.Models
 {
-    //user update
     public class UserDto1006
     {
 
         [Required]
         [JsonProperty("userName")]
         [MaxLength(40)]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         [Required]
         [JsonProperty("firstName")]
         [MaxLength(100)]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
         [Required]
         [MaxLength(100)]
         [JsonProperty("lastName")]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         [Required]
         [JsonProperty("email")]
         [MaxLength(100)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [Required]
         [JsonProperty("roleId")]
@@ -35,7 +34,7 @@ namespace CNPM.Core.Models
 
         [Required]
         [JsonProperty("userUpdate")]
-        public string UserUpdate { get; set; }
+        public string? UserUpdate { get; set; }
 
         [Required]
         [JsonProperty("version")]

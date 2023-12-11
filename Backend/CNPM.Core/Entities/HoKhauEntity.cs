@@ -8,15 +8,15 @@ namespace CNPM.Core.Entities
         [Key]
         [Required]
         [Column(TypeName = "varchar(10)")]
-        public string MaHoKhau { get; set; }
+        public string? MaHoKhau { get; set; }
         
         [StringLength(200)]
         [Required]
-        public string DiaChiThuongTru { get; set; }
+        public string? DiaChiThuongTru { get; set; }
 
         [StringLength(200)]
         [Required]
-        public string NoiCap { get; set; }
+        public string? NoiCap { get; set; }
 
         [Required]
         public DateTime NgayCap { get; set; }

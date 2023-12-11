@@ -84,7 +84,7 @@ namespace CNPM.Service.Implementations
         {
             try
             {
-                var user = _userRepository.GetUser(userLogin.UserName);
+                var user = _userRepository.GetUser(userLogin.UserName!);
 
                 if (user == null) return new BadRequestObjectResult(new
                 {
@@ -92,7 +92,7 @@ namespace CNPM.Service.Implementations
                 });
 
 
-                bool isValidPassWord = Helpers.IsValidPassWord(userLogin.Password, user.Password);
+                bool isValidPassWord = Helpers.IsValidPassWord(userLogin.Password!, user.Password!);
 
                 if (!isValidPassWord) return new BadRequestObjectResult(new
                 {
@@ -103,11 +103,11 @@ namespace CNPM.Service.Implementations
                 {
 
 
-                new Claim("username", user.UserName),
+                new Claim("username", user.UserName!),
 
-                new Claim("firstname", user.FirstName),
+                new Claim("firstname", user.FirstName!),
 
-                new Claim("lastname", user.LastName),
+                new Claim("lastname", user.LastName!),
 
                 new Claim("version", user.Version.ToString()),
 
@@ -133,7 +133,7 @@ namespace CNPM.Service.Implementations
 
                 userDto1002.RoleId = user.RoleId;
 
-                _userRepository.SaveToken(userLogin.UserName, tokenString);
+                _userRepository.SaveToken(userLogin.UserName!, tokenString);
 
                 return new OkObjectResult(new
                 {
@@ -184,7 +184,7 @@ namespace CNPM.Service.Implementations
         {
             try
             {
-                var userTmp = _userRepository.GetUser(user.UserName);
+                var userTmp = _userRepository.GetUser(user.UserName!);
                 if (userTmp != null) return null;
 
                 UserEntity userEntity;
@@ -229,7 +229,7 @@ namespace CNPM.Service.Implementations
         {
             try
             {
-                var userTmp = _userRepository.GetUser(newUserData.UserName);
+                var userTmp = _userRepository.GetUser(newUserData.UserName!);
                 if (userTmp == null) return new BadRequestObjectResult(new
                 {
                     message = Constant.USERNAME_NOT_EXIST
@@ -266,7 +266,7 @@ namespace CNPM.Service.Implementations
         {
             try
             {
-                var userTmp = _userRepository.GetUser(user.UserName);
+                var userTmp = _userRepository.GetUser(user.UserName!);
                 if (userTmp == null) return new BadRequestObjectResult(new
                 {
                     message = Constant.USERNAME_NOT_EXIST
@@ -329,23 +329,23 @@ namespace CNPM.Service.Implementations
 
             try
             {
-                var user = _userRepository.GetUser(userData.UserName);
+                var user = _userRepository.GetUser(userData.UserName!);
 
                 if (user == null) return new BadRequestObjectResult(new
                 {
                     message = Constant.USERNAME_NOT_EXIST
                 });
 
-                bool isValidPassWord = Helpers.IsValidPassWord(userData.OldPassword, user.Password);
+                bool isValidPassWord = Helpers.IsValidPassWord(userData.OldPassword!, user.Password!);
 
                 if (!isValidPassWord) return new BadRequestObjectResult(new
                 {
                     message = Constant.INVALID_PASSWORD
                 });
 
-                var newHashPassword = Helpers.GetHashPassword(userData.NewPassword);
+                var newHashPassword = Helpers.GetHashPassword(userData.NewPassword!);
 
-                if (Helpers.IsValidPassWord(userData.NewPassword, user.Password))
+                if (Helpers.IsValidPassWord(userData.NewPassword!, user.Password!))
                 {
                     return new BadRequestObjectResult(new
                     {
@@ -354,7 +354,7 @@ namespace CNPM.Service.Implementations
                     }); ;
                 }
 
-                bool kt = _userRepository.ChangePassWord(user.UserName, newHashPassword);
+                bool kt = _userRepository.ChangePassWord(user.UserName!, newHashPassword);
 
                 if (kt)
                 {

@@ -21,7 +21,7 @@ const HouseholdAddPage = () => {
   const [dataNhanKhau, setDataNhanKhau] = useState([]);
   const [ngayCap, setNgayCap] = useState();
   const handleSubmit = (values) => {
-    if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+    if(window.confirm("Bạn chắc chắn muốn lưu?") === true) {
       householdService.addHouseHold({
         "maHoKhau": values.maHoKhau,
         "diaChiThuongTru": values.diaChiThuongTru,
@@ -58,8 +58,7 @@ const HouseholdAddPage = () => {
 
   return (
     <Box m="20px">
-      <Header title="Tạo hộ khẩu" />
-
+      <Header title="Đăng ký hộ khẩu" />
 
       <Formik
         onSubmit={(values) => handleSubmit(values)}

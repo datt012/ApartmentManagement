@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.NhanKhau
 {
-    public class NhanKhauDto1002 // body update
+    public class NhanKhauDto1002 
     {
         [Required]
         [StringLength(100)]
         [JsonProperty("hoTen")]
-        public string HoTen { get; set; }
+        public string? HoTen { get; set; }
 
         [Required]
         [MaxLength(12)]
         [JsonProperty("canCuocCongDan")]
-        public string CanCuocCongDan { get; set; }
+        public string? CanCuocCongDan { get; set; }
 
         [Required]
         [JsonProperty("ngaySinh")]
@@ -28,17 +28,17 @@ namespace CNPM.Core.Models.NhanKhau
         [Required]
         [StringLength(100)]
         [JsonProperty("noiSinh")]
-        public string NoiSinh { get; set; }
+        public string? NoiSinh { get; set; }
 
         [Required]
         [StringLength(20)]
         [JsonProperty("danToc")]
-        public string DanToc { get; set; }
+        public string? DanToc { get; set; }
 
         [Required]
         [StringLength(50)]
         [JsonProperty("ngheNghiep")]
-        public string NgheNghiep { get; set; }
+        public string? NgheNghiep { get; set; }
 
         [Required]
         [CustomValidation(typeof(TrangThaiAttribute), "IsTrangThai")]
@@ -48,7 +48,7 @@ namespace CNPM.Core.Models.NhanKhau
         [Required]
         [StringLength(30)]
         [JsonProperty("quanHe")]
-        public string QuanHe { get; set; }
+        public string? QuanHe { get; set; }
 
         [MaxLength(200)]
         [JsonProperty("ghiChu")]

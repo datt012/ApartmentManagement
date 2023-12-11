@@ -16,7 +16,7 @@ namespace CNPM.Core.Models.Common
         [JsonProperty("soTien")]
         public int SoTien;
         [JsonProperty("donVi")]
-        public string DonVi;
+        public string? DonVi;
     }
 }
 

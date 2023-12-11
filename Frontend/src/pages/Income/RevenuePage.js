@@ -57,7 +57,6 @@ const RevenuePage = () => {
     );
   }
   useEffect(() => {
-    /*dispatch(resetTabernacleSlice());*/
     if (!isLoadingList) {
       dispatch(fetchAllRevenue());
     }
@@ -118,7 +117,7 @@ const RevenuePage = () => {
         setOpenPopup(!openPopup);
       }}
         color="info" variant="contained" style={{ fontWeight: "bold" }}>
-        Tạo khoản thu phí</Button>
+        Tạo khoản thu</Button>
       <Box
         m="40px 0 0 0"
         height="75vh"

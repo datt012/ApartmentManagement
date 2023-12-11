@@ -9,14 +9,11 @@ using CNPM.Core.Models.NhanKhau;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using CNPM.Core.Models.HoKhau;
 using CNPM.Core.Models.Xe;
-
 namespace CNPM.Controllers.Authorize
 {
-    //[VerifyToken]
     [Authorize]
     [ApiController]
     [Route(Constant.API_BASE)]
-
     public class HoKhauController : ControllerBase
     {
         private readonly IHoKhauService _hoKhauService;
@@ -24,7 +21,6 @@ namespace CNPM.Controllers.Authorize
         {
             _hoKhauService = hoKhauService;
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpGet("ho-khau/danh-sach-ho-khau")]
@@ -32,7 +28,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _hoKhauService.GetListHoKhau(index, limit);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpGet("ho-khau")]
@@ -40,7 +35,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _hoKhauService.GetHoKhau(maHoKhau);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPost("ho-khau")]
@@ -53,7 +47,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _hoKhauService.CreateHoKhau(token, hoKhau);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPut("ho-khau")]
@@ -66,7 +59,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _hoKhauService.UpdateHoKhau(token, maHoKhau, hoKhau);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPost("ho-khau/add-can-ho-to-ho-khau")]
@@ -75,7 +67,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _hoKhauService.AddCanHoToHoKhau(token, maHoKhau, maCanHo);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPost("ho-khau/add-xe")]
@@ -88,7 +79,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _hoKhauService.AddXeToHoKhau(token, xe);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPost("ho-khau/update-xe")]
@@ -101,7 +91,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _hoKhauService.UpdateXe(token, maXe, xe);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPost("ho-khau/remove-xe")]
@@ -110,7 +99,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _hoKhauService.RemoveXeFromHoKhau(token, maXe);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpDelete("ho-khau")]
@@ -119,6 +107,5 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _hoKhauService.DeleteHoKhau(token, maHoKhau, version);
         }
-
     }
 }

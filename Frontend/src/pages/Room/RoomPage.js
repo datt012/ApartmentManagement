@@ -78,11 +78,6 @@ const RoomPage = () => {
       headerName: "Mã hộ khẩu",
       flex: 0.5
     },
-    // {
-    //   field: "moTa",
-    //   headerName: "Mô tả",
-    //   flex: 0.5,
-    // },
     {
       field: "put",
       headerName: "",
@@ -90,7 +85,6 @@ const RoomPage = () => {
       align: "center",
       disableExport: true,
       renderCell: (param) => {
-        // const link = param.row.maHoKhau + "/edit";
         return <div onClick={() => handleEdit(param.row.maCanHo)}><EditIcon /> </div>
       }
     },
@@ -110,7 +104,7 @@ const RoomPage = () => {
   return (
     <Box m="20px">
       <Header
-        title="Quản lý căn hộ"
+        title="Danh sách căn hộ"
       />
       <Button onClick={() => {
         setOpenPopup(!openPopup);

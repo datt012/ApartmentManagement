@@ -34,7 +34,6 @@ const TabernaclePage = () => {
     );
   }
   useEffect(() => {
-    /*dispatch(resetTabernacleSlice());*/
     if (!isLoading) {
       dispatch(fetchAllTabernacles());
     }

@@ -49,7 +49,7 @@ namespace CNPM.Service.Implementations
                 var arr = _mapper.Map<List<HoKhauEntity>, List<HoKhauDto1003>>(listHoKhau);
                 foreach (HoKhauDto1003 hoKhau in arr)
                 {
-                    var listNhanKhauEntity = _nhanKhauRepository.GetListNhanKhauInHoKhau(hoKhau.MaHoKhau);
+                    var listNhanKhauEntity = _nhanKhauRepository.GetListNhanKhauInHoKhau(hoKhau.MaHoKhau!);
                     hoKhau.SoThanhVien = listNhanKhauEntity.FindAll(o => o.TrangThai == Constant.ALIVE).ToList().Count();
                 }
                 return new OkObjectResult(
@@ -122,7 +122,6 @@ namespace CNPM.Service.Implementations
                         });
                     }
                 } 
-                // them thong tin ho khau
                 HoKhauEntity hoKhau = _mapper.Map<HoKhauDto1000, HoKhauEntity>(hoKhau1000);
                 hoKhau.CreateTime = DateTime.Now;
                 hoKhau.UpdateTime = DateTime.Now;
@@ -132,8 +131,7 @@ namespace CNPM.Service.Implementations
 
                 if (maHoKhau != "")
                 {
-                    // thêm thông tin hộ khẩu thành công -> thêm nhân khẩu vào hộ khẩu
-                    bool addNKToHK = _hoKhauRepository.AddNhanKhauToHoKhau(hoKhau1000.DanhSachNhanKhau, maHoKhau, userName);
+                    bool addNKToHK = _hoKhauRepository.AddNhanKhauToHoKhau(hoKhau1000.DanhSachNhanKhau!, maHoKhau, userName);
                     if (addNKToHK) return new OkObjectResult(new
                     {
                         message = Constant.CREATE_HO_KHAU_SUCCESSFULLY,
@@ -161,7 +159,6 @@ namespace CNPM.Service.Implementations
                     message = Constant.UPDATE_HO_KHAU_FAILED,
                     reason = Constant.MA_HO_KHAU_NOT_EXIST
                 });
-                // còn thiếu check version nhan khau
                 if (hoKhau.Version != newHoKhau.Version) return new BadRequestObjectResult(new
                 {
                     message = Constant.UPDATE_HO_KHAU_FAILED,
@@ -178,7 +175,7 @@ namespace CNPM.Service.Implementations
                     bool remove = _hoKhauRepository.RemoveNhanKhauFromHoKhau(maHoKhau, userName);
                     if (remove)
                     {
-                        bool updateNK = _hoKhauRepository.AddNhanKhauToHoKhau(newHoKhau.DanhSachNhanKhau, maHoKhauUpdate, userName);
+                        bool updateNK = _hoKhauRepository.AddNhanKhauToHoKhau(newHoKhau.DanhSachNhanKhau!, maHoKhauUpdate, userName);
                         if (updateNK) return new OkObjectResult(new
                         {
                             message = Constant.UPDATE_HO_KHAU_SUCCESSFULLY,
@@ -207,9 +204,7 @@ namespace CNPM.Service.Implementations
                     message = Constant.UPDATE_HO_KHAU_FAILED,
                     reason = Constant.MA_HO_KHAU_NOT_EXIST
                 });
-                // bỏ check version
                 bool add = _hoKhauRepository.AddCanHoToHoKhau(maHoKhau, maCanHo, userName);
-
                 if (add)
                 {
                     return new OkObjectResult(new
@@ -234,14 +229,13 @@ namespace CNPM.Service.Implementations
             {
                 var userName = Helpers.DecodeJwt(token, "username");
                 
-                var hoKhau = _hoKhauRepository.GetHoKhau(xe.MaHoKhau);
+                var hoKhau = _hoKhauRepository.GetHoKhau(xe.MaHoKhau!);
                 if (hoKhau == null) return new BadRequestObjectResult(new
                 {
                     message = Constant.UPDATE_HO_KHAU_FAILED,
                     reason = Constant.MA_HO_KHAU_NOT_EXIST
                 });
-                // kiểm tra xem biển kiểm soát đã có chưa
-                XeEntity xeExist = _xeRepository.GetXeByBienKiemSoat(xe.BienKiemSoat);
+                XeEntity xeExist = _xeRepository.GetXeByBienKiemSoat(xe.BienKiemSoat!);
                 if (xeExist != null)
                 {
                     return new BadRequestObjectResult(new
@@ -250,7 +244,6 @@ namespace CNPM.Service.Implementations
                         reason = Constant.BIEN_SO_XE_EXISTED
                     });
                 }
-                // bỏ check version
                 XeEntity xeEntity = _mapper.Map<XeDto1000, XeEntity>(xe);
                 xeEntity.UserCreate = userName;
                 xeEntity.UserUpdate = userName;
@@ -290,7 +283,7 @@ namespace CNPM.Service.Implementations
                         reason = Constant.XE_IS_NOT_EXIST
                     });
                 }
-                XeEntity newXeByBienSoXe = _xeRepository.GetXeByBienKiemSoat(newXe.BienKiemSoat);
+                XeEntity newXeByBienSoXe = _xeRepository.GetXeByBienKiemSoat(newXe.BienKiemSoat!);
                 if (newXeByBienSoXe != null && newXeByBienSoXe.MaXe != maXe)
                 {
                     return new BadRequestObjectResult(new
@@ -363,15 +356,11 @@ namespace CNPM.Service.Implementations
                     message = Constant.DELETE_HO_KHAU_FAILED,
                     reason = Constant.MA_HO_KHAU_NOT_EXIST
                 });
-                // xóa tất cả nhân khẩu trong hộ khẩu
-                // xóa phòng mà hộ khẩu đã ở
-
                 _hoKhauRepository.AddCanHoToHoKhau(maHoKhau, -1, userName);
 
                 bool remove = _hoKhauRepository.RemoveNhanKhauFromHoKhau(maHoKhau, userName);
                 if (remove)
                 {
-                    // xóa hộ khẩu
                     bool delete = _hoKhauRepository.DeleteHoKhau(maHoKhau, userName);
                     if (delete)
                     {

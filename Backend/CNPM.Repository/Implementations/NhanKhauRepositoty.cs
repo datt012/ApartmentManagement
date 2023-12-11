@@ -22,10 +22,10 @@ namespace CNPM.Repository.Implementations
                 List<NhanKhauEntity> arr;
                 if (index == 0 && limit == 0)
                 {
-                    arr = _dbcontext.NhanKhau.Where(
+                    arr = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE).ToList();
                 }
-                else arr = _dbcontext.NhanKhau.Where(
+                else arr = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE).Skip(limit * (index - 1)).Take(limit).ToList();
 
                 return arr;
@@ -43,10 +43,10 @@ namespace CNPM.Repository.Implementations
                 List<NhanKhauEntity> arr;
                 if (index == 0 && limit == 0)
                 {
-                    arr = _dbcontext.NhanKhau.Where(
+                    arr = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == null).ToList();
                 }
-                else arr = _dbcontext.NhanKhau.Where(
+                else arr = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == null).Skip(limit * (index - 1)).Take(limit).ToList();
 
                 return arr;
@@ -65,10 +65,10 @@ namespace CNPM.Repository.Implementations
                 List<NhanKhauEntity> arr;
                 if (index == 0 && limit == 0)
                 {
-                    arr = _dbcontext.NhanKhau.Where(
+                    arr = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.TrangThai == Constant.ALIVE).ToList();
                 }
-                else arr = _dbcontext.NhanKhau.Where(
+                else arr = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.TrangThai == Constant.ALIVE).Skip(limit * (index - 1)).Take(limit).ToList();
 
                 return arr;
@@ -83,7 +83,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                List<NhanKhauEntity> arr = _dbcontext.NhanKhau.Where(
+                List<NhanKhauEntity> arr = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE
                     && o.MaHoKhau == maHoKhau
                 ).ToList();
@@ -99,7 +99,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                NhanKhauEntity nhanKhau = _dbcontext.NhanKhau.Where(
+                NhanKhauEntity nhanKhau = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaNhanKhau == maNhanKhau).FirstOrDefault();
                 return nhanKhau;
             }
@@ -134,7 +134,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                NhanKhauEntity nhanKhau = _dbcontext.NhanKhau.Where(
+                NhanKhauEntity nhanKhau = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.CanCuocCongDan == canCuocCongDan).FirstOrDefault();
                 if (nhanKhau == null) return true;
                 return false;
@@ -149,7 +149,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                NhanKhauEntity nhanKhau = _dbcontext.NhanKhau.Where(
+                NhanKhauEntity nhanKhau = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.CanCuocCongDan == canCuocCongDan).FirstOrDefault();
                 if (nhanKhau == null || nhanKhau.MaNhanKhau == maNhanKhau) return true;
                 return false;
@@ -164,7 +164,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var nhanKhau = _dbcontext.NhanKhau.FirstOrDefault(
+                var nhanKhau = _dbcontext.NhanKhau!.FirstOrDefault(
                     o => o.MaNhanKhau == newNhanKhau.MaNhanKhau && o.Delete == Constant.NOT_DELETE);
 
                 if (nhanKhau != null)
@@ -197,7 +197,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var nhanKhau = _dbcontext.NhanKhau.FirstOrDefault(
+                var nhanKhau = _dbcontext.NhanKhau!.FirstOrDefault(
                     o => o.MaNhanKhau == maNhanKhau && o.Delete == Constant.NOT_DELETE);
                 if (nhanKhau != null)
                 {

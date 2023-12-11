@@ -22,10 +22,10 @@ namespace CNPM.Repository.Implementations
                 List<XeEntity> arr;
                 if (index == 0 && limit == 0)
                 {
-                    arr = _dbcontext.Xe.Where(
+                    arr = _dbcontext.Xe!.Where(
                     o => o.Delete == Constant.NOT_DELETE).ToList();
                 }
-                else arr = _dbcontext.Xe.Where(
+                else arr = _dbcontext.Xe!.Where(
                     o => o.Delete == Constant.NOT_DELETE).Skip(limit * (index - 1)).Take(limit).ToList();
 
                 return arr;
@@ -41,7 +41,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                List<XeEntity> arr = _dbcontext.Xe.Where(
+                List<XeEntity> arr = _dbcontext.Xe!.Where(
                     o => o.Delete == Constant.NOT_DELETE & o.MaHoKhau == maHoKhau).ToList();
                 
                 return arr;
@@ -57,7 +57,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                XeEntity xe = _dbcontext.Xe.Where(
+                XeEntity xe = _dbcontext.Xe!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaXe == maXe).FirstOrDefault();
                 return xe;
             }
@@ -71,7 +71,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                XeEntity xe = _dbcontext.Xe.Where(
+                XeEntity xe = _dbcontext.Xe!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.BienKiemSoat == bienKhiemSoat).FirstOrDefault();
                 return xe;
             }
@@ -105,7 +105,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var xe = _dbcontext.Xe.FirstOrDefault(
+                var xe = _dbcontext.Xe!.FirstOrDefault(
                     o => o.MaXe == newXe.MaXe && o.Delete == Constant.NOT_DELETE);
 
                 if (xe != null)
@@ -133,7 +133,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var xe = _dbcontext.Xe.FirstOrDefault(
+                var xe = _dbcontext.Xe!.FirstOrDefault(
                     o => o.MaXe == maXe && o.Delete == Constant.NOT_DELETE);
                 if (xe != null)
                 {

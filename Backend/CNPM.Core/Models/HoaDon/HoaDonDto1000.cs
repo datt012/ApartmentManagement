@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.HoaDon
 {
-    public class HoaDonDto1000 // body create
+    public class HoaDonDto1000 
     {
         [Required]
         [JsonProperty("maKhoanThuTheoHo")]
@@ -19,7 +19,7 @@ namespace CNPM.Core.Models.HoaDon
 
         [Required,StringLength(100)]
         [JsonProperty("tenHoaDon")]
-        public string TenHoaDon { get; set; }
+        public string? TenHoaDon { get; set; }
 
         [Required]
         [JsonProperty("soTienDaNop")]

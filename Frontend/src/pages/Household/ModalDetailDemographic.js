@@ -14,7 +14,7 @@ const ModalDetailDemographic = ({ memberData, onClose }) => {
             <DialogTitle>
                 <div style={{ display: 'flex' }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-                        {"THÔNG TIN THÀNH VIÊN"}
+                        {"Thông tin thành viên"}
                     </Typography>
                     <IconButton aria-label="close" onClick={() => {
                         onClose && onClose();

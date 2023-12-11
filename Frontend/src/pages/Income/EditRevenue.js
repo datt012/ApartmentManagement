@@ -25,7 +25,7 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
     const [newDateEnd, setNewDateEnd] = useState(dayjs(data.thoiGianKetThuc));
     const handleFormSubmit = (values) => {
         console.log(data);
-        if (window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+        if (window.confirm("Bạn chắc chắn muốn lưu?") === true) {
             revenueService.putRevenue(data.maKhoanThu, {
                 tenKhoanThu: values.tenKhoanThu,
                 ghiChu: values.ghiChu,
@@ -34,7 +34,6 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
                 chiTiet: "[{\"dien\": 500000000, \"nuoc\": 100000, \"maHoKhau\": \"HK84744454\"}]",
                 version: data.version
             }).then(mes => {
-                //alert(mes.message);
                 dispatch(fetchAllRevenue());
                 toast(mes.message);
                 setOpenInPopup(!openInPopup);
@@ -70,7 +69,7 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
             <DialogTitle>
                 <div style={{ display: 'flex' }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-                        {"Thông tin chi tiết"}
+                        {"Chi tiết khoản thu"}
                     </Typography>
                     <IconButton aria-label="close" onClick={() => {
                         setOpenInPopup(!openInPopup)
@@ -103,17 +102,6 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
                                         "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                                     }}
                                 >
-                                    {/* <TextField
-                                        fullWidth
-                                        variant="filled"
-                                        label="Mã khoản thu"
-                                        name="maKhoanThu"
-                                        InputProps={{
-                                            readOnly: true,
-                                        }}
-                                        defaultValue={initialValues.maKhoanThu}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                                    /> */}
                                     <TextField
                                         fullWidth
                                         variant="filled"

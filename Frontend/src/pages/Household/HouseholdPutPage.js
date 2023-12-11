@@ -46,7 +46,7 @@ const HouseholdAddPage = () => {
   };
   const handleUpdate = (values) => {
     console.log('values', values);
-    if (window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+    if (window.confirm("Bạn chắc chắn muốn lưu?") === true) {
       householdService.addRoomToHouseHold(values.maHoKhau, roomId).then((result) => {
         console.log('result', result);
       }).catch(e => {
@@ -157,7 +157,7 @@ const HouseholdAddPage = () => {
   return (
 
     <Box m="20px" onLoad>
-      <Header title="Cập nhật thông tin hộ khẩu" />
+      <Header title="Cập nhật hộ khẩu" />
       {addXe && <RegisterXe maHoKhau={initialValues.maHoKhau} onClose={() => setAddXe(false)} onSuccess={() => handleGetData()} />}
       {editXe && <EditXe xeData={currentXe} onClose={() => setEditXe(false)} onSuccess={() => handleGetData()} />}
       <Formik
@@ -233,19 +233,6 @@ const HouseholdAddPage = () => {
                     renderInput={(params) => <TextField {...params} />}>
                   </DesktopDatePicker>
                 </LocalizationProvider>
-                {/* <TextField
-                  fullWidth
-                  variant="filled"
-                  type='date'
-                  label="Ngày cấp"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.ngayCap}
-                  name="ngayCap"
-                  error={!!touched.ngayCap && !!errors.ngayCap}
-                  helperText={touched.ngayCap && errors.ngayCap}
-                  sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                /> */}
                 <TextField
                   variant="filled"
                   select
@@ -261,20 +248,7 @@ const HouseholdAddPage = () => {
                   })}
                 </TextField>
 
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-
-                  {/* <div>
-                    <select
-                      onChange={(e) => setRoomId(+e.target.value)}
-                      value={roomId} style={{ height: 40, width: 100, border: '1px solid #ccc', borderRadius: 5 }}>
-                      <option value={"-1"}>Chọn căn hộ</option>
-                      {dataPhong?.map((canHo, index) => {
-                        return <option key={index} value={canHo.value}>{canHo.label}</option>
-                      })}
-                    </select>
-                  </div> */}
-
-                </div>
+                <div style={{ display: 'flex', flexDirection: 'column' }}></div>
 
               </Box>
               <Box>
@@ -290,8 +264,7 @@ const HouseholdAddPage = () => {
                         <th>Biển kiểm soát</th>
                         <th>Loại xe</th>
                         <th>Tên xe</th>
-                        {/* <th>Mô tả</th> */}
-                        <th>Hành động</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -301,7 +274,6 @@ const HouseholdAddPage = () => {
                           <td>{row.bienKiemSoat}</td>
                           <td>{row.maLoaiXe === "LX001" ? "Xe máy" : "Xe ô tô"}</td>
                           <td>{row.tenXe}</td>
-                          {/* <td>{row.moTa}</td> */}
                           <td>
                             <div style={{
                               display: 'flex',
@@ -348,7 +320,6 @@ const HouseholdAddPage = () => {
         )}
       </Formik>
       {showDetailMember && <ModalDetailDemographic memberData={detailHouseholdData?.danhSachNhanKhau} onClose={() => setShowDetailMember(false)} />}
-      {/* <ToastContainer /> */}
     </Box>
   );
 };

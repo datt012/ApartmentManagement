@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.TamTru
 {
-    public class TamTruDto1003 // body get list
+    public class TamTruDto1003
     {
 
         [JsonProperty("maTamTru")]
-        public string MaTamTru { get; set; }
+        public string? MaTamTru { get; set; }
 
         [JsonProperty("hoTen")]
-        public string HoTen { get; set; }
+        public string? HoTen { get; set; }
 
         [JsonProperty("diaChiThuongTru")]
-        public string DiaChiThuongTru { get; set; }
+        public string? DiaChiThuongTru { get; set; }
 
         [JsonProperty("diaChiTamTru")]
-        public string DiaChiTamTru { get; set; }
+        public string? DiaChiTamTru { get; set; }
 
         [JsonProperty("canCuocCongDan")]
-        public string CanCuocCongDan { get; set; }
+        public string? CanCuocCongDan { get; set; }
 
     }
 }

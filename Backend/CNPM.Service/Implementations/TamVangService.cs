@@ -94,8 +94,6 @@ namespace CNPM.Service.Implementations
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-
-                // check nhan khau
                 NhanKhauEntity nhanKhau = _nhanKhauRepository.GetNhanKhau(tamVang1000.MaNhanKhau);
                 if (nhanKhau == null)
                 {
@@ -105,7 +103,6 @@ namespace CNPM.Service.Implementations
                         reason = Constant.MA_NHAN_KHAU_NOT_EXIST
                     });
                 }
-                // check nhan khau con song
                 else if (nhanKhau.TrangThai == Constant.DIE)
                 {
                     return new BadRequestObjectResult(new
@@ -160,7 +157,6 @@ namespace CNPM.Service.Implementations
                     message = Constant.UPDATE_TAM_VANG_FAILED,
                     reason = Constant.MA_TAM_VANG_NOT_EXIST
                 });
-                // check nhan khau
                 NhanKhauEntity nhanKhau = _nhanKhauRepository.GetNhanKhau(newTamVang.MaNhanKhau);
                 if (nhanKhau == null)
                 {
@@ -170,7 +166,6 @@ namespace CNPM.Service.Implementations
                         reason = Constant.MA_NHAN_KHAU_NOT_EXIST
                     });
                 }
-                // check nhan khau con song
                 else if (nhanKhau.TrangThai == Constant.DIE)
                 {
                     return new BadRequestObjectResult(new

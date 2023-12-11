@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userService from "../Services/API/userService";
-// import { getAllUsers } from "../Services/MOCK/userService";
 export const fetchAllUsers = createAsyncThunk(
   "user/fetchAllUsers",
   async (_, thunkAPI) => {
@@ -38,6 +37,6 @@ const userSlice = createSlice({
     },
   },
 });
-export const {} = userSlice.actions;
+export const _ = userSlice.actions;
 
 export default userSlice.reducer;

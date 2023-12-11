@@ -13,23 +13,23 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.TamTru
 {
-    public class TamTruDto1001 // response 
+    public class TamTruDto1001
     {
 
         [JsonProperty("maTamTru")]
-        public string MaTamTru { get; set; }
+        public string? MaTamTru { get; set; }
 
         [JsonProperty("hoTen")]
-        public string HoTen { get; set; }
+        public string? HoTen { get; set; }
 
         [JsonProperty("diaChiThuongTru")]
-        public string DiaChiThuongTru { get; set; }
+        public string? DiaChiThuongTru { get; set; }
 
         [JsonProperty("diaChiTamTru")]
-        public string DiaChiTamTru { get; set; }
+        public string? DiaChiTamTru { get; set; }
 
         [JsonProperty("canCuocCongDan")]
-        public string CanCuocCongDan { get; set; }
+        public string? CanCuocCongDan { get; set; }
 
         [JsonProperty("createTime")]
         public DateTime CreateTime { get; set; }
@@ -38,10 +38,10 @@ namespace CNPM.Core.Models.TamTru
         public DateTime UpdateTime { get; set; }
 
         [JsonProperty("userCreate")]
-        public string UserCreate { get; set; }
+        public string? UserCreate { get; set; }
 
         [JsonProperty("userUpdate")]
-        public string UserUpdate { get; set; }
+        public string? UserUpdate { get; set; }
 
         [JsonProperty("version")]
         public int Version { get; set; }

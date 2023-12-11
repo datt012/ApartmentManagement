@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.KhoanThu
 {
-    public class KhoanThuDto1004 // khoan thu theo ho
+    public class KhoanThuDto1004 
     {
         [JsonProperty("maKhoanThuTheoHo")]
         public int MaKhoanThuTheoHo { get; set; }
 
         [JsonProperty("maHoKhau")]
-        public string MaHoKhau { get; set; }
+        public string? MaHoKhau { get; set; }
 
         [JsonProperty("soTien")]   
         public int SoTien { get; set; }

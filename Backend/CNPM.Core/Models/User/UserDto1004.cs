@@ -11,11 +11,11 @@ namespace CNPM.Core.Models
         [Required]
         [JsonProperty("userName")]
         [MaxLength(40)]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         [Required]
         [MinLength(5)]
         [JsonProperty("password")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
     }
 }

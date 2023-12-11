@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.HoKhau
 {
-    public class HoKhauDto1000 // body create
+    public class HoKhauDto1000 
     {
         [MaxLength(10)]
         [JsonProperty("maHoKhau")]
@@ -20,12 +20,12 @@ namespace CNPM.Core.Models.HoKhau
         [MaxLength(200)]
         [Required]
         [JsonProperty("diaChiThuongTru")]
-        public string DiaChiThuongTru { get; set; }
+        public string? DiaChiThuongTru { get; set; }
 
         [MaxLength(200)]
         [Required]
         [JsonProperty("noiCap")]
-        public string NoiCap { get; set; }
+        public string? NoiCap { get; set; }
 
         [Required]
         [JsonProperty("ngayCap")]
@@ -33,7 +33,7 @@ namespace CNPM.Core.Models.HoKhau
 
         [Required]
         [JsonProperty("danhSachNhanKhau")]
-        public List<int> DanhSachNhanKhau { get; set; }
+        public List<int>? DanhSachNhanKhau { get; set; }
 
 
     }

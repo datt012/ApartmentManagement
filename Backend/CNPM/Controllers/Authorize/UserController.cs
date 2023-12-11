@@ -1,18 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using CNPM.Service.Interfaces;
 using CNPM.Core.Models;
 using CNPM.Core.Utils;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using CNPM.Service.Implementations;
-
 namespace CNPM.Controllers.Authorize
 {
-    //[VerifyToken]
     [Authorize]
     [ApiController]
     [Route(Constant.API_BASE)]
-
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -20,7 +17,6 @@ namespace CNPM.Controllers.Authorize
         {
             _userService = userService;
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager + ", " + Constant.Stocker)]
         [HttpPost("logout")]
@@ -29,7 +25,6 @@ namespace CNPM.Controllers.Authorize
             var accessToken = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _userService.Logout(accessToken);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager + ", " + Constant.Stocker)]
         [HttpGet("verify-token")]
@@ -38,7 +33,6 @@ namespace CNPM.Controllers.Authorize
             var jwt = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _userService.VerifyToken(jwt);
         }
-
         [HttpGet("get-list-permissions")]
         [AllowAnonymous]
         public IActionResult GetListPermissions()
@@ -52,7 +46,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _userService.GetUser(userName);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator)]
         [HttpPost("user")]
@@ -64,7 +57,6 @@ namespace CNPM.Controllers.Authorize
             }
             return _userService.CreateUser(user);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator)]
         [HttpPut("user")]
@@ -76,7 +68,6 @@ namespace CNPM.Controllers.Authorize
             }
             return _userService.UpdateUser(newUserData);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator)]
         [HttpDelete("user")]
@@ -84,7 +75,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _userService.DeleteUser(user);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager + ", " + Constant.Stocker)]
         [HttpGet("get-all-users")]

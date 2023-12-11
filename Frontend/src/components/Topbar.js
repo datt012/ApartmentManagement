@@ -10,18 +10,16 @@ const Topbar = () => {
   return (
     <div style={{ position: 'absolute', top: 10, right: 10 }}>
       <Box display="flex">
-        {user && isAuthenticated === true ? // user && isAuthenticated
+        {user && isAuthenticated === true ? 
           (
             <Dropdown>
               <Dropdown.Toggle style={{backgroundColor: '#0288d1'}} id="dropdown-basic">
                 {<AccountCircleIcon />}
               </Dropdown.Toggle>
-
               <Dropdown.Menu>
                 <Dropdown.Item href="/change-info">Cập nhật thông tin</Dropdown.Item>
                 <Dropdown.Item href="/change-password">Đổi mật khẩu</Dropdown.Item>
                 <Dropdown.Item onClick={() => {
-                    // history.push('/')
                     dispatch(logout());
                   }}>
                   <span>Đăng xuất</span>
@@ -36,5 +34,4 @@ const Topbar = () => {
     </div>
   );
 };
-
 export default Topbar;

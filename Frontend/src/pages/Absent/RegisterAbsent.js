@@ -22,7 +22,7 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
   const [maNhanKhau, setMaNhanKhau] = useState();
   const dispatch = useDispatch();
   const handleFormSubmit = (values) => {
-    if (window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+    if (window.confirm("Bạn chắc chắn muốn lưu?") === true) {
       absentService.postAbsent({
         maNhanKhau: maNhanKhau,
         thoiHan: date,
@@ -62,7 +62,7 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
       <DialogTitle>
         <div style={{ display: 'flex' }}>
           <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-            {"ĐĂNG KÝ TẠM VẮNG"}
+            {"Đăng ký tạm vắng"}
           </Typography>
           <IconButton aria-label="close" onClick={() => {
             setMaNhanKhau(undefined);
@@ -126,7 +126,7 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                   />
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DesktopDatePicker label="Thời điểm bắt đầu"
+                    <DesktopDatePicker label="Thời gian bắt đầu"
                       inputFormat="DD/MM/YYYY"
                       onChange={handleOnChange}
                       value={date}

@@ -11,30 +11,30 @@ namespace CNPM.Core.Entities
         
         [Required]
         [StringLength(100)]
-        public string HoTen { get; set; }
+        public string? HoTen { get; set; }
 
         [Required]
         [Column(TypeName = "varchar(12)")]
-        public string CanCuocCongDan { get; set; }
+        public string? CanCuocCongDan { get; set; }
 
         [Required]
         public DateTime NgaySinh { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string NoiSinh { get; set; }
+        public string? NoiSinh { get; set; }
 
         [Required]
         [StringLength(20)]
-        public string DanToc { get; set; }
+        public string? DanToc { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string NgheNghiep { get; set; }
+        public string? NgheNghiep { get; set; }
 
         [Required]
         [StringLength(30)]
-        public string QuanHe { get; set; }
+        public string? QuanHe { get; set; }
 
         public string? MaHoKhau { get; set; }
 
@@ -45,6 +45,6 @@ namespace CNPM.Core.Entities
         public string? GhiChu { get; set; }
 
         [Required]
-        public int TrangThai { get; set; } // 1 còn sống, 0 đã chết
+        public int TrangThai { get; set; }
     }
 }

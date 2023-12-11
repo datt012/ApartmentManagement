@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.TamVang
 {
-    public class TamVangDto1002 // body update
+    public class TamVangDto1002
     {
         [Required]
         [JsonProperty("maNhanKhau")]
@@ -22,7 +22,7 @@ namespace CNPM.Core.Models.TamVang
         [Required]
         [MaxLength(200)]
         [JsonProperty("lyDo")]
-        public string LyDo { get; set; }
+        public string? LyDo { get; set; }
 
         [JsonProperty("version")]
         public int Version { get; set; }

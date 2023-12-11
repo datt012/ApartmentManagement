@@ -15,32 +15,32 @@ using CNPM.Core.Models.Xe;
 
 namespace CNPM.Core.Models.HoKhau
 {
-    public class HoKhauDto1001 // response 
+    public class HoKhauDto1001
     {
 
         [JsonProperty("maHoKhau")]
-        public string MaHoKhau { get; set; }
+        public string? MaHoKhau { get; set; }
 
         [JsonProperty("soThanhVien")]
         public int SoThanhVien { get; set; }
 
         [JsonProperty("diaChiThuongTru")]
-        public string DiaChiThuongTru { get; set; }
+        public string? DiaChiThuongTru { get; set; }
 
         [JsonProperty("noiCap")]
-        public string NoiCap { get; set; }
+        public string? NoiCap { get; set; }
 
         [JsonProperty("ngayCap")]
         public DateTime NgayCap { get; set; }
 
         [JsonProperty("danhSachNhanKhau")]
-        public List<NhanKhauDto1001> DanhSachNhanKhau { get; set;}
+        public List<NhanKhauDto1001>? DanhSachNhanKhau { get; set;}
 
         [JsonProperty("maCanHo")]
         public int MaCanHo { get; set; }
 
         [JsonProperty("danhSachXe")]
-        public List<XeDto1001> DanhSachXe { get; set; }
+        public List<XeDto1001>? DanhSachXe { get; set; }
 
         [JsonProperty("createTime")]
         public DateTime CreateTime { get; set; }
@@ -49,10 +49,10 @@ namespace CNPM.Core.Models.HoKhau
         public DateTime UpdateTime { get; set; }
 
         [JsonProperty("userCreate")]
-        public string UserCreate { get; set; }
+        public string? UserCreate { get; set; }
 
         [JsonProperty("userUpdate")]
-        public string UserUpdate { get; set; }
+        public string? UserUpdate { get; set; }
 
         [JsonProperty("version")]
         public int Version { get; set; }

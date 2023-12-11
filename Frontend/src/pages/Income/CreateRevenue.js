@@ -39,24 +39,27 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
     var data = '';
     switch (values.loaiKhoanThu) {
       case 0:
-        data = '{\"quanLy\":{\"soTien\":10000,\"donVi\":\"m2\"}}';
+        data = '{"quanLy":{"soTien":10000,"donVi":"m2"}}';
         break;
       case 1:
         data = '[';
         for (let i = 0; i < dataHouseHold.length; i++) {
-          data += '{\"dien\":' + dataHouseHold[i].dien + ', \"nuoc\":' + dataHouseHold[i].nuoc + ', \"internet\":' + dataHouseHold[i].internet + ', \"maHoKhau\": "' + dataHouseHold[i].maHoKhau + '"},';
+          data += '{"dien":' + dataHouseHold[i].dien + ', "nuoc":' + dataHouseHold[i].nuoc + ', "internet":' + dataHouseHold[i].internet + ', "maHoKhau": "' + dataHouseHold[i].maHoKhau + '"},';
         }
         data += ']';
         console.log(data);
         break;
       case 2:
-        data = '{\"dichVu\":{\"soTien\":' + values.dichvu + ',\"donVi\":\"m2\"}}';
+        data = '{"dichVu":{"soTien":' + values.dichvu + ',"donVi":"m2"}}';
         break;
       case 3:
-        data = '{\"quanLy\":{\"soTien\":' + values.quanly + ',\"donVi\":\"m2\"}}';
+        data = '{"quanLy":{"soTien":' + values.quanly + ',"donVi":"m2"}}';
         break;
       case 4:
-        data = '{\"xeMay\":{\"soTien\":' + values.xeMay + ',\"donVi\":\"xe\"},\"xeOto\":{\"soTien\":' + values.xeOto + ',\"donVi\":\"xe\"}}';
+        data = '{"xeMay":{"soTien":' + values.xeMay + ',"donVi":"xe"},"xeOto":{"soTien":' + values.xeOto + ',"donVi":"xe"}}';
+        break;
+      default:
+        break;
     }
     if(window.confirm("Bạn chắc chắn muốn lưu?")) {
       revenueService.postRevenue({
@@ -73,7 +76,6 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
       })
     }
   };
-  //phi cố định ban đầu
   const initialValues = {
     tenKhoanThu: "",
     loaiKhoanThu: 0,
@@ -90,7 +92,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
       <DialogTitle>
         <div style={{ display: 'flex' }}>
           <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-            {"TẠO KHOẢN THU PHÍ"}
+            {"Tạo khoản thu"}
           </Typography>
           <IconButton aria-label="close" onClick={() => {
             setOpenPopup(!openPopup)
@@ -236,7 +238,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     onClick={() => { setOpenModal(true) }}
                     startIcon={<FactCheckIcon />}
                     variant="contained"
-                    style={{ backgroundColor: colors.greenAccent[500], border: "none", width: 200 }}>Tạo khoản thu theo hộ
+                    style={{ backgroundColor: colors.greenAccent[500], border: "none", width: 230 }}>Tạo khoản thu phí sinh hoạt
                   </Button>}
                 </Box>
                 <Box display="flex" justifyContent="end" mt="20px" >
@@ -256,7 +258,6 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
   );
 };
 
-
 const checkoutSchemaDichVu = yup.object().shape({
   tenKhoanThu: yup.string().required("Bạn chưa điền thông tin"),
   dichvu:  yup
@@ -273,7 +274,7 @@ const checkoutSchemaQuanLy = yup.object().shape({
   .number()
   .typeError("Vui lòng nhập một số")
   .required("Bạn chưa điền thông tin")
-  .min(0, "Số tiền không hợp lệ")
+  .min(7000, "Số tiền phải lớn hơn hoặc bằng 7000")
 });
 
 const checkoutSchemaGuiXe = yup.object().shape({

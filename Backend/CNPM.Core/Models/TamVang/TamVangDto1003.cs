@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.TamVang
 {
-    public class TamVangDto1003 // body get list
+    public class TamVangDto1003 
     {
 
         [JsonProperty("maTamVang")]
@@ -19,16 +19,16 @@ namespace CNPM.Core.Models.TamVang
         public int MaNhanKhau { get; set; }
 
         [JsonProperty("hoTen")]
-        public string HoTen { get; set; }
+        public string? HoTen { get; set; }
 
         [JsonProperty("canCuocCongDan")]
-        public string CanCuocCongDan { get; set; }
+        public string? CanCuocCongDan { get; set; }
 
         [JsonProperty("thoiHan")]
         public DateTime ThoiHan { get; set; }
 
         [MaxLength(200)]
-        public string LyDo { get; set; }
+        public string? LyDo { get; set; }
 
     }
 }

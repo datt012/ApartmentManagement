@@ -1,5 +1,5 @@
-import "./App.scss";
-import { BrowserRouter, Route, useHistory } from "react-router-dom";
+import "./styles/App.scss";
+import { BrowserRouter, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DashBoard from "./pages/DashBoard";
@@ -27,7 +27,6 @@ import RevenueHouse from "./pages/Income/RevenueHouse";
 import HouseholdPutPage from "./pages/Household/HouseholdPutPage";
 import RoomPage from "./pages/Room/RoomPage";
 import ChangeInfoPage from "./pages/ChangeInfoPage";
-
 function App() {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useSelector(
@@ -35,7 +34,6 @@ function App() {
   );
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
-
   const [component, setComponent] = useState();
   const getCurrentView = () => {
     if (isAuthenticated === false) {
@@ -48,7 +46,6 @@ function App() {
             <div className="app">
               <Sidebar isSidebar={isSidebar} />
               <main className="content">
-
                 <Switch>
                   <Route path="/" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><DashBoard /></>} />
                   <Route path="/login" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><Login /></>} />
@@ -58,7 +55,7 @@ function App() {
                   <Route path="/revenue-item" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><RevenueItem /></>} />
                   <Route path="/revenue-house" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><RevenueHouse /></>} />
                   {
-                    (user?.roleId === 1 || user?.roleId == 2) && <><Route path="/demographic" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><DemographicPage /></>} />
+                    (user?.roleId === 1 || user?.roleId === 2) && <><Route path="/demographic" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><DemographicPage /></>} />
                       <Route path="/household" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><HouseholdPage /></>} />
                       <Route path="/room" exact render={() => <><Topbar setIsSidebar={setIsSidebar} /><RoomPage /></>} />
                       <Route path="/household-add" exact render={() => <><HouseholdAddPage /></>} />
@@ -113,5 +110,4 @@ function App() {
     </>
   );
 }
-
 export default App;

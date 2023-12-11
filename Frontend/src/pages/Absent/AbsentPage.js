@@ -59,7 +59,7 @@ const AbsentPage = () => {
     },
     {
         field: "thoiHan",
-        headerName: "Thời điểm bắt đầu",
+        headerName: "Thời gian bắt đầu",
         flex: 1,
         valueGetter: (param) => {return dayjs(param.row.thoiHan).format('DD/MM/YYYY')},
       },

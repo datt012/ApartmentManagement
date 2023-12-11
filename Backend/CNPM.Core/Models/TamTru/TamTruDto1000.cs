@@ -11,27 +11,27 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.TamTru
 {
-    public class TamTruDto1000 // body create
+    public class TamTruDto1000 
     {
         [Required]
         [MaxLength(100)]
         [JsonProperty("hoTen")]
-        public string HoTen { get; set; }
+        public string? HoTen { get; set; }
 
         [Required]
         [MaxLength(100)]
         [JsonProperty("diaChiThuongTru")]
-        public string DiaChiThuongTru { get; set; }
+        public string? DiaChiThuongTru { get; set; }
 
         [Required]
         [MaxLength(100)]
         [JsonProperty("diaChiTamTru")]
-        public string DiaChiTamTru { get; set; }
+        public string? DiaChiTamTru { get; set; }
 
         [Required]
         [MaxLength(20)]
         [JsonProperty("canCuocCongDan")]
-        public string CanCuocCongDan { get; set; }
+        public string? CanCuocCongDan { get; set; }
     }
 }
 

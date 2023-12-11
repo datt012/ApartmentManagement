@@ -8,23 +8,20 @@ import { useDispatch } from "react-redux";
 import { fetchRevenueItem, fetchAllRevenueHouse } from "../../Redux/revenueSlice";
 import CloseIcon from '@mui/icons-material/Close';
 import revenueService from "../../Services/API/revenueService";
-import { useSelector } from "react-redux";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const PayRevenue = ({ openPopup, setOpenPopup, maKhoanThuTheoHo, maKhoanThu, soTienCanThu, maHoKhau }) => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
-    const [soTienDaNop, setSoTienDaNop] = useState(0);
-    const loaiKhoanThu = useSelector((state) => state.revenue.loaiKhoanThu);
+    const [soTienDaNop] = useState(0);
     const dispatch = useDispatch();
     const handleFormSubmit = (values) => {
-        if(window.confirm("Bạn có muốn lưu?") == true) {
+        if(window.confirm("Bạn có muốn lưu?") === true) {
             revenueService.payRevenue({
                 maKhoanThuTheoHo: values.maKhoanThuTheoHo,
                 tenHoaDon: values.tenHoaDon,
-                soTienDaNop: (loaiKhoanThu === 1 && values.soTienDaNop > values.soTienCanThu) ? values.soTienCanThu : values.soTienDaNop
+                soTienDaNop: values.soTienDaNop
             }).then(mes => {
-                //alert(mes.message);
                 setOpenPopup(!openPopup);
                 toast(mes.message);
                 dispatch(fetchRevenueItem(maKhoanThu));
@@ -117,19 +114,6 @@ const PayRevenue = ({ openPopup, setOpenPopup, maKhoanThuTheoHo, maKhoanThu, soT
                                         helperText={touched.soTienDaNop && errors.soTienDaNop}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}>
                                     </TextField>
-                                    {/* {
-                                        loaiKhoanThu === 1 && <TextField
-                                            disabled
-                                            variant="filled"
-                                            type="number"
-                                            label="Số tiền trả lại"
-                                            InputProps={{
-                                                readOnly: true,
-                                            }}
-                                            value={Math.max(0, values.soTienDaNop - soTienCanThu)}
-                                            sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}>
-                                        </TextField>
-                                    } */}
                                 </Box>
                                 <Box display="flex" justifyContent="end" mt="20px" >
                                     <Button
@@ -141,7 +125,6 @@ const PayRevenue = ({ openPopup, setOpenPopup, maKhoanThuTheoHo, maKhoanThu, soT
                         )}
                     </Formik>
                 </Box>
-                <ToastContainer />
             </DialogContent>
         </Dialog>
 

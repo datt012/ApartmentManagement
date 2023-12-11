@@ -13,6 +13,6 @@ namespace CNPM.Core.Models
         public int RoleId { get; set; }
 
         [JsonProperty("roleName")]
-        public string RoleName { get; set; }
+        public string? RoleName { get; set; }
     }
 }

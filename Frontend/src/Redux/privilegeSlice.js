@@ -33,6 +33,6 @@ const privilegeSlice = createSlice({
   },
 });
 
-export const {} = privilegeSlice.actions;
+export const _ = privilegeSlice.actions;
 
 export default privilegeSlice.reducer;

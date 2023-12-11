@@ -5,7 +5,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import CloseIcon from '@mui/icons-material/Close';
 import roomService from "../../Services/API/roomService";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -14,7 +14,7 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
     const handleFormSubmit = (values) => {
-        if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+        if(window.confirm("Bạn chắc chắn muốn lưu?") === true) {
             roomService.updateRoom(roomData.maCanHo, {
                 tenCanHo: values.tenCanHo,
                 tang: values.tang,
@@ -45,7 +45,7 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
             <DialogTitle>
                 <div style={{ display: 'flex' }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-                        {"CẬP NHẬT THÔNG TIN CĂN HỘ"}
+                        {"Cập nhật căn hộ"}
                     </Typography>
                     <IconButton aria-label="close" onClick={() => {
                         onClose && onClose();
@@ -118,19 +118,6 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                                         helperText={touched.dienTich && errors.dienTich}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                                     />
-                                    {/* <TextField
-                                        fullWidth
-                                        variant="filled"
-                                        type="text"
-                                        label="Mã hộ khẩu"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.ngheNghiep}
-                                        name="ngheNghiep"
-                                        error={!!touched.ngheNghiep && !!errors.ngheNghiep}
-                                        helperText={touched.ngheNghiep && errors.ngheNghiep}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                                    /> */}
                                     <TextField
                                         fullWidth
                                         variant="filled"

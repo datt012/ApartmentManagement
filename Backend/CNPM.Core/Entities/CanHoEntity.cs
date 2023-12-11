@@ -11,7 +11,7 @@ namespace CNPM.Core.Entities
 
         [Required]
         [StringLength(100)]
-        public string TenCanHo { get; set; }
+        public string? TenCanHo { get; set; }
 
         public string? Tang { get; set; }
 

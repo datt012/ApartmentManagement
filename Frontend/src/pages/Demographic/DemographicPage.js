@@ -40,7 +40,6 @@ const DemographicPage = () => {
   }
 
   useEffect(() => {
-    /*dispatch(resetTabernacleSlice());*/
     if (!isLoading) {
       dispatch(fetchAllDemographic());
     }
@@ -81,7 +80,7 @@ const DemographicPage = () => {
       field: "trangThai",
       headerName: "Trạng Thái",
       flex: 0.5,
-      valueGetter: (param) => { return ((param.row.trangThai == 1) ? "Còn sống" : "Đã mất") },
+      valueGetter: (param) => { return ((param.row.trangThai === 1) ? "Còn sống" : "Đã mất") },
     },
     {
       field: "chiTiet",

@@ -7,14 +7,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using CNPM.Service.Implementations;
 using CNPM.Core.Models.CanHo;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-
 namespace CNPM.Controllers.Authorize
 {
-    //[VerifyToken]
     [Authorize]
     [ApiController]
     [Route(Constant.API_BASE)]
-
     public class CanHoController : ControllerBase
     {
         private readonly ICanHoService _canHoService;
@@ -22,7 +19,6 @@ namespace CNPM.Controllers.Authorize
         {
             _canHoService = canHoService;
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpGet("can-ho/danh-sach-can-ho")]
@@ -30,7 +26,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _canHoService.GetListCanHo(index, limit);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpGet("can-ho")]
@@ -38,7 +33,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _canHoService.GetCanHo(maCanHo);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPost("can-ho")]
@@ -51,7 +45,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _canHoService.CreateCanHo(token, canHo);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPut("can-ho")]
@@ -64,7 +57,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _canHoService.UpdateCanHo(token, maCanHo, newcanHo);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpDelete("can-ho")]
@@ -73,6 +65,5 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _canHoService.DeleteCanHo(maCanHo, token, version);
         }
-
     }
 }

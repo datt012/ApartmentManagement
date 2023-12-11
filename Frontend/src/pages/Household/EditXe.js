@@ -14,7 +14,7 @@ const EditXe = ({ xeData, onClose, onSuccess }) => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
     const handleFormSubmit = (values) => {
-        if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+        if(window.confirm("Bạn chắc chắn muốn lưu?") === true) {
             householdService.updateXeToHouseHold(xeData.maXe, {
                 tenXe: values.tenXe,
                 bienKiemSoat: values.bienKiemSoat,
@@ -45,7 +45,7 @@ const EditXe = ({ xeData, onClose, onSuccess }) => {
             <DialogTitle>
                 <div style={{ display: 'flex' }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-                        {"CẬP NHẬT THÔNG TIN XE"}
+                        {"Cập nhật xe"}
                     </Typography>
                     <IconButton aria-label="close" onClick={() => onClose && onClose()}>
                         <CloseIcon></CloseIcon>
@@ -140,7 +140,6 @@ const EditXe = ({ xeData, onClose, onSuccess }) => {
                         )}
                     </Formik>
                 </Box>
-                {/* <ToastContainer /> */}
             </DialogContent>
         </Dialog>
 

@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.KhoanThu
 {
-    public class PhiDichVu // khoan thu dich vụ
+    public class PhiDichVu 
     {
         [JsonProperty("dichVu")]
-        public SoTienAndDonVi DichVu { get; set; }
+        public SoTienAndDonVi? DichVu { get; set; }
 
     }
 }

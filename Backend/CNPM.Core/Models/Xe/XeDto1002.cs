@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.Xe
 {
-    public class XeDto1002 // body update
+    public class XeDto1002
     {
         [Required]
         [JsonProperty("maXe")]
@@ -18,16 +18,16 @@ namespace CNPM.Core.Models.Xe
         [MaxLength(100)]
         [Required]
         [JsonProperty("tenXe")]
-        public string TenXe { get; set; }
+        public string? TenXe { get; set; }
 
         [MaxLength(200)]
         [Required]
         [JsonProperty("bienKiemSoat")]
-        public string BienKiemSoat { get; set; }
+        public string? BienKiemSoat { get; set; }
 
         [Required]
         [JsonProperty("maLoaiXe")]
-        public string MaLoaiXe { get; set; }
+        public string? MaLoaiXe { get; set; }
 
         [JsonProperty("maHoKhau")]
         public string? MaHoKhau { get; set; }

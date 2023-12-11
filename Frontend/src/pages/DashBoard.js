@@ -30,7 +30,7 @@ const DashBoard = () => {
       height: '100vh'
     }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'auto auto auto' }}>
-        {(user?.roleId === 1 || user?.roleId == 2) &&
+        {(user?.roleId === 1 || user?.roleId === 2) &&
           <>
             <Card onClick={() => history.push('/household')}
               sx={{ width: 300, backgroundColor: 'white', margin: '10px' }}>
@@ -77,7 +77,7 @@ const DashBoard = () => {
                 <CardMedia
                   component="img"
                   height="100"
-                  image={require('../assets/happy-valentine.png')}
+                  image={require('../assets/quan-ly-khoan-thu.jpg')}
                   alt="green iguana"
                 />
                 <CardContent>
@@ -96,7 +96,7 @@ const DashBoard = () => {
                 <CardMedia
                   component="img"
                   height="100"
-                  image={require('../assets/quan-ly-nhan-khau.png')}
+                  image={require('../assets/quan-ly-nhan-khau.jpg')}
                   alt="green iguana"
                 />
                 <CardContent>
@@ -149,7 +149,6 @@ const DashBoard = () => {
             </Card>
           </>
         }
-
 
       </div>
     </div>

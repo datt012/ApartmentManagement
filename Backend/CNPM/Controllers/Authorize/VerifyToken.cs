@@ -3,12 +3,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using CNPM.Service.Implementations;
 using CNPM.Service.Interfaces;
 using CNPM.Core.Utils;
-
 namespace CNPM.Controllers.Authorize
 {
     public class VerifyToken : Attribute, IAuthorizationFilter
     {
-
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             var _userservice = (IUserService)context.HttpContext.RequestServices.GetService(typeof(IUserService));
@@ -28,7 +26,6 @@ namespace CNPM.Controllers.Authorize
                     throw new Exception();
                 }
             }
-
         }
     }
 }

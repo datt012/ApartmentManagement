@@ -7,10 +7,10 @@ namespace CNPM.Core.Entities
     {
         [Key]
         [Required]
-        public string MaLoaiXe { get; set; }
+        public string? MaLoaiXe { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string LoaiXe { get; set; }
+        public string? LoaiXe { get; set; }
     }
 }

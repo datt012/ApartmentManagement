@@ -7,14 +7,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using CNPM.Service.Implementations;
 using CNPM.Core.Models.NhanKhau;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-
 namespace CNPM.Controllers.Authorize
 {
-    //[VerifyToken]
     [Authorize]
     [ApiController]
     [Route(Constant.API_BASE)]
-
     public class NhanKhauController : ControllerBase
     {
         private readonly INhanKhauService _nhanKhauService;
@@ -22,7 +19,6 @@ namespace CNPM.Controllers.Authorize
         {
             _nhanKhauService = nhanKhauService;
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpGet("nhan-khau/danh-sach-nhan-khau")]
@@ -30,7 +26,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _nhanKhauService.GetListNhanKhau(index, limit);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpGet("nhan-khau/danh-sach-nhan-khau-chua-dang-ky-tam-vang")]
@@ -38,7 +33,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _nhanKhauService.GetListNhanKhauAlive(index, limit);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpGet("nhan-khau/danh-sach-nhan-khau-chua-co-ho-khau")]
@@ -46,7 +40,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _nhanKhauService.GetListNhanKhauNotHaveHoKhau(index, limit);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpGet("nhan-khau/danh-sach-nhan-khau-trong-ho-khau")]
@@ -54,7 +47,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _nhanKhauService.GetListNhanKhauInHoKhau(maHoKhau);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpGet("nhan-khau")]
@@ -62,7 +54,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _nhanKhauService.GetNhanKhau(maNhanKhau);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPost("nhan-khau")]
@@ -75,7 +66,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _nhanKhauService.CreateNhanKhau(token, nhanKhau);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPut("nhan-khau")]
@@ -88,7 +78,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _nhanKhauService.UpdateNhanKhau(token, maNhanKhau, nhanKhau);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpDelete("nhan-khau")]
@@ -97,6 +86,5 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _nhanKhauService.DeleteNhanKhau(maNhanKhau, token, version);
         }
-
     }
 }

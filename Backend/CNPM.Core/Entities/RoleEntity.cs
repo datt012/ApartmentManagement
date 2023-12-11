@@ -5,7 +5,6 @@ namespace CNPM.Core.Entities
     [Table("role")]
     public class RoleEntity
     {
-        //public int UserId { get; set; }
         public RoleEntity(string roleName)
         {
             RoleName = roleName;
@@ -18,7 +17,5 @@ namespace CNPM.Core.Entities
         [StringLength(100)]
         [Required]
         public string RoleName { get; set; }
-
-
     }
 }

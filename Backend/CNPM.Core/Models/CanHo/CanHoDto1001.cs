@@ -13,25 +13,25 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.CanHo
 {
-    public class CanHoDto1001 // response 
+    public class CanHoDto1001 
     {
         [JsonProperty("maCanHo")]
         public int MaCanHo { get; set; }
 
         [JsonProperty("tenCanHo")]
-        public string TenCanHo { get; set; }
+        public string? TenCanHo { get; set; }
 
         [JsonProperty("tang")]
-        public string Tang { get; set; }
+        public string? Tang { get; set; }
 
         [JsonProperty("dienTich")]
         public double DienTich { get; set; }
 
         [JsonProperty("maHoKhau")]
-        public string MaHoKhau { get; set; }
+        public string? MaHoKhau { get; set; }
 
         [JsonProperty("moTa")]
-        public string MoTa { get; set; }
+        public string? MoTa { get; set; }
 
         [JsonProperty("createTime")]
         public DateTime CreateTime { get; set; }
@@ -40,10 +40,10 @@ namespace CNPM.Core.Models.CanHo
         public DateTime UpdateTime { get; set; }
 
         [JsonProperty("userCreate")]
-        public string UserCreate { get; set; }
+        public string? UserCreate { get; set; }
 
         [JsonProperty("userUpdate")]
-        public string UserUpdate { get; set; }
+        public string? UserUpdate { get; set; }
 
         [JsonProperty("version")]
         public int Version { get; set; }

@@ -8,14 +8,11 @@ using CNPM.Service.Implementations;
 using CNPM.Core.Models.KhoanThu;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using CNPM.Core.Models.HoaDon;
-
 namespace CNPM.Controllers.Authorize
 {
-    //[VerifyToken]
     [Authorize]
     [ApiController]
     [Route(Constant.API_BASE)]
-
     public class KhoanThuController : ControllerBase
     {
         private readonly IKhoanThuService _khoanThuService;
@@ -23,7 +20,6 @@ namespace CNPM.Controllers.Authorize
         {
             _khoanThuService = khoanThuService;
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager + ", " + Constant.Stocker)]
         [HttpGet("khoan-thu/danh-sach-khoan-thu")]
@@ -31,7 +27,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _khoanThuService.GetListKhoanThu(index, limit);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager + ", " + Constant.Stocker)]
         [HttpGet("khoan-thu")]
@@ -39,8 +34,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _khoanThuService.GetKhoanThuTheoHo(maKhoanThu);
         }
-
-        
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager + ", " + Constant.Stocker)]
         [HttpGet("khoan-thu-theo-ho")]
@@ -48,8 +41,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _khoanThuService.GetCacKhoanThuDaNopCuaHo(maHoKhau);
         }
-        
-        
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager + ", " + Constant.Stocker)]
         [HttpPost("khoan-thu")]
@@ -62,7 +53,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _khoanThuService.CreateKhoanThu(token, khoanThu);
         }
-        
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager + ", " + Constant.Stocker)]
         [HttpPost("thanh-toan")]
@@ -71,7 +61,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _khoanThuService.ThanhToan(token, hoaDon);
         }
-        
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager + ", " + Constant.Stocker)]
         [HttpPut("khoan-thu")]
@@ -84,7 +73,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _khoanThuService.UpdateKhoanThu(token, maKhoanThu, khoanThu);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager + ", " + Constant.Stocker)]
         [HttpDelete("khoan-thu")]
@@ -93,8 +81,5 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _khoanThuService.DeleteKhoanThu(maKhoanThu, token, version);
         }
-
-
-
     }
 }

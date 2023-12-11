@@ -7,14 +7,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import roomService from "../../Services/API/roomService";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 const RegisterRoom = ({ openPopup, setOpenPopup, onSuccess }) => {
 
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
     const handleFormSubmit = (values) => {
-        if (window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+        if (window.confirm("Bạn chắc chắn muốn lưu?") === true) {
             roomService.addRoom({
                 tenCanHo: values.tenCanHo,
                 tang: values.tang,
@@ -44,7 +42,7 @@ const RegisterRoom = ({ openPopup, setOpenPopup, onSuccess }) => {
             <DialogTitle>
                 <div style={{ display: 'flex' }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-                        {"THÊM CĂN HỘ"}
+                        {"Thêm căn hộ"}
                     </Typography>
                     <IconButton aria-label="close" onClick={() => {
                         setOpenPopup(!openPopup);
@@ -117,19 +115,6 @@ const RegisterRoom = ({ openPopup, setOpenPopup, onSuccess }) => {
                                         helperText={touched.dienTich && errors.dienTich}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                                     />
-                                    {/* <TextField
-                                        fullWidth
-                                        variant="filled"
-                                        type="text"
-                                        label="Mã hộ khẩu"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.ngheNghiep}
-                                        name="ngheNghiep"
-                                        error={!!touched.ngheNghiep && !!errors.ngheNghiep}
-                                        helperText={touched.ngheNghiep && errors.ngheNghiep}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                                    /> */}
                                     <TextField
                                         fullWidth
                                         variant="filled"

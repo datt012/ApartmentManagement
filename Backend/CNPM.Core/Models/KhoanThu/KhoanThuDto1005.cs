@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.KhoanThu
 {
-    public class KhoanThuDto1005 // các khoản đã nộp của hộ
+    public class KhoanThuDto1005 
     {
         [JsonProperty("maHoKhau")]
-        public string MaHoKhau { get; set; }
+        public string? MaHoKhau { get; set; }
 
         [JsonProperty("maKhoanThu")]
         public int MaKhoanThu { get; set; }
@@ -26,7 +26,7 @@ namespace CNPM.Core.Models.KhoanThu
         public int LoaiKhoanThu { get; set; }
 
         [JsonProperty("tenKhoanThu")]
-        public string TenKhoanThu { get; set; }
+        public string? TenKhoanThu { get; set; }
 
         [JsonProperty("soTien")]   
         public int? SoTien { get; set; }

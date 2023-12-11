@@ -22,10 +22,10 @@ namespace CNPM.Repository.Implementations
                 List<TamTruEntity> arr;
                 if (index == 0 && limit == 0)
                 {
-                    arr = _dbcontext.TamTru.Where(
+                    arr = _dbcontext.TamTru!.Where(
                     o => o.Delete == Constant.NOT_DELETE).ToList();
                 }
-                else arr = _dbcontext.TamTru.Where(
+                else arr = _dbcontext.TamTru!.Where(
                     o => o.Delete == Constant.NOT_DELETE).Skip(limit * (index - 1)).Take(limit).ToList();
 
                 return arr;
@@ -41,7 +41,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                TamTruEntity tamTru = _dbcontext.TamTru.Where(
+                TamTruEntity tamTru = _dbcontext.TamTru!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaTamTru == maTamTru).FirstOrDefault();
                 return tamTru;
             }
@@ -76,7 +76,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                TamTruEntity tamTru = _dbcontext.TamTru.Where(
+                TamTruEntity tamTru = _dbcontext.TamTru!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.CanCuocCongDan == canCuocCongDan).FirstOrDefault();
                 if (tamTru == null) return true;
                 return false;
@@ -91,7 +91,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                NhanKhauEntity nhanKhau = _dbcontext.NhanKhau.Where(
+                NhanKhauEntity nhanKhau = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.CanCuocCongDan == canCuocCongDan).FirstOrDefault();
                 if (nhanKhau == null) return true;
                 return false;
@@ -106,7 +106,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                TamTruEntity tamTru = _dbcontext.TamTru.Where(
+                TamTruEntity tamTru = _dbcontext.TamTru!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.CanCuocCongDan == canCuocCongDan).FirstOrDefault();
                 if (tamTru == null || tamTru.MaTamTru == maTamTru) return true;
                 return false;
@@ -121,7 +121,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var tamTru = _dbcontext.TamTru.FirstOrDefault(
+                var tamTru = _dbcontext.TamTru!.FirstOrDefault(
                     o => o.MaTamTru == newTamTru.MaTamTru && o.Delete == Constant.NOT_DELETE);
 
                 if (tamTru != null)
@@ -149,7 +149,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var tamTru = _dbcontext.TamTru.FirstOrDefault(
+                var tamTru = _dbcontext.TamTru!.FirstOrDefault(
                     o => o.MaTamTru == maTamTru && o.Delete == Constant.NOT_DELETE);
                 if (tamTru != null)
                 {

@@ -117,20 +117,6 @@ const HouseholdPage = () => {
           } />
         </div>
     },
-    /// 
-    // {
-    //   field: "details",
-    //   headerName: "",
-    //   flex: 0.25,
-    //   align: "center",
-    //   renderCell: (param) =>
-    //     <div>
-    //       <VisibilityIcon onClick={() => {
-    //         handleSelectedId(param.row.maHoKhau);
-    //         handleDetail();
-    //       }} />
-    //     </div>
-    // },
     {
       field: "khoanThu",
       headerName: "",
@@ -143,7 +129,7 @@ const HouseholdPage = () => {
   return (
     <Box m="20px">
       <Header
-        title="Quản lý hộ khẩu"
+        title="Danh sách hộ khẩu"
       />
       <Button onClick={() => history.push('/household-add')}
         color="info" variant="contained" style={{ fontWeight: "bold" }}>

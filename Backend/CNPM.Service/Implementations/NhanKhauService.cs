@@ -109,7 +109,6 @@ namespace CNPM.Service.Implementations
         {
             try
             {
-                // check ho khau ton tai ?
                 var hoKhau = _hoKhauRepository.GetHoKhau(maHoKhau);
                 if (hoKhau == null) return new BadRequestObjectResult(
                        new
@@ -164,7 +163,7 @@ namespace CNPM.Service.Implementations
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-                bool CCCD = _nhanKhauRepository.CheckExistCanCuocCongDan(nhanKhau1000.CanCuocCongDan);
+                bool CCCD = _nhanKhauRepository.CheckExistCanCuocCongDan(nhanKhau1000.CanCuocCongDan!);
                 if (!CCCD)
                 {
                     return new BadRequestObjectResult(new
@@ -173,7 +172,6 @@ namespace CNPM.Service.Implementations
                         reason = Constant.REASON_CCCD_EXISTED
                     });
                 }
-                // check ho khau
                 NhanKhauEntity nhanKhau = _mapper.Map<NhanKhauDto1000, NhanKhauEntity>(nhanKhau1000);
 
                 nhanKhau.CreateTime = DateTime.Now;
@@ -218,7 +216,7 @@ namespace CNPM.Service.Implementations
                     message = Constant.UPDATE_NHAN_KHAU_FAILED,
                     reason = Constant.DATA_UPDATED_BEFORE
                 });
-                bool CCCD = _nhanKhauRepository.CheckExistCanCuocCongDanUpdate(nhanKhau.MaNhanKhau, newNhanKhau.CanCuocCongDan);
+                bool CCCD = _nhanKhauRepository.CheckExistCanCuocCongDanUpdate(nhanKhau.MaNhanKhau, newNhanKhau.CanCuocCongDan!);
                 if (!CCCD)
                 {
                     return new BadRequestObjectResult(new
@@ -227,7 +225,6 @@ namespace CNPM.Service.Implementations
                         reason = Constant.REASON_CCCD_EXISTED
                     });
                 }
-                // check ho khau ton tai
                 NhanKhauEntity nhanKhauEntity = _mapper.Map<NhanKhauDto1002, NhanKhauEntity>(newNhanKhau);
                 nhanKhauEntity.MaNhanKhau = maNhanKhau;
                 nhanKhauEntity.UserUpdate = userName;

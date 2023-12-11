@@ -10,9 +10,9 @@ namespace CNPM.Core.Models
     public class ResponseDto
     {
         [JsonProperty("message")]
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
         [JsonProperty("data")]
-        public object Data { get; set; }
+        public object? Data { get; set; }
     }
 }

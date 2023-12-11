@@ -25,7 +25,7 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const handleFormSubmit = (values) => {
-        if(window.confirm("Bạn chắc chắn muốn lưu") == true) {
+        if(window.confirm("Bạn chắc chắn muốn lưu") === true) {
             demographicService.putDemographic(values.maNhanKhau, {
                 hoTen: values.hoTen,
                 canCuocCongDan: values.canCuocCongDan,
@@ -68,7 +68,7 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
             <DialogTitle>
                 <div style={{ display: 'flex' }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-                        {"THÔNG TIN NHÂN KHẨU"}
+                        {"Chi tiết nhân khẩu"}
                     </Typography>
                     <IconButton aria-label="close" onClick={() => {
                         setOpenInPopup(!openInPopup)
@@ -101,18 +101,6 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                                         "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                                     }}
                                 >
-                                    {/* <TextField
-                                        fullWidth
-                                        variant="filled"
-                                        type="text"
-                                        label="Mã nhân khẩu"
-                                        name="maNhanKhau"
-                                        InputProps={{
-                                            readOnly: true,
-                                        }}
-                                        defaultValue={initialValues.maNhanKhau}
-                                        sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
-                                    /> */}
                                     <TextField
                                         fullWidth
                                         variant="filled"
@@ -250,7 +238,6 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                         )}
                     </Formik>
                 </Box>
-                {/*<ToastContainer />*/}
             </DialogContent>
         </Dialog>
 

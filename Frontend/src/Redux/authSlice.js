@@ -16,7 +16,6 @@ export const loadUser = createAsyncThunk(
       const accessToken = getAccessToken();
       if (!accessToken) {
         authService.logout();
-        // throw new Error();
       }
       return await authService.checkToken(accessToken);
     } catch (e) {
@@ -38,18 +37,10 @@ const storeToke = (token) => {
 const storeUserName = (userName) => {
   localStorage.setItem("userName", userName);
 };
-const getUserName = () => {
-  const userName = localStorage.getItem("userName");
-  if (userName !== "undefined" && userName) {
-    return userName;
-  }
-  return "";
-};
 const getAccessToken = () => {
   const accessToken = localStorage.getItem("accessToken");
   console.log(`Bearer ${localStorage.getItem("accessToken")}`);
   if (accessToken !== "undefined" && accessToken) {
-    //console.log('run');
     return accessToken;
   }
   return "";
@@ -84,7 +75,6 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.isAuthenticated = false;
       state.loginType = false;
-      // authService.logout();
     },
     [loadUser.pending]: (state) => {
       console.log("pending");
@@ -104,13 +94,13 @@ const authSlice = createSlice({
       state.user = null;
       logout();
     },
-    [logout.fulfilled]: (state, action) => {
+    [logout.fulfilled]: (state) => {
       state.isAuthenticated = false;
       state.user = null;
     },
   },
 });
 
-export const {} = authSlice.actions;
+export const _ = authSlice.actions;
 
 export default authSlice.reducer;

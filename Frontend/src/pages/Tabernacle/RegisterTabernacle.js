@@ -36,7 +36,6 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
     })
   }
   const handleFormSubmit = (values) => {
-    /*alert(JSON.stringify(values, null, 2));*/
     if (roomName && window.confirm("Bạn chắc chắn muốn lưu?")) {
       tabernacleService.postTabernacle({
         hoTen: values.hoTen,
@@ -59,7 +58,6 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
     hoTen: "",
     canCuocCongDan: "",
     diaChiThuongTru: "",
-    // diaChiTamTru: "",
   };
   useEffect(() => {
     handleGetData();
@@ -72,7 +70,7 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
       <DialogTitle>
         <div style={{ display: 'flex' }}>
           <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-            {"ĐĂNG KÝ TẠM TRÚ"}
+            {"Đăng ký tạm trú"}
           </Typography>
           <IconButton aria-label="close" onClick={() => {
             setOpenPopup(!openPopup)
@@ -145,19 +143,6 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
                     helperText={touched.diaChiThuongTru && errors.diaChiThuongTru}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 10" }}
                   />
-                  {/* <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Địa chỉ tạm trú"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.diaChiTamTru}
-                    name="diaChiTamTru"
-                    error={!!touched.diaChiTamTru && !!errors.diaChiTamTru}
-                    helperText={touched.diaChiTamTru && errors.diaChiTamTru}
-                    sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 10" }}
-                  /> */}
                   <TextField
                     variant="filled"
                     select
@@ -170,7 +155,6 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
                     helperText={touched.diaChiThuongTru && !roomName && "Bạn chưa điền thông tin"}
                     
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 10" }}>
-                    {/* <MenuItem value={""}>None</MenuItem> */}
                     {dataPhong.map((canHo, index) => {
                       return <MenuItem key={index} value={canHo.label}>{canHo.label}</MenuItem>
                     })}
@@ -186,7 +170,6 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
             )}
           </Formik>
         </Box>
-        {/* <ToastContainer /> */}
       </DialogContent>
     </Dialog>
 
@@ -197,7 +180,6 @@ const checkoutSchema = yup.object().shape({
   hoTen: yup.string().required("Bạn chưa điền thông tin"),
   canCuocCongDan: yup.string().required("Bạn chưa điền thông tin").max(12, "Căn cước công dân không được quá 12 ký tự"),
   diaChiThuongTru: yup.string().required("Bạn chưa điền thông tin"),
-  // diaChiTamTru: yup.string().required("Bạn chưa điền thông tin"),
 });
 
 export default RegisterTabernacle;

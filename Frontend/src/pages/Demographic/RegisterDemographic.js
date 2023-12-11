@@ -21,7 +21,7 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
     const [date, setDate] = useState(dayjs(new Date()));
 
     const handleFormSubmit = (values) => {
-        if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+        if(window.confirm("Bạn chắc chắn muốn lưu?") === true) {
             demographicService.postDemographic({
                 hoTen: values.hoTen,
                 canCuocCongDan: values.canCuocCongDan,
@@ -58,7 +58,7 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
             <DialogTitle>
                 <div style={{ display: 'flex' }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-                        {"ĐĂNG KÝ NHÂN KHẨU"}
+                        {"Đăng ký nhân khẩu"}
                     </Typography>
                     <IconButton aria-label="close" onClick={() => {
                         setOpenPopup(!openPopup);

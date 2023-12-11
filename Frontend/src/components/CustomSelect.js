@@ -1,6 +1,5 @@
 import React from "react"
 import Select from "react-select"
-
 export const CustomSelect = ({
   className,
   placeholder,
@@ -16,7 +15,6 @@ export const CustomSelect = ({
       isMulti ? option.map(item => item.value) : option.value
     )
   }
-
   const getValue = () => {
     if (options) {
       return isMulti
@@ -26,7 +24,6 @@ export const CustomSelect = ({
       return isMulti ? [] : ""
     }
   }
-
   return (
     <div style={{width: '500px'}}>
     <Select
@@ -42,5 +39,4 @@ export const CustomSelect = ({
     </div>
   )
 }
-
 export default CustomSelect

@@ -8,14 +8,12 @@ import householdService from "../../Services/API/householdService";
 import { LIST_LOAI_XE } from "../../Services/Utils/const";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
     console.log('maHoKhau', maHoKhau);
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
     const handleFormSubmit = (values) => {
-        if(window.confirm("Bạn chắc chắn muốn lưu?") == true) {
+        if(window.confirm("Bạn chắc chắn muốn lưu?") === true) {
             householdService.addXeToHouseHold({
                 tenXe: values.tenXe,
                 bienKiemSoat: values.bienKiemSoat,
@@ -45,7 +43,7 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
             <DialogTitle>
                 <div style={{ display: 'flex' }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-                        {"THÊM XE"}
+                        {"Thêm xe"}
                     </Typography>
                     <IconButton aria-label="close" onClick={() => onClose && onClose()}>
                         <CloseIcon></CloseIcon>
@@ -140,7 +138,6 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
                         )}
                     </Formik>
                 </Box>
-                {/* <ToastContainer /> */}
             </DialogContent>
         </Dialog>
 

@@ -1,5 +1,4 @@
 import { Typography, Box } from "@mui/material";
-
 const Header = ({ title }) => {
   return (
     <Box mb="30px">
@@ -13,5 +12,4 @@ const Header = ({ title }) => {
     </Box>
   );
 };
-
 export default Header;

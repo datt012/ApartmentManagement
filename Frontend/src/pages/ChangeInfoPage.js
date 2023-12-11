@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-
 import axios from '../setups/custom_axios';
 import { useDispatch, useSelector } from "react-redux";
-
 import { loadUser } from "../Redux/authSlice";
 import { Button } from "@mui/material";
 import { toast } from "react-toastify";
 export default function ChangeInfoPage() {
-
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
@@ -31,7 +28,7 @@ export default function ChangeInfoPage() {
       dispatch(loadUser());
     }
     catch (e) {
-      toast('Cập nhật thông tin thất bại!');
+      toast(e?.response?.data?.reason || e?.response?.data?.message || "Có lỗi xảy ra");
       return;
     }
 
@@ -45,7 +42,7 @@ export default function ChangeInfoPage() {
     <div>
       <div className="input-custome" style={{ margin: "auto", width: '40%' }}>
         <div className="text-center mt-3 mb-3" >
-          <h3>CẬP NHẬT THÔNG TIN</h3>
+          <h3>Cập nhật thông tin</h3>
         </div>
         <form className="content-body row" onSubmit={handleSubmit}>
           <div className="form-group">

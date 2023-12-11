@@ -92,9 +92,7 @@ namespace CNPM.Service.Implementations
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-                // check ho khau
                 KhoanThuEntity khoanThu = _mapper.Map<KhoanThuDto1000, KhoanThuEntity>(khoanThu1000);
-
                 khoanThu.CreateTime = DateTime.Now;
                 khoanThu.UpdateTime = DateTime.Now;
                 khoanThu.UserCreate = userName;
@@ -177,8 +175,6 @@ namespace CNPM.Service.Implementations
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-                // check ho khau
-
                 KhoanThuEntity khoanThu = _khoanThuRepository.GetKhoanThu(maKhoanThu);
 
                 if (khoanThu != null)
@@ -213,7 +209,7 @@ namespace CNPM.Service.Implementations
                     KhoanThuDto1005 khoanThu = new KhoanThuDto1005();
                     khoanThu.MaHoKhau = maHoKhau;
                     khoanThu.MaKhoanThu = khoanThuEntity.MaKhoanThu;
-                    khoanThu.TenKhoanThu = khoanThuEntity.TenKhoanThu;
+                    khoanThu.TenKhoanThu = khoanThuEntity.TenKhoanThu!;
                     khoanThu.SoTien = khoanThuTheoHo.SoTien;
                     khoanThu.MaKhoanThuTheoHo = khoanThuTheoHo.MaKhoanThuTheoHo;
                     khoanThu.LoaiKhoanThu = khoanThuEntity.LoaiKhoanThu;
@@ -255,7 +251,6 @@ namespace CNPM.Service.Implementations
                     message = Constant.UPDATE_KHOAN_THU_FAILED,
                     reason = Constant.DATA_UPDATED_BEFORE
                 });
-                // check ho khau ton tai
                 KhoanThuEntity khoanThuEntity = _mapper.Map<KhoanThuDto1002, KhoanThuEntity>(newKhoanThu);
                 khoanThuEntity.MaKhoanThu = maKhoanThu;
                 khoanThuEntity.UserUpdate = userName;

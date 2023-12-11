@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.CanHo
 {
-    public class CanHoDto1002 // body update
+    public class CanHoDto1002 
     {
         [Required]
         [MaxLength(100)]
         [JsonProperty("tenCanHo")]
-        public string TenCanHo { get; set; }
+        public string? TenCanHo { get; set; }
 
         [Required]
         [JsonProperty("tang")]
-        public string Tang { get; set; }
+        public string? Tang { get; set; }
 
         [Required]
         [Range(0, 1000)]

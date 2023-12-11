@@ -16,10 +16,10 @@ namespace CNPM.Core.Entities
         public DateTime UpdateTime { get; set; }
 
         [Required]
-        public string UserCreate { get; set; }
+        public string? UserCreate { get; set; }
 
         [Required]
-        public string UserUpdate { get; set; }
+        public string? UserUpdate { get; set; }
 
         [Required]
         public int Version { get; set; }

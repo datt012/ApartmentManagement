@@ -3,10 +3,8 @@ using CNPM.Repository;
 using CNPM.Core.Models;
 using CNPM.Core.Entities;
 using CNPM.Core.Utils;
-
 namespace CNPM
 {
-    
     public class InitDatabase
     {
         public static async Task CreateDatabase()
@@ -14,29 +12,24 @@ namespace CNPM
             using var dbcontext = new MyDbContext();
             string dbname = dbcontext.Database.GetDbConnection().Database;
             var result = await dbcontext.Database.EnsureCreatedAsync();
-            string resultstring = result ? "tao db thanh  cong" : "db da ton tai";
+            string resultstring = result ? "Create database successfully" : "Database is already";
             Console.WriteLine($"CSDL {dbname} : {resultstring}");
         }
         public static async Task DeleteDatabase()
         {
-
             using (var context = new MyDbContext())
             {
                 String databasename = context.Database.GetDbConnection().Database;
-                
                 bool deleted = await context.Database.EnsureDeletedAsync();
-                string deletionInfo = deleted ? "đa xoa" : "khong xoa duoc";
+                string deletionInfo = deleted ? "Database is deleted" : "Can't delete database";
                 Console.WriteLine($"{databasename} {deletionInfo}");
-
             }
-
         }
         public static async void ResetDb()
         {
             await DeleteDatabase();
             await CreateDatabase();
             Init();
-
         }
         public static void Init()
         {
@@ -48,24 +41,22 @@ namespace CNPM
                 new RoleEntity("Stocker")
             };
             DateTime today = DateTime.Now;
-            
             listPermissionEntity.ForEach( o =>  dbcontext.Add(o));
             var superAdmin = new UserEntity{
-                UserName = "crackertvn",
+                UserName = "admin",
                 Password = "$2a$11$ew1SDZWnBOiPna6ZHaTWHuhEELiDGAan8/6cvBI6gCgWZ17vJB0oG", //123456
-                FirstName = "Trung",
-                LastName = "Tran",
-                Email = "bruceleemax111@gmail.com",
+                FirstName = "Đạt",
+                LastName = "Trần",
+                Email = "ttdat2112@gmail.com",
                 RoleId = 1,
                 CreateTime = today,
                 UpdateTime = today,
-                UserCreate = "crackertvn",
-                UserUpdate = "crackertvn",
+                UserCreate = "admin",
+                UserUpdate = "admin",
                 Version = 0,
                 Delete = 0
             };
             dbcontext.Add(superAdmin);
-
             var listLoaiXe = new List<LoaiXeEntity>()
             {
                 new LoaiXeEntity
@@ -74,8 +65,8 @@ namespace CNPM
                     LoaiXe = "Xe máy",
                     CreateTime = today,
                     UpdateTime = today,
-                    UserCreate = "crackertvn",
-                    UserUpdate = "crackertvn",
+                    UserCreate = "admin",
+                    UserUpdate = "admin",
                     Version = 0,
                     Delete = 0
                 },
@@ -85,14 +76,13 @@ namespace CNPM
                     LoaiXe = "Xe ô tô",
                     CreateTime = today,
                     UpdateTime = today,
-                    UserCreate = "crackertvn",
-                    UserUpdate = "crackertvn",
+                    UserCreate = "admin",
+                    UserUpdate = "admin",
                     Version = 0,
                     Delete = 0
                 }
             };
             listLoaiXe.ForEach(o => dbcontext.Add(o));
-
             dbcontext.SaveChanges();
         }
     }

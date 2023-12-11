@@ -12,38 +12,38 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.NhanKhau
 {
-    public class NhanKhauDto1001 // response 
+    public class NhanKhauDto1001 
     {
 
         [JsonProperty("maNhanKhau")]
         public int MaNhanKhau { get; set; }
 
         [JsonProperty("hoTen")]
-        public string HoTen { get; set; }
+        public string? HoTen { get; set; }
 
         [JsonProperty("canCuocCongDan")]
-        public string CanCuocCongDan { get; set; }
+        public string? CanCuocCongDan { get; set; }
 
         [JsonProperty("ngaySinh")]
         public DateTime NgaySinh { get; set; }
 
         [JsonProperty("noiSinh")]
-        public string NoiSinh { get; set; }
+        public string? NoiSinh { get; set; }
 
         [JsonProperty("danToc")]
-        public string DanToc { get; set; }
+        public string? DanToc { get; set; }
 
         [JsonProperty("ngheNghiep")]
-        public string NgheNghiep { get; set; }
+        public string? NgheNghiep { get; set; }
 
         [JsonProperty("quanHe")]
-        public string QuanHe { get; set; }
+        public string? QuanHe { get; set; }
 
         [JsonProperty("maHoKhau")]
-        public string MaHoKhau { get; set; }
+        public string? MaHoKhau { get; set; }
 
         [JsonProperty("ghiChu")]
-        public string GhiChu { get; set; }
+        public string? GhiChu { get; set; }
 
         [JsonProperty("trangThai")]
         public int TrangThai { get; set; }
@@ -55,10 +55,10 @@ namespace CNPM.Core.Models.NhanKhau
         public DateTime UpdateTime { get; set; }
 
         [JsonProperty("userCreate")]
-        public string UserCreate { get; set; }
+        public string? UserCreate { get; set; }
 
         [JsonProperty("userUpdate")]
-        public string UserUpdate { get; set; }
+        public string? UserUpdate { get; set; }
 
         [JsonProperty("version")]
         public int Version { get; set; }

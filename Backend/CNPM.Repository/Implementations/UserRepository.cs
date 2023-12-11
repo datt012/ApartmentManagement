@@ -19,12 +19,12 @@ namespace CNPM.Repository.Implementations
             {
                 using var dbcontext = new MyDbContext();
                 var user = new UserEntity();
-                user = dbcontext.Users.FirstOrDefault(o => o.UserName == userName && o.Delete == Constant.NOT_DELETE);
+                user = dbcontext.Users!.FirstOrDefault(o => o.UserName == userName && o.Delete == Constant.NOT_DELETE);
                 return user;
             }
             catch (Exception ex)
             {
-                return null;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -42,7 +42,7 @@ namespace CNPM.Repository.Implementations
             }
             catch (Exception ex)
             {
-                return null;
+                throw new Exception(ex.Message);
             }
         }
         public bool DeleteUser(UserEntity userData)
@@ -50,7 +50,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var user = _dbcontext.Users.FirstOrDefault(o => o.UserName == userData.UserName && o.Delete == Constant.NOT_DELETE);
+                var user = _dbcontext.Users!.FirstOrDefault(o => o.UserName == userData.UserName && o.Delete == Constant.NOT_DELETE);
 
                 user.Delete = Constant.DELETE;
                 user.UserUpdate = userData.UserName;
@@ -62,7 +62,7 @@ namespace CNPM.Repository.Implementations
             }
             catch (Exception ex)
             {
-                return false;
+                throw new Exception(ex.Message);
             }
         }
         public bool UpdateUser(UserEntity newUserData)
@@ -71,7 +71,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var user = _dbcontext.Users.FirstOrDefault(o => o.UserName == newUserData.UserName && o.Delete == Constant.NOT_DELETE);
+                var user = _dbcontext.Users!.FirstOrDefault(o => o.UserName == newUserData.UserName && o.Delete == Constant.NOT_DELETE);
 
                 if (user != null)
                 {
@@ -90,7 +90,7 @@ namespace CNPM.Repository.Implementations
             }
             catch (Exception ex)
             {
-                return false;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -99,12 +99,12 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                List<RoleEntity> arr = _dbcontext.Roles.ToList();
+                List<RoleEntity> arr = _dbcontext.Roles!.ToList();
                 return arr;
             }
             catch(Exception ex)
             {
-                return null;
+                throw new Exception(ex.Message);
             }
         }
         public List<UserEntity> GetAllUsers()
@@ -112,12 +112,12 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                List<UserEntity> arr = _dbcontext.Users.Where(o => o.Delete == Constant.NOT_DELETE).ToList();
+                List<UserEntity> arr = _dbcontext.Users!.Where(o => o.Delete == Constant.NOT_DELETE).ToList();
                 return arr;
             }
             catch(Exception ex)
             {
-                return null;
+                throw new Exception(ex.Message);
             }
         }
         public bool ChangePassWord(string userName, string newPassword)
@@ -125,7 +125,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var user = _dbcontext.Users.FirstOrDefault(o => o.UserName == userName && o.Delete == Constant.NOT_DELETE);
+                var user = _dbcontext.Users!.FirstOrDefault(o => o.UserName == userName && o.Delete == Constant.NOT_DELETE);
                 if (user != null)
                 {
                     user.Password = newPassword;
@@ -134,9 +134,9 @@ namespace CNPM.Repository.Implementations
                 }
                 else return false;
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                return false;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -157,9 +157,9 @@ namespace CNPM.Repository.Implementations
                 _dbcontext.LoginInfos.Add(loginInfo);
                 _dbcontext.SaveChanges();
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
            
         }
@@ -168,7 +168,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var loginInfo = _dbcontext.LoginInfos.FirstOrDefault(o => o.UserName == userName && o.Delete == Constant.NOT_DELETE && o.AccessToken == accessToken);
+                var loginInfo = _dbcontext.LoginInfos!.FirstOrDefault(o => o.UserName == userName && o.Delete == Constant.NOT_DELETE && o.AccessToken == accessToken);
                 if (loginInfo != null)
                 {
                     loginInfo.Delete = Constant.DELETE;
@@ -178,9 +178,9 @@ namespace CNPM.Repository.Implementations
                 }
                 return true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception(ex.Message);
             }
 
         }
@@ -189,16 +189,16 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var loginInfo = _dbcontext.LoginInfos.FirstOrDefault(o => o.UserName == userName && o.Delete == Constant.NOT_DELETE && o.AccessToken == accessToken);
+                var loginInfo = _dbcontext.LoginInfos!.FirstOrDefault(o => o.UserName == userName && o.Delete == Constant.NOT_DELETE && o.AccessToken == accessToken);
                 if (loginInfo != null)
                 {
                     return loginInfo.Delete == Constant.NOT_DELETE;
                 }
                 return false;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception(ex.Message);
             }
 
         }

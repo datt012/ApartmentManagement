@@ -22,10 +22,10 @@ namespace CNPM.Repository.Implementations
                 List<CanHoEntity> arr;
                 if (index == 0 && limit == 0)
                 {
-                    arr = _dbcontext.CanHo.Where(
+                    arr = _dbcontext.CanHo!.Where(
                     o => o.Delete == Constant.NOT_DELETE).ToList();
                 }
-                else arr = _dbcontext.CanHo.Where(
+                else arr = _dbcontext.CanHo!.Where(
                     o => o.Delete == Constant.NOT_DELETE).Skip(limit * (index - 1)).Take(limit).ToList();
 
                 return arr;
@@ -41,7 +41,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                CanHoEntity xe = _dbcontext.CanHo.Where(
+                CanHoEntity xe = _dbcontext.CanHo!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaCanHo == maCanHo).FirstOrDefault();
                 return xe;
             }
@@ -56,7 +56,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                CanHoEntity xe = _dbcontext.CanHo.Where(
+                CanHoEntity xe = _dbcontext.CanHo!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == maHoKhau).FirstOrDefault();
                 return xe;
             }
@@ -89,7 +89,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var canHo = _dbcontext.CanHo.FirstOrDefault(
+                var canHo = _dbcontext.CanHo!.FirstOrDefault(
                     o => o.MaCanHo == newCanHo.MaCanHo && o.Delete == Constant.NOT_DELETE);
 
                 if (canHo != null)
@@ -117,7 +117,7 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-                var canHo = _dbcontext.CanHo.FirstOrDefault(
+                var canHo = _dbcontext.CanHo!.FirstOrDefault(
                     o => o.MaCanHo == maCanHo && o.Delete == Constant.NOT_DELETE);
                 if (canHo != null)
                 {
@@ -126,7 +126,7 @@ namespace CNPM.Repository.Implementations
                     canHo.UserUpdate = userNameUpdate;
                     canHo.UpdateTime = DateTime.Now;
                     canHo.Version++;
-                    var listTamTru = _dbcontext.TamTru.Where(o => o.DiaChiTamTru == canHo.TenCanHo && o.Delete == Constant.NOT_DELETE).ToList();
+                    var listTamTru = _dbcontext.TamTru!.Where(o => o.DiaChiTamTru == canHo.TenCanHo && o.Delete == Constant.NOT_DELETE).ToList();
                     for (int i = 0; i < listTamTru.Count; i++)
                     {
                         listTamTru[i].DiaChiTamTru = "";

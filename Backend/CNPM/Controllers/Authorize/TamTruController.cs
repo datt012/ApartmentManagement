@@ -7,14 +7,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using CNPM.Service.Implementations;
 using CNPM.Core.Models.TamTru;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-
 namespace CNPM.Controllers.Authorize
 {
-    //[VerifyToken]
     [Authorize]
     [ApiController]
     [Route(Constant.API_BASE)]
-
     public class TamTruController : ControllerBase
     {
         private readonly ITamTruService _tamTruService;
@@ -22,7 +19,6 @@ namespace CNPM.Controllers.Authorize
         {
             _tamTruService = tamTruService;
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpGet("tam-tru/danh-sach-tam-tru")]
@@ -30,7 +26,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _tamTruService.GetListTamTru(index, limit);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpGet("tam-tru")]
@@ -38,7 +33,6 @@ namespace CNPM.Controllers.Authorize
         {
             return _tamTruService.GetTamTru(maTamTru);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPost("tam-tru")]
@@ -51,7 +45,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _tamTruService.CreateTamTru(token, tamTru);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpPut("tam-tru")]
@@ -64,7 +57,6 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _tamTruService.UpdateTamTru(token, maTamTru, tamTru);
         }
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
         Roles = Constant.Administrator + ", " + Constant.Manager)]
         [HttpDelete("tam-tru")]
@@ -73,6 +65,5 @@ namespace CNPM.Controllers.Authorize
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
             return _tamTruService.DeleteTamTru(maTamTru, token, version);
         }
-
     }
 }

@@ -11,17 +11,17 @@ namespace CNPM.Core.Entities
 
         [Required]
         [StringLength(100)]
-        public string TenXe { get; set; }
+        public string? TenXe { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string BienKiemSoat { get; set; }
+        public string? BienKiemSoat { get; set; }
 
         [Required]
-        public string MaLoaiXe { get; set; }
+        public string? MaLoaiXe { get; set; }
 
         [ForeignKey("MaLoaiXe")]
-        public LoaiXeEntity LoaiXe { get; set; }
+        public LoaiXeEntity? LoaiXe { get; set; }
 
         public string? MaHoKhau { get; set; }
 

@@ -15,7 +15,7 @@ export default function ChangePasswordPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (newPassword !== confirmPassword) {
-      toast('Confirm password không chính xác!');
+      toast('Xác nhận mật khẩu mới không đúng');
       return;
     }
     try {
@@ -40,7 +40,7 @@ export default function ChangePasswordPage() {
     <div>
       <div className="input-custome" style={{ margin: "auto", width: '40%' }}>
         <div className="text-center mt-3 mb-3" >
-          <h3>ĐỔI MẬT KHẨU</h3>
+          <h3>Đổi mật khẩu</h3>
         </div>
         <form className="content-body row" onSubmit={handleSubmit}>
           <div className="form-group">

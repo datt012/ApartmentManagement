@@ -10,27 +10,27 @@ namespace CNPM.Core.Models
         [Required]
         [JsonProperty("userName")]
         [MaxLength(40)]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         [Required]
         [MinLength(5)]
         [JsonProperty("password")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         [Required]
         [JsonProperty("firstName")]
         [MaxLength(100)]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
         [Required]
         [MaxLength(100)]
         [JsonProperty("lastName")]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         [Required]
         [JsonProperty("email")]
         [MaxLength(100)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [Required]
         [JsonProperty("roleId")]
@@ -38,7 +38,7 @@ namespace CNPM.Core.Models
 
         [Required]
         [JsonProperty("userCreate")]
-        public string UserCreate { get; set; }
+        public string? UserCreate { get; set; }
 
     }
 }

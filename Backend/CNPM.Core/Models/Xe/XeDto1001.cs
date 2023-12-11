@@ -13,25 +13,25 @@ using System.Threading.Tasks;
 
 namespace CNPM.Core.Models.Xe
 {
-    public class XeDto1001 // response 
+    public class XeDto1001
     {
         [JsonProperty("maXe")]
         public int MaXe { get; set; }
 
         [JsonProperty("tenXe")]
-        public string TenXe { get; set; }
+        public string? TenXe { get; set; }
 
         [JsonProperty("bienKiemSoat")]
-        public string BienKiemSoat { get; set; }
+        public string? BienKiemSoat { get; set; }
 
         [JsonProperty("maLoaiXe")]
-        public string MaLoaiXe { get; set; }
+        public string? MaLoaiXe { get; set; }
 
         [JsonProperty("maHoKhau")]
-        public string MaHoKhau { get; set; }
+        public string? MaHoKhau { get; set; }
 
         [JsonProperty("moTa")]
-        public string MoTa { get; set; }
+        public string? MoTa { get; set; }
 
         [JsonProperty("createTime")]
         public DateTime CreateTime { get; set; }
@@ -40,10 +40,10 @@ namespace CNPM.Core.Models.Xe
         public DateTime UpdateTime { get; set; }
 
         [JsonProperty("userCreate")]
-        public string UserCreate { get; set; }
+        public string? UserCreate { get; set; }
 
         [JsonProperty("userUpdate")]
-        public string UserUpdate { get; set; }
+        public string? UserUpdate { get; set; }
 
         [JsonProperty("version")]
         public int Version { get; set; }

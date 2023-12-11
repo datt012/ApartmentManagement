@@ -82,7 +82,7 @@ namespace CNPM.Service.Implementations
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-                bool CCCD = _tamTruRepository.CheckExistCanCuocCongDan(tamTru1000.CanCuocCongDan);
+                bool CCCD = _tamTruRepository.CheckExistCanCuocCongDan(tamTru1000.CanCuocCongDan!);
                 if (!CCCD)
                 {
                     return new BadRequestObjectResult(new
@@ -91,7 +91,7 @@ namespace CNPM.Service.Implementations
                         reason = Constant.REASON_CCCD_TAM_TRU_EXISTED
                     });
                 }
-                CCCD = _tamTruRepository.CheckExistCanCuocCongDanTrongNhanKhau(tamTru1000.CanCuocCongDan);
+                CCCD = _tamTruRepository.CheckExistCanCuocCongDanTrongNhanKhau(tamTru1000.CanCuocCongDan!);
                 if (!CCCD)
                 {
                     return new BadRequestObjectResult(new
@@ -138,7 +138,7 @@ namespace CNPM.Service.Implementations
                     reason = Constant.MA_TAM_TRU_NOT_EXIST
                 });
 
-                if (!_tamTruRepository.CheckExistCanCuocCongDanUpdate(newTamTru.CanCuocCongDan, maTamTru))
+                if (!_tamTruRepository.CheckExistCanCuocCongDanUpdate(newTamTru.CanCuocCongDan!, maTamTru))
                 {
                     return new BadRequestObjectResult(new
                     {
@@ -146,7 +146,7 @@ namespace CNPM.Service.Implementations
                         reason = Constant.REASON_CCCD_TAM_TRU_EXISTED
                     });
                 }
-                if (!_tamTruRepository.CheckExistCanCuocCongDanTrongNhanKhau(newTamTru.CanCuocCongDan))
+                if (!_tamTruRepository.CheckExistCanCuocCongDanTrongNhanKhau(newTamTru.CanCuocCongDan!))
                 {
                     return new BadRequestObjectResult(new
                     {

@@ -63,7 +63,6 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
     maTamTru: data.maTamTru,
     canCuocCongDan: data.canCuocCongDan,
     diaChiThuongTru: data.diaChiThuongTru,
-    // diaChiTamTru: data.diaChiTamTru,
   };
   useEffect(() => {
     setRoomName(data.diaChiTamTru)
@@ -76,7 +75,7 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
       <DialogTitle>
         <div style={{ display: 'flex' }}>
           <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
-            {"Thông tin chi tiết"}
+            {"Chi tiết tạm trú"}
           </Typography>
           <IconButton aria-label="close" onClick={() => {
             setOpenInPopup(!openInPopup)
@@ -161,7 +160,6 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                     helperText={touched.diaChiThuongTru && !roomName && "Bạn chưa điền thông tin"}
                     
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}>
-                    {/* <MenuItem value={""}>None</MenuItem> */}
                     {dataPhong.map((canHo, index) => {
                       return <MenuItem key={index} value={canHo.label}>{canHo.label}</MenuItem>
                     })}
@@ -190,7 +188,6 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
             )}
           </Formik>
         </Box>
-        {/* <ToastContainer /> */}
       </DialogContent>
     </Dialog>
   );
@@ -201,7 +198,6 @@ const checkoutSchema = yup.object().shape({
   canCuocCongDan: yup
     .string().required("Bạn chưa điền thông tin").max(12, "Căn cước công dân không được quá 12 ký tự"),
   diaChiThuongTru: yup.string().required("Bạn chưa điền thông tin"),
-  // diaChiTamTru: yup.string().required("Bạn chưa điền thông tin"),
 });
 
 export default EditTabernacle;

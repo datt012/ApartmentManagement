@@ -28,10 +28,7 @@ export default function SignIn() {
           alignItems: "center",
         }}
       >
-        <img src={logo} style={{width: 200, height: 200}}/>
-        {/* <Typography component="h1" variant="h5">
-          ĐĂNG NHẬP
-        </Typography> */}
+        <img src={logo} alt="logo" style={{width: 200, height: 200}}/>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
             margin="normal"
@@ -57,11 +54,7 @@ export default function SignIn() {
             sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, "& .MuiInputLabel-asterisk" : {display: "none"} }}
             autoComplete="current-password"
           />
-          <div style={{display: 'flex', justifyContent: 'center', color: 'red'}}>{loginType == false ? 'Tên đăng nhập hoặc mật khẩu không đúng' : ''}</div>
-          {/* <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
+          <div style={{display: 'flex', justifyContent: 'center', color: 'red'}}>{loginType === false ? 'Tên đăng nhập hoặc mật khẩu không đúng' : ''}</div>
           <Button
             type="submit"
             fullWidth

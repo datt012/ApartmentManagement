@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../theme";
@@ -8,7 +8,6 @@ import { SidebarDataAdmin, SidebarDataKeToan } from './SideBar';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { useSelector } from "react-redux";
 import axios from "../setups/custom_axios"
-
 const Item = ({ title, to, icon }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -26,19 +25,16 @@ const Item = ({ title, to, icon }) => {
     </MenuItem>
   );
 };
-
 const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { user } = useSelector((state) => state.auth);
-  // console.log("user", user);
   const [dataNhanKhau, setDataNhanKhau] = useState([]);
   const [SidebarData, setSidebarData] = useState();
   useEffect(() => {
     if (user) {
       if (user.roleId === 1 || user.roleId === 2) {
-        
         setSidebarData(SidebarDataAdmin);
       }
       else {
@@ -66,7 +62,6 @@ const Sidebar = () => {
   )
   return (
     <div>
-
       <Box
         sx={{
           "& .pro-sidebar-inner": {
@@ -86,7 +81,6 @@ const Sidebar = () => {
           },
           minHeight: '609px'
         }}
-
       >
         <ProSidebar collapsed={isCollapsed}  >
           <Menu iconShape="square">
@@ -101,21 +95,13 @@ const Sidebar = () => {
               {!isCollapsed && (
                 <Box
                   style={{textAlign: 'center'}}
-                  // display="flex"
-                  // // justifyContent="space-between"
-                  // alignItems="center"
-                  // ml="10px"
                 >
                   <Typography variant="h3" color={colors.grey[100]} style={{fontSize: 22}}>
                     QUẢN LÝ CHUNG CƯ
                   </Typography>
-                  {/* <IconButton style={{zIndex: 1000}} onClick={() => setIsCollapsed(!isCollapsed)}>
-                    <MenuOutlinedIcon />
-                  </IconButton> */}
                 </Box>
               )}
             </MenuItem>
-
             {!isCollapsed && (
               <Box mb="25px">
                 <Box display="flex" justifyContent="center" alignItems="center">
@@ -127,7 +113,6 @@ const Sidebar = () => {
                     style={{ cursor: "pointer", borderRadius: "50%" }}
                   />
                 </Box>
-
                 <Box textAlign="center">
                   <Typography
                     variant="h2"
@@ -143,7 +128,6 @@ const Sidebar = () => {
                 </Box>
               </Box>
             )}
-
             <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{color: 'black'}}>
               {SidebarData?.map((item, index) => {
                 if (item.subNav) {
@@ -203,5 +187,4 @@ const Sidebar = () => {
     </div>
   );
 };
-
 export default Sidebar;

@@ -5,13 +5,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.IdentityModel.Tokens.Jwt;
 using Newtonsoft.Json;
-
 namespace CNPM.Core.Utils
 {
     public class Helpers
     {
         private static Random random = new Random();
-
         public static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -23,9 +21,6 @@ namespace CNPM.Core.Utils
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password)) return true;
             return false;
         }
-
-
-        
         public static bool CheckEmptyOrNullUserData(string userName)
         {
             if (string.IsNullOrEmpty(userName)) return true;
@@ -40,22 +35,20 @@ namespace CNPM.Core.Utils
                ) return true;
             return false;   
         }
-
         public static string GetHashPassword(string password)
         {
             string passwordHashed = BCrypt.Net.BCrypt.HashPassword(password);
             return passwordHashed;
         }
-
         public static bool IsValidPassWord(string oPassword, string password)
         {
             try
             {
                 return BCrypt.Net.BCrypt.Verify(oPassword, password);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception(ex.Message);
             }
         }
         public static string DecodeJwt(string jwt, string type)
@@ -67,7 +60,6 @@ namespace CNPM.Core.Utils
             var data = tokenS.Claims.First(claim => claim.Type == type).Value;
             return data;
         }
-
         public static object SerializeObject(object o)
         {
             return JsonConvert.SerializeObject(o, Formatting.Indented, new JsonSerializerSettings
