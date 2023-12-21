@@ -18,17 +18,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using CNPM.Core.Models.HoaDon;
 using System;
-
 namespace CNPM.Service.Implementations
 {
-
     public class KhoanThuService : IKhoanThuService
     {
         private readonly IKhoanThuRepository _khoanThuRepository;
         private readonly IHoKhauRepository _hoKhauRepository;
         private readonly ITamVangRepository _tamVangRepository;
         private readonly IMapper _mapper;
-        public KhoanThuService(IKhoanThuRepository khoanThuRepository, 
+        public KhoanThuService(IKhoanThuRepository khoanThuRepository,
             IHoKhauRepository hoKhauRepository,
             ITamVangRepository tamVangRepository)
         {
@@ -40,7 +38,6 @@ namespace CNPM.Service.Implementations
                 cfg.AddProfile(new MappingProfile());
             });
             _mapper = config.CreateMapper();
-            
         }
         public IActionResult GetListKhoanThu(int index, int limit)
         {
@@ -61,12 +58,11 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-
         public IActionResult GetKhoanThu(int maKhoanThu)
         {
-            try { 
+            try
+            {
                 KhoanThuEntity khoanThu = _khoanThuRepository.GetKhoanThu(maKhoanThu);
-
                 if (khoanThu == null) return new BadRequestObjectResult(
                        new
                        {
@@ -74,10 +70,9 @@ namespace CNPM.Service.Implementations
                            reason = Constant.MA_KHOAN_THU_NOT_EXIST
                        }
                     );
-
                 var khoanThu1001 = _mapper.Map<KhoanThuEntity, KhoanThuDto1001>(khoanThu);
-
-                return new OkObjectResult(new {
+                return new OkObjectResult(new
+                {
                     message = Constant.GET_KHOAN_THU_SUCCESSFULLY,
                     data = khoanThu1001
                 });
@@ -98,7 +93,6 @@ namespace CNPM.Service.Implementations
                 khoanThu.UserCreate = userName;
                 khoanThu.UserUpdate = userName;
                 int maKhoanThu = _khoanThuRepository.CreateKhoanThu(khoanThu);
-
                 if (maKhoanThu != -1)
                 {
                     return new OkObjectResult(new
@@ -131,7 +125,6 @@ namespace CNPM.Service.Implementations
                     });
                 }
                 var khoanThuTheoHo = _khoanThuRepository.GetKhoanThuTheoHo(maKhoanThu);
-
                 var arr = _mapper.Map<List<KhoanThuTheoHoEntity>, List<KhoanThuDto1004>>(khoanThuTheoHo);
                 var tongCanThu = 0;
                 var tongDaThu = 0;
@@ -176,7 +169,6 @@ namespace CNPM.Service.Implementations
             {
                 var userName = Helpers.DecodeJwt(token, "username");
                 KhoanThuEntity khoanThu = _khoanThuRepository.GetKhoanThu(maKhoanThu);
-
                 if (khoanThu != null)
                 {
                     _khoanThuRepository.CreateKhoanThuTheoHo(maKhoanThu, userName);
@@ -186,7 +178,6 @@ namespace CNPM.Service.Implementations
                         data = new { maKhoanThu = maKhoanThu }
                     });
                 }
-                
                 return new BadRequestObjectResult(new
                 {
                     message = Constant.CREATE_KHOAN_THU_THEO_HO_FAILED
@@ -222,7 +213,6 @@ namespace CNPM.Service.Implementations
                     khoanThu.SoTienDaNop = soTienDaNop;
                     arr.Add(khoanThu);
                 }
-           
                 return new OkObjectResult(new
                 {
                     message = Constant.GET_KHOAN_THU_THEO_HO_SUCCESSFULLY,
@@ -245,7 +235,6 @@ namespace CNPM.Service.Implementations
                     message = Constant.UPDATE_KHOAN_THU_FAILED,
                     reason = Constant.MA_KHOAN_THU_NOT_EXIST
                 });
-
                 if (newKhoanThu.Version != khoanThu.Version) return new BadRequestObjectResult(new
                 {
                     message = Constant.UPDATE_KHOAN_THU_FAILED,
@@ -281,21 +270,16 @@ namespace CNPM.Service.Implementations
             {
                 var userName = Helpers.DecodeJwt(token, "username");
                 var khoanThu = _khoanThuRepository.GetKhoanThu(maKhoanThu);
-
-
                 if (khoanThu == null) return new BadRequestObjectResult(new
                 {
                     message = Constant.DELETE_KHOAN_THU_FAILED,
                     reason = Constant.MA_KHOAN_THU_NOT_EXIST
                 });
-
-
                 if (khoanThu.Version != version) return new BadRequestObjectResult(new
                 {
                     message = Constant.DELETE_NHAN_KHAU_FAILED,
                     reason = Constant.DATA_UPDATED_BEFORE
                 });
-
                 bool delete = _khoanThuRepository.DeleteKhoanThu(maKhoanThu, userName);
                 if (delete)
                 {
@@ -319,9 +303,7 @@ namespace CNPM.Service.Implementations
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-
                 HoaDonEntity hoaDonEntity = _mapper.Map<HoaDonDto1000, HoaDonEntity>(hoaDon);
-
                 hoaDonEntity.CreateTime = DateTime.Now;
                 hoaDonEntity.UpdateTime = DateTime.Now;
                 hoaDonEntity.UserCreate = userName;

@@ -18,7 +18,6 @@ import { useTheme } from "@mui/material";
 import CreateListRevenue from "./CreateListRevenue";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 const CreateRevenue = ({ openPopup, setOpenPopup }) => {
   const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -32,7 +31,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
   const handleSetCheckoutSchemas = (value) => {
     if (value === 2) setCheckoutSchemas(checkoutSchemaDichVu);
     else if (value === 3) setCheckoutSchemas(checkoutSchemaQuanLy);
-    else if (value ===4) setCheckoutSchemas(checkoutSchemaGuiXe);
+    else if (value === 4) setCheckoutSchemas(checkoutSchemaGuiXe);
     else setCheckoutSchemas(checkoutSchemaAnother);
   }
   const handleFormSubmit = (values) => {
@@ -61,7 +60,7 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
       default:
         break;
     }
-    if(window.confirm("Bạn chắc chắn muốn lưu?")) {
+    if (window.confirm("Bạn chắc chắn muốn lưu?")) {
       revenueService.postRevenue({
         tenKhoanThu: values.tenKhoanThu,
         ghiChu: values.ghiChu,
@@ -219,19 +218,17 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                   />}
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DesktopDatePicker label="Thời gian bắt đầu"
+                    <DesktopDatePicker label="Ngày bắt đầu"
                       inputFormat="DD/MM/YYYY"
                       onChange={setDateStart}
                       value={dateStart}
                       renderInput={(params) => <TextField {...params} />}>
-
                     </DesktopDatePicker>
-                    <DesktopDatePicker label="Thời gian kết thúc"
+                    <DesktopDatePicker label="Ngày kết thúc"
                       inputFormat="DD/MM/YYYY"
                       onChange={setDateEnd}
                       value={dateEnd}
                       renderInput={(params) => <TextField {...params} />}>
-
                     </DesktopDatePicker>
                   </LocalizationProvider>
                   {values.loaiKhoanThu === 1 && <Button
@@ -251,50 +248,44 @@ const CreateRevenue = ({ openPopup, setOpenPopup }) => {
             )}
           </Formik>
         </Box>
-        <ToastContainer/>
+        <ToastContainer />
       </DialogContent>
     </Dialog>
-
   );
 };
-
 const checkoutSchemaDichVu = yup.object().shape({
   tenKhoanThu: yup.string().required("Bạn chưa điền thông tin"),
-  dichvu:  yup
-  .number()
-  .typeError("Vui lòng nhập một số")
-  .required("Bạn chưa điền thông tin")
-  .min(2500, "Số tiền phải lớn hơn hoặc bằng 2500")
-  .max(16500, "Số tiền phải nhỏ hơn hoặc bằng 16500"),
+  dichvu: yup
+    .number()
+    .typeError("Vui lòng nhập một số")
+    .required("Bạn chưa điền thông tin")
+    .min(2500, "Số tiền phải lớn hơn hoặc bằng 2500")
+    .max(16500, "Số tiền phải nhỏ hơn hoặc bằng 16500"),
 });
-
 const checkoutSchemaQuanLy = yup.object().shape({
   tenKhoanThu: yup.string().required("Bạn chưa điền thông tin"),
-  quanly:  yup
-  .number()
-  .typeError("Vui lòng nhập một số")
-  .required("Bạn chưa điền thông tin")
-  .min(7000, "Số tiền phải lớn hơn hoặc bằng 7000")
+  quanly: yup
+    .number()
+    .typeError("Vui lòng nhập một số")
+    .required("Bạn chưa điền thông tin")
+    .min(7000, "Số tiền phải lớn hơn hoặc bằng 7000")
 });
-
 const checkoutSchemaGuiXe = yup.object().shape({
   tenKhoanThu: yup.string().required("Bạn chưa điền thông tin"),
-  xeMay:  yup
-  .number()
-  .typeError("Vui lòng nhập một số")
-  .required("Bạn chưa điền thông tin")
-  .min(0, "Số tiền không hợp lệ"),
-  xeOto:  yup
-  .number()
-  .typeError("Vui lòng nhập một số")
-  .required("Bạn chưa điền thông tin")
-  .min(0, "Số tiền không hợp lệ")
+  xeMay: yup
+    .number()
+    .typeError("Vui lòng nhập một số")
+    .required("Bạn chưa điền thông tin")
+    .min(0, "Số tiền không hợp lệ"),
+  xeOto: yup
+    .number()
+    .typeError("Vui lòng nhập một số")
+    .required("Bạn chưa điền thông tin")
+    .min(0, "Số tiền không hợp lệ")
 });
-
 const checkoutSchemaAnother = yup.object().shape({
   tenKhoanThu: yup.string().required("Bạn chưa điền thông tin")
 });
-
 export default CreateRevenue;
 
 

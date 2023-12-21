@@ -11,5 +11,4 @@ const absentRoute = (props) => {
     </>
   );
 };
-
 export default absentRoute;

@@ -15,17 +15,14 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
-
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const dispatch = useDispatch();
     const [newDate, setNewDate] = useState(dayjs(data.ngaySinh));
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const handleFormSubmit = (values) => {
-        if(window.confirm("Bạn chắc chắn muốn lưu") === true) {
+        if (window.confirm("Bạn chắc chắn muốn lưu") === true) {
             demographicService.putDemographic(values.maNhanKhau, {
                 hoTen: values.hoTen,
                 canCuocCongDan: values.canCuocCongDan,
@@ -105,7 +102,7 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                                         fullWidth
                                         variant="filled"
                                         type="text"
-                                        label="Họ và tên"
+                                        label="Họ tên"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
                                         value={values.hoTen}
@@ -118,7 +115,7 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                                         fullWidth
                                         variant="filled"
                                         type="text"
-                                        label="Số căn cước công dân"
+                                        label="Căn cước công dân"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
                                         value={values.canCuocCongDan}
@@ -159,7 +156,6 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                                             onChange={setNewDate}
                                             value={newDate}
                                             renderInput={(params) => <TextField {...params} />}>
-
                                         </DesktopDatePicker>
                                     </LocalizationProvider>
                                     <TextField
@@ -200,7 +196,6 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                                         helperText={touched.quanHe && errors.quanHe}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 3" }}
                                     />
-
                                     <TextField
                                         fullWidth
                                         variant="filled"
@@ -215,7 +210,6 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 5" }}
                                     />
                                 </Box>
-
                                 <Box display="flex" justifyContent="end" mt="20px" >
                                     <Button onClick={() => {
                                         if (window.confirm('Bạn chắc chắn muốn xóa?')) {
@@ -240,10 +234,8 @@ const EditDemographic = ({ openInPopup, setOpenInPopup, data }) => {
                 </Box>
             </DialogContent>
         </Dialog>
-
     );
 };
-
 const checkoutSchema = yup.object().shape({
     hoTen: yup.string().required("Bạn chưa điền thông tin"),
     canCuocCongDan: yup.string().required("Bạn chưa điền thông tin").max(12, "Căn cước công dân không được quá 12 ký tự"),
@@ -252,7 +244,6 @@ const checkoutSchema = yup.object().shape({
     ngheNghiep: yup.string().required("Bạn chưa điền thông tin"),
     quanHe: yup.string().required("Bạn chưa điền thông tin"),
 });
-
 export default EditDemographic;
 
 

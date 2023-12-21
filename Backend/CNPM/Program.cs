@@ -8,7 +8,7 @@ using CNPM.Repository.Interfaces;
 using CNPM.Repository.Implementations;
 using System.Text;
 using CNPM;
-//InitDatabase.ResetDb();
+InitDatabase.ResetDb();
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(options =>

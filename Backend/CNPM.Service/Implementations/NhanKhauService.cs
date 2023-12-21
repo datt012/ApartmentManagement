@@ -15,17 +15,15 @@ using Newtonsoft.Json.Linq;
 using CNPM.Core.Models.NhanKhau;
 using CNPM.Repository.Implementations;
 using System.Collections.Generic;
-
 namespace CNPM.Service.Implementations
 {
-
     public class NhanKhauService : INhanKhauService
     {
         private readonly INhanKhauRepository _nhanKhauRepository;
         private readonly IHoKhauRepository _hoKhauRepository;
         private readonly ITamVangRepository _tamVangRepository;
         private readonly IMapper _mapper;
-        public NhanKhauService(INhanKhauRepository nhanKhauRepository, 
+        public NhanKhauService(INhanKhauRepository nhanKhauRepository,
             IHoKhauRepository hoKhauRepository,
             ITamVangRepository tamVangRepository)
         {
@@ -37,7 +35,7 @@ namespace CNPM.Service.Implementations
                 cfg.AddProfile(new MappingProfile());
             });
             _mapper = config.CreateMapper();
-            
+
         }
         public IActionResult GetListNhanKhau(int index, int limit)
         {
@@ -58,7 +56,6 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-
         public IActionResult GetListNhanKhauAlive(int index, int limit)
         {
             try
@@ -132,12 +129,11 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-
         public IActionResult GetNhanKhau(int maNhanKhau)
         {
-            try { 
+            try
+            {
                 NhanKhauEntity nhanKhau = _nhanKhauRepository.GetNhanKhau(maNhanKhau);
-
                 if (nhanKhau == null) return new BadRequestObjectResult(
                        new
                        {
@@ -145,10 +141,9 @@ namespace CNPM.Service.Implementations
                            reason = Constant.MA_NHAN_KHAU_NOT_EXIST
                        }
                     );
-
                 var nhanKhau1001 = _mapper.Map<NhanKhauEntity, NhanKhauDto1001>(nhanKhau);
-
-                return new OkObjectResult(new {
+                return new OkObjectResult(new
+                {
                     message = Constant.GET_NHAN_KHAU_SUCCESSFULLY,
                     data = nhanKhau1001
                 });
@@ -173,13 +168,11 @@ namespace CNPM.Service.Implementations
                     });
                 }
                 NhanKhauEntity nhanKhau = _mapper.Map<NhanKhauDto1000, NhanKhauEntity>(nhanKhau1000);
-
                 nhanKhau.CreateTime = DateTime.Now;
                 nhanKhau.UpdateTime = DateTime.Now;
                 nhanKhau.UserCreate = userName;
                 nhanKhau.UserUpdate = userName;
                 int maNhanKhau = _nhanKhauRepository.CreateNhanKhau(nhanKhau);
-
                 if (maNhanKhau != -1)
                 {
                     return new OkObjectResult(new
@@ -209,8 +202,6 @@ namespace CNPM.Service.Implementations
                     message = Constant.UPDATE_NHAN_KHAU_FAILED,
                     reason = Constant.MA_NHAN_KHAU_NOT_EXIST
                 });
-
-
                 if (nhanKhau.Version != newNhanKhau.Version) return new BadRequestObjectResult(new
                 {
                     message = Constant.UPDATE_NHAN_KHAU_FAILED,
@@ -255,21 +246,16 @@ namespace CNPM.Service.Implementations
             {
                 var userName = Helpers.DecodeJwt(token, "username");
                 var nhanKhau = _nhanKhauRepository.GetNhanKhau(maNhanKhau);
-
-
                 if (nhanKhau == null) return new BadRequestObjectResult(new
                 {
                     message = Constant.DELETE_NHAN_KHAU_FAILED,
                     reason = Constant.MA_NHAN_KHAU_NOT_EXIST
                 });
-
-
                 if (nhanKhau.Version != version) return new BadRequestObjectResult(new
                 {
                     message = Constant.DELETE_NHAN_KHAU_FAILED,
                     reason = Constant.DATA_UPDATED_BEFORE
                 });
-
                 bool delete = _nhanKhauRepository.DeleteNhanKhau(maNhanKhau, userName);
                 if (delete)
                 {

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CNPM.Core.Entities;
 using CNPM.Core.Models;
 using CNPM.Core.Models.NhanKhau;
-
 namespace CNPM.Repository.Interfaces
 {
     public interface ITamTruRepository
@@ -19,6 +18,5 @@ namespace CNPM.Repository.Interfaces
         public bool CheckExistCanCuocCongDanUpdate(string canCuocCongDan, int maTamTru);
         public int UpdateTamTru(TamTruEntity tamTru);
         public bool DeleteTamTru(int maTamTru, string userName);
-
     }
 }

@@ -10,18 +10,18 @@ const Topbar = () => {
   return (
     <div style={{ position: 'absolute', top: 10, right: 10 }}>
       <Box display="flex">
-        {user && isAuthenticated === true ? 
+        {user && isAuthenticated === true ?
           (
             <Dropdown>
-              <Dropdown.Toggle style={{backgroundColor: '#0288d1'}} id="dropdown-basic">
+              <Dropdown.Toggle style={{ backgroundColor: '#0288d1' }} id="dropdown-basic">
                 {<AccountCircleIcon />}
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item href="/change-info">Cập nhật thông tin</Dropdown.Item>
                 <Dropdown.Item href="/change-password">Đổi mật khẩu</Dropdown.Item>
                 <Dropdown.Item onClick={() => {
-                    dispatch(logout());
-                  }}>
+                  dispatch(logout());
+                }}>
                   <span>Đăng xuất</span>
                 </Dropdown.Item>
               </Dropdown.Menu>

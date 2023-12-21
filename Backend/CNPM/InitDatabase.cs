@@ -10,19 +10,17 @@ namespace CNPM
         public static async Task CreateDatabase()
         {
             using var dbcontext = new MyDbContext();
-            string dbname = dbcontext.Database.GetDbConnection().Database;
             var result = await dbcontext.Database.EnsureCreatedAsync();
             string resultstring = result ? "Create database successfully" : "Database is already";
-            Console.WriteLine($"CSDL {dbname} : {resultstring}");
+            Console.WriteLine(resultstring);
         }
         public static async Task DeleteDatabase()
         {
             using (var context = new MyDbContext())
             {
-                String databasename = context.Database.GetDbConnection().Database;
                 bool deleted = await context.Database.EnsureDeletedAsync();
-                string deletionInfo = deleted ? "Database is deleted" : "Can't delete database";
-                Console.WriteLine($"{databasename} {deletionInfo}");
+                string deletionInfo = deleted ? "Database is deleted" : "Can not delete database";
+                Console.WriteLine(deletionInfo);
             }
         }
         public static async void ResetDb()
@@ -41,8 +39,9 @@ namespace CNPM
                 new RoleEntity("Stocker")
             };
             DateTime today = DateTime.Now;
-            listPermissionEntity.ForEach( o =>  dbcontext.Add(o));
-            var superAdmin = new UserEntity{
+            listPermissionEntity.ForEach(o => dbcontext.Add(o));
+            var superAdmin = new UserEntity
+            {
                 UserName = "admin",
                 Password = "$2a$11$ew1SDZWnBOiPna6ZHaTWHuhEELiDGAan8/6cvBI6gCgWZ17vJB0oG", //123456
                 FirstName = "Đạt",

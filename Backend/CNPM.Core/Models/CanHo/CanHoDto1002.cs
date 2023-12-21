@@ -8,31 +8,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace CNPM.Core.Models.CanHo
 {
-    public class CanHoDto1002 
+    public class CanHoDto1002
     {
         [Required]
         [MaxLength(100)]
         [JsonProperty("tenCanHo")]
         public string? TenCanHo { get; set; }
-
         [Required]
         [JsonProperty("tang")]
         public string? Tang { get; set; }
-
         [Required]
         [Range(0, 1000)]
         [JsonProperty("dienTich")]
         public double DienTich { get; set; }
-
         [JsonProperty("maHoKhau")]
         public string? MaHoKhau { get; set; }
-
         [JsonProperty("moTa")]
         public string? MoTa { get; set; }
-
         [JsonProperty("version")]
         public int Version { get; set; }
     }

@@ -2,11 +2,11 @@ import React from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as BsIcons from "react-icons/bs";
-export const SidebarDataAdmin =  [
+export const SidebarDataAdmin = [
   {
     title: 'Trang chủ',
     path: "/",
-    icon: <AiIcons.AiFillHome/>
+    icon: <AiIcons.AiFillHome />
   },
   {
     title: 'Quản lý hộ gia đình',
@@ -20,7 +20,7 @@ export const SidebarDataAdmin =  [
       {
         title: 'Căn hộ',
         path: '/room',
-        icon: <BsIcons.BsHouseDoorFill  />,
+        icon: <BsIcons.BsHouseDoorFill />,
       }
     ]
   },
@@ -31,7 +31,7 @@ export const SidebarDataAdmin =  [
       {
         title: 'Nhân khẩu',
         path: '/demographic',
-        icon: <BsIcons.BsPersonCheckFill  />
+        icon: <BsIcons.BsPersonCheckFill />
       },
       {
         title: 'Tạm trú',
@@ -42,21 +42,8 @@ export const SidebarDataAdmin =  [
         title: 'Tạm vắng',
         path: '/absent',
         icon: <BsIcons.BsPersonDashFill />,
-    
       }
     ]
-  },
-  {
-    title: 'Quản lý khoản thu',
-    path: '/revenue',
-    icon: <AiIcons.AiFillMoneyCollect />
-  }
-];
-export const SidebarDataKeToan =  [
-  {
-    title: 'Home',
-    path: "/",
-    icon: <AiIcons.AiFillHome/>
   },
   {
     title: 'Quản lý khoản thu',

@@ -1,9 +1,9 @@
 # Apartment Management : Blue Moon
 
 
-### Install NodeJS 16.0.0
-### Install Visual Studio 2022
-### Install SQL Server 2022
+### Install NodeJS 
+### Install Visual Studio 
+### Install SQL Server 
 
 In the project directory, you can run:
 

@@ -31,7 +31,6 @@ export default function ChangeInfoPage() {
       toast(e?.response?.data?.reason || e?.response?.data?.message || "Có lỗi xảy ra");
       return;
     }
-
   }
   useEffect(() => {
     setFirstName(user?.firstName);
@@ -69,7 +68,6 @@ export default function ChangeInfoPage() {
               value={lastName}
             />
           </div>
-
           <div className="form-group">
             <label>
               Email (<span className="text-danger">*</span>)
@@ -84,7 +82,7 @@ export default function ChangeInfoPage() {
             />
           </div>
           <Button type="submit" variant="contained" color="info"
-           style={{ width: 100, margin: 'auto' }}>Gửi</Button>
+            style={{ width: 100, margin: 'auto' }}>Gửi</Button>
         </form>
       </div>
     </div>

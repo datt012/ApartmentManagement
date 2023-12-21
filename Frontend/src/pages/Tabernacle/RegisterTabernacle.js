@@ -11,8 +11,6 @@ import tabernacleService from "../../Services/API/tabernacleService";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import roomService from "../../Services/API/roomService";
-
-
 const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
   const [dataPhong, setDataPhong] = useState([]);
   const [roomName, setRoomName] = useState("");
@@ -46,7 +44,6 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
         toast(mes.message);
         setOpenPopup(!openPopup);
         dispatch(fetchAllTabernacles());
-
       }).catch(e => {
         if (e.response.data.reason)
           toast(e.response.data.reason)
@@ -108,7 +105,7 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
                     fullWidth
                     variant="filled"
                     type="text"
-                    label="Họ và tên"
+                    label="Họ tên"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.hoTen}
@@ -121,7 +118,7 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
                     fullWidth
                     variant="filled"
                     type="text"
-                    label="Số căn cước công dân"
+                    label="Căn cước công dân"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.canCuocCongDan}
@@ -153,7 +150,6 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
                     value={roomName}
                     error={!!touched.diaChiThuongTru && !roomName}
                     helperText={touched.diaChiThuongTru && !roomName && "Bạn chưa điền thông tin"}
-                    
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 10" }}>
                     {dataPhong.map((canHo, index) => {
                       return <MenuItem key={index} value={canHo.label}>{canHo.label}</MenuItem>
@@ -172,16 +168,13 @@ const RegisterTabernacle = ({ openPopup, setOpenPopup }) => {
         </Box>
       </DialogContent>
     </Dialog>
-
   );
 }
-
 const checkoutSchema = yup.object().shape({
   hoTen: yup.string().required("Bạn chưa điền thông tin"),
   canCuocCongDan: yup.string().required("Bạn chưa điền thông tin").max(12, "Căn cước công dân không được quá 12 ký tự"),
   diaChiThuongTru: yup.string().required("Bạn chưa điền thông tin"),
 });
-
 export default RegisterTabernacle;
 
 

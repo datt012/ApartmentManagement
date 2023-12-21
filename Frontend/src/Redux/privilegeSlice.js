@@ -32,7 +32,5 @@ const privilegeSlice = createSlice({
     },
   },
 });
-
 export const _ = privilegeSlice.actions;
-
 export default privilegeSlice.reducer;

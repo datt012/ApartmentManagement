@@ -15,18 +15,14 @@ import { Link } from "react-router-dom";
 import { LIST_LOAI_KHOAN_THU } from "../../Services/Utils/const";
 import EditIcon from '@mui/icons-material/Edit';
 import moment from "moment";
-
 const RevenuePage = () => {
   const dispatch = useDispatch();
   const [openPopup, setOpenPopup] = useState(false);
   const [openInPopup, setOpenInPopup] = useState(false);
   const revenueList = useSelector((state) => state.revenue.revenueList);
   const isLoadingList = useSelector((state) => state.revenue.isLoadingList);
-
   const [data, setData] = useState([]);
-
   const EditButton = ({ maKhoanThu, openInPopup, setOpenInPopup }) => {
-
     return (
       <Button onClick={() => {
         revenueService.getRevenue(maKhoanThu).then(mes => {
@@ -41,7 +37,6 @@ const RevenuePage = () => {
     );
   }
   const ListButton = ({ maKhoanThu, loaiKhoanThu }) => {
-
     return (
       <Link to="/revenue-item">
         <Button onClick={() => {
@@ -60,7 +55,6 @@ const RevenuePage = () => {
     if (!isLoadingList) {
       dispatch(fetchAllRevenue());
     }
-
   }, []);
   useEffect(() => {
   }, [revenueList]);
@@ -73,18 +67,6 @@ const RevenuePage = () => {
       cellClassName: "name-column--cell",
     },
     {
-      field: "thoiGianBatDau",
-      headerName: "Thời gian bắt đầu",
-      flex: 1,
-      valueGetter: (param) => { return dayjs(param.row.thoiGianBatDau).format('DD/MM/YYYY') },
-    },
-    {
-      field: "thoiGianKetThuc",
-      headerName: "Thời gian kết thúc",
-      flex: 1,
-      valueGetter: (param) => { return dayjs(param.row.thoiGianKetThuc).format('DD/MM/YYYY') },
-    },
-    {
       field: "loaiKhoanThu",
       headerName: "Loại khoản thu",
       flex: 1,
@@ -92,6 +74,18 @@ const RevenuePage = () => {
         const khoanThu = LIST_LOAI_KHOAN_THU.find(o => o.id === param.row.loaiKhoanThu);
         return khoanThu?.label;
       },
+    },
+    {
+      field: "thoiGianBatDau",
+      headerName: "Ngày bắt đầu",
+      flex: 1,
+      valueGetter: (param) => { return dayjs(param.row.thoiGianBatDau).format('DD/MM/YYYY') },
+    },
+    {
+      field: "thoiGianKetThuc",
+      headerName: "Ngày kết thúc",
+      flex: 1,
+      valueGetter: (param) => { return dayjs(param.row.thoiGianKetThuc).format('DD/MM/YYYY') },
     },
     {
       field: "chiTiet",

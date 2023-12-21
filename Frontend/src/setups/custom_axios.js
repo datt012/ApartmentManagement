@@ -31,7 +31,7 @@ instance.interceptors.response.use(
       case 400: {
         return Promise.reject(error);
       }
-      case 404: {       
+      case 404: {
         return Promise.reject(error);
       }
       case 409: {

@@ -13,15 +13,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
-
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const dispatch = useDispatch();
     const [date, setDate] = useState(dayjs(new Date()));
-
     const handleFormSubmit = (values) => {
-        if(window.confirm("Bạn chắc chắn muốn lưu?") === true) {
+        if (window.confirm("Bạn chắc chắn muốn lưu?") === true) {
             demographicService.postDemographic({
                 hoTen: values.hoTen,
                 canCuocCongDan: values.canCuocCongDan,
@@ -52,9 +49,7 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
         ghiChu: "",
     };
     return (
-        <Dialog open={openPopup} maxWidth="md" style={{ backgroundColor: "transparent", overflow: 'hidden' }}
-            sx={{
-            }}>
+        <Dialog open={openPopup} maxWidth="md" style={{ backgroundColor: "transparent", overflow: 'hidden' }}>
             <DialogTitle>
                 <div style={{ display: 'flex' }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
@@ -95,7 +90,7 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
                                         fullWidth
                                         variant="filled"
                                         type="text"
-                                        label="Họ và tên"
+                                        label="Họ tên"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
                                         value={values.hoTen}
@@ -108,7 +103,7 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
                                         fullWidth
                                         variant="filled"
                                         type="text"
-                                        label="Số căn cước công dân"
+                                        label="Căn cước công dân"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
                                         value={values.canCuocCongDan}
@@ -190,7 +185,6 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
                                         helperText={touched.quanHe && errors.quanHe}
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 3" }}
                                     />
-
                                     <TextField
                                         fullWidth
                                         variant="filled"
@@ -215,23 +209,18 @@ const RegisterDemographic = ({ openPopup, setOpenPopup }) => {
                         )}
                     </Formik>
                 </Box>
-                {/*<ToastContainer />*/}
             </DialogContent>
         </Dialog>
-
     );
 };
-
 const checkoutSchema = yup.object().shape({
     hoTen: yup.string().required("Bạn chưa điền thông tin"),
-    canCuocCongDan: yup
-        .string().required("Bạn chưa điền thông tin").max(12, "Căn cước công dân không được quá 12 ký tự"),
+    canCuocCongDan: yup.string().required("Bạn chưa điền thông tin").max(12, "Căn cước công dân không được quá 12 ký tự"),
     noiSinh: yup.string().required("Bạn chưa điền thông tin"),
     danToc: yup.string().required("Bạn chưa điền thông tin"),
     ngheNghiep: yup.string().required("Bạn chưa điền thông tin"),
     quanHe: yup.string().required("Bạn chưa điền thông tin"),
 });
-
 export default RegisterDemographic;
 
 

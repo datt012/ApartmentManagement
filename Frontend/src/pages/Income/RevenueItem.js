@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import PayRevenue from "./PayRevenue";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
-
 const RevenueItem = () => {
     const history = useHistory();
     const revenueItem = useSelector((state) => state.revenue.revenueItem)
@@ -19,9 +18,7 @@ const RevenueItem = () => {
     const [id, setId] = useState(0);
     const [openPopup, setOpenPopup] = useState(false);
     const [soTienCanThu, setSoTienCanThu] = useState(0);
-
     const PayButton = ({ maKhoanThuTheoHo, openPopup, setOpenPopup, soTienCanThu }) => {
-
         return (
             <Button onClick={() => {
                 setId(maKhoanThuTheoHo);
@@ -34,9 +31,12 @@ const RevenueItem = () => {
             </Button>
         );
     }
-
     const columns = useMemo(() => [
-        { field: "maKhoanThuTheoHo", headerName: "Mã khoản thu theo hộ", flex: 1 },
+        { 
+            field: "maKhoanThuTheoHo", 
+            headerName: "Mã khoản thu theo hộ", 
+            flex: 0.7 
+        },
         {
             field: "maHoKhau",
             headerName: "Mã hộ khẩu",
@@ -60,7 +60,7 @@ const RevenueItem = () => {
             headerName: "Tình trạng",
             flex: 1,
             valueGetter: (param) => {
-                if (loaiKhoanThu === 0) return ("Tiền phí đóng góp");
+                if (loaiKhoanThu === 0) return ("Đóng góp");
                 return ((param.row.soTienDaNop >= param.row.soTien) ? "Đã nộp đủ" : ("Còn thiếu " + (param.row.soTien - param.row.soTienDaNop) + " đồng"));
             },
         },
@@ -121,16 +121,16 @@ const RevenueItem = () => {
 };
 function CustomToolbar() {
     return (
-      <GridToolbarContainer>
-        <GridToolbarColumnsButton />
-        <GridToolbarFilterButton />
-        <GridToolbarDensitySelector />
-        <GridToolbarExport csvOptions={{
-          fileName: `Danh sách các hộ cần thu phí ${moment().format('YYYY-MM-DD')}`,
-          utf8WithBom: true,
-        }}
-        />
-      </GridToolbarContainer>
+        <GridToolbarContainer>
+            <GridToolbarColumnsButton />
+            <GridToolbarFilterButton />
+            <GridToolbarDensitySelector />
+            <GridToolbarExport csvOptions={{
+                fileName: `Danh sách các hộ cần thu phí ${moment().format('YYYY-MM-DD')}`,
+                utf8WithBom: true,
+            }}
+            />
+        </GridToolbarContainer>
     );
-  }
+}
 export default RevenueItem;

@@ -4,7 +4,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../theme";
-import { SidebarDataAdmin, SidebarDataKeToan } from './SideBar';
+import { SidebarDataAdmin } from './SideBar';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { useSelector } from "react-redux";
 import axios from "../setups/custom_axios"
@@ -13,14 +13,12 @@ const Item = ({ title, to, icon }) => {
   const colors = tokens(theme.palette.mode);
   return (
     <MenuItem
-
       style={{
         color: colors.grey[100],
       }}
-
       icon={icon}
     >
-      <Typography style={{fontSize: 15}}>{title}</Typography>
+      <Typography style={{ fontSize: 15 }}>{title}</Typography>
       <Link to={to} />
     </MenuItem>
   );
@@ -34,12 +32,7 @@ const Sidebar = () => {
   const [SidebarData, setSidebarData] = useState();
   useEffect(() => {
     if (user) {
-      if (user.roleId === 1 || user.roleId === 2) {
-        setSidebarData(SidebarDataAdmin);
-      }
-      else {
-        setSidebarData(SidebarDataKeToan);
-      }
+      setSidebarData(SidebarDataAdmin);
     }
   }, [user])
   useEffect(
@@ -94,9 +87,9 @@ const Sidebar = () => {
             >
               {!isCollapsed && (
                 <Box
-                  style={{textAlign: 'center'}}
+                  style={{ textAlign: 'center' }}
                 >
-                  <Typography variant="h3" color={colors.grey[100]} style={{fontSize: 22}}>
+                  <Typography variant="h3" color={colors.grey[100]} style={{ fontSize: 22 }}>
                     QUẢN LÝ CHUNG CƯ
                   </Typography>
                 </Box>
@@ -110,7 +103,7 @@ const Sidebar = () => {
                     width="100px"
                     height="100px"
                     src={`../../avatar.jpg`}
-                    style={{ cursor: "pointer", borderRadius: "50%" }}
+                    style={{ borderRadius: "50%" }}
                   />
                 </Box>
                 <Box textAlign="center">
@@ -128,7 +121,7 @@ const Sidebar = () => {
                 </Box>
               </Box>
             )}
-            <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{color: 'black'}}>
+            <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{ color: 'black' }}>
               {SidebarData?.map((item, index) => {
                 if (item.subNav) {
                   return (

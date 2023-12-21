@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import demographicService from "../Services/API/demographicService";
-
 export const fetchAllDemographic = createAsyncThunk(
     "demographic/fetchAllDemographic",
     async (_, thunkAPI) => {
@@ -13,7 +12,6 @@ export const fetchAllDemographic = createAsyncThunk(
     }
 );
 export const resetDemographicSlice = createAction("resetDemographicSlice");
-
 const initialState = {
     demographicList: [],
     isLoading: false,

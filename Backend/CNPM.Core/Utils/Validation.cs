@@ -14,7 +14,7 @@ namespace CNPM.Core.Utils
             if (trangThai == 0 || trangThai == 1)
                 return ValidationResult.Success;
             else
-                return new ValidationResult("Trang thai is not valid, trang thai = 0 as die, = 1 as alive");
+                return new ValidationResult("Invalid");
         }
     }
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
@@ -25,7 +25,7 @@ namespace CNPM.Core.Utils
             if (khoanThu == 0 || khoanThu == 1 || khoanThu == 2 || khoanThu == 3 || khoanThu == 4)
                 return ValidationResult.Success;
             else
-                return new ValidationResult("Khoan thu is not valid");
+                return new ValidationResult("Invalid");
         }
     }
 }

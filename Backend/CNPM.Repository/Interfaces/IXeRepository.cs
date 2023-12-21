@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CNPM.Core.Entities;
 using CNPM.Core.Models;
-
 namespace CNPM.Repository.Interfaces
 {
     public interface IXeRepository

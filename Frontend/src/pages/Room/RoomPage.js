@@ -10,13 +10,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import EditRoom from "./EditRoom";
 import { toast } from 'react-toastify';
 import moment from "moment";
-
 const RoomPage = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [openEditPopup, setOpenEditPopup] = useState(false);
   const [data, setData] = useState([]);
   const [currentRoom, setCurrentRoom] = useState();
-
   const handleEdit = (maCanHo) => {
     roomService.getRoom(maCanHo).then((result) => {
       setCurrentRoom(result.data);
@@ -51,7 +49,6 @@ const RoomPage = () => {
   useEffect(() => {
     handleGetListRoom();
   }, []);
-
   const columns = useMemo(() => [
     {
       field: "maCanHo",

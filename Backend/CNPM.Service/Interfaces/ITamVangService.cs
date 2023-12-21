@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CNPM.Core.Models;
 using CNPM.Core.Models.TamVang;
 using Microsoft.AspNetCore.Mvc;
-
 namespace CNPM.Service.Interfaces
 {
     public interface ITamVangService

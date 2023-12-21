@@ -8,7 +8,6 @@ using CNPM.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using CNPM.Core.Utils;
 using CNPM.Core.Models;
-
 namespace CNPM.Repository.Implementations
 {
     public class UserRepository : IUserRepository
@@ -27,16 +26,13 @@ namespace CNPM.Repository.Implementations
                 throw new Exception(ex.Message);
             }
         }
-
         public UserEntity CreateUser(UserEntity userData)
         {
             try
             {
                 var _dbcontext = new MyDbContext();
                 _dbcontext.Users.Add(userData);
-
                 int number_rows = _dbcontext.SaveChanges();
-
                 if (number_rows > 0) return userData;
                 return null;
             }
@@ -51,13 +47,11 @@ namespace CNPM.Repository.Implementations
             {
                 var _dbcontext = new MyDbContext();
                 var user = _dbcontext.Users!.FirstOrDefault(o => o.UserName == userData.UserName && o.Delete == Constant.NOT_DELETE);
-
                 user.Delete = Constant.DELETE;
                 user.UserUpdate = userData.UserName;
                 user.UpdateTime = DateTime.Now;
                 user.Version++;
                 _dbcontext.SaveChanges();
-               
                 return true;
             }
             catch (Exception ex)
@@ -67,12 +61,10 @@ namespace CNPM.Repository.Implementations
         }
         public bool UpdateUser(UserEntity newUserData)
         {
-           
             try
             {
                 var _dbcontext = new MyDbContext();
                 var user = _dbcontext.Users!.FirstOrDefault(o => o.UserName == newUserData.UserName && o.Delete == Constant.NOT_DELETE);
-
                 if (user != null)
                 {
                     user.UserUpdate = newUserData.UserUpdate;
@@ -86,14 +78,12 @@ namespace CNPM.Repository.Implementations
                     return true;
                 }
                 else return false;
-
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-
         public List<RoleEntity> GetListPermissions()
         {
             try
@@ -102,7 +92,7 @@ namespace CNPM.Repository.Implementations
                 List<RoleEntity> arr = _dbcontext.Roles!.ToList();
                 return arr;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -115,7 +105,7 @@ namespace CNPM.Repository.Implementations
                 List<UserEntity> arr = _dbcontext.Users!.Where(o => o.Delete == Constant.NOT_DELETE).ToList();
                 return arr;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -134,12 +124,11 @@ namespace CNPM.Repository.Implementations
                 }
                 else return false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-
         public void SaveToken(string userName, string accessToken)
         {
             try
@@ -157,11 +146,10 @@ namespace CNPM.Repository.Implementations
                 _dbcontext.LoginInfos.Add(loginInfo);
                 _dbcontext.SaveChanges();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-           
         }
         public bool DeleteToken(string userName, string accessToken)
         {
@@ -182,7 +170,6 @@ namespace CNPM.Repository.Implementations
             {
                 throw new Exception(ex.Message);
             }
-
         }
         public bool CheckToken(string userName, string accessToken)
         {
@@ -200,7 +187,6 @@ namespace CNPM.Repository.Implementations
             {
                 throw new Exception(ex.Message);
             }
-
         }
     }
 }

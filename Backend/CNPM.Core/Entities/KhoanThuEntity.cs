@@ -8,17 +8,13 @@ namespace CNPM.Core.Entities
         [Key]
         [Required]
         public int MaKhoanThu { get; set; }
-
         [Required, StringLength(100)]
         public string? TenKhoanThu { get; set; }
         public DateTime ThoiGianBatDau { get; set; }
         public DateTime ThoiGianKetThuc { get; set; }
         public int LoaiKhoanThu { get; set; }
-        
         public string? ChiTiet { get; set; }
-        
         [StringLength(200)]
         public string? GhiChu { get; set; }
-
     }
 }

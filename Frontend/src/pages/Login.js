@@ -6,15 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../Redux/authSlice";
 import { useHistory } from "react-router-dom";
 import logo from '../assets/logo.jpg';
-
 export default function SignIn() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const {loginType} = useSelector((state) => state.auth)
+  const { loginType } = useSelector((state) => state.auth)
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    dispatch(login({ userName: data.get("username"), password: data.get("password")})).then(() => {
+    dispatch(login({ userName: data.get("username"), password: data.get("password") })).then(() => {
       history.push("/");
     });
   };
@@ -28,7 +27,7 @@ export default function SignIn() {
           alignItems: "center",
         }}
       >
-        <img src={logo} alt="logo" style={{width: 200, height: 200}}/>
+        <img src={logo} alt="logo" style={{ width: 200, height: 200 }} />
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
             margin="normal"
@@ -39,7 +38,7 @@ export default function SignIn() {
             name="username"
             autoComplete="username"
             inputProps={{ minLength: 5 }}
-            sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, "& .MuiInputLabel-asterisk" : {display: "none"} }}
+            sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, "& .MuiInputLabel-asterisk": { display: "none" } }}
             autoFocus
           />
           <TextField
@@ -51,10 +50,10 @@ export default function SignIn() {
             type="password"
             id="password"
             inputProps={{ minLength: 5, maxLength: 20 }}
-            sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, "& .MuiInputLabel-asterisk" : {display: "none"} }}
+            sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, "& .MuiInputLabel-asterisk": { display: "none" } }}
             autoComplete="current-password"
           />
-          <div style={{display: 'flex', justifyContent: 'center', color: 'red'}}>{loginType === false ? 'Tên đăng nhập hoặc mật khẩu không đúng' : ''}</div>
+          <div style={{ display: 'flex', justifyContent: 'center', color: 'red' }}>{loginType === false ? 'Tên đăng nhập hoặc mật khẩu không đúng' : ''}</div>
           <Button
             type="submit"
             fullWidth

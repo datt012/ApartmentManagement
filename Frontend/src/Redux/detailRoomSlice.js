@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-const detailroomSlice =  createSlice({
+const detailroomSlice = createSlice({
   name: 'detailroom',
   initialState: {
     isDetailVisible: false,
@@ -8,15 +7,13 @@ const detailroomSlice =  createSlice({
   },
   reducers: {
     isDetailVisibleChange: (state) => {
-      state.isDetailVisible = ! state.isDetailVisible;
-      console.log (state.isDetailVisible);
+      state.isDetailVisible = !state.isDetailVisible;
+      console.log(state.isDetailVisible);
     },
     isSelectedIdChange: (state, action) => {
       state.isSelectedId = action.payload;
-      
     }
   },
 });
-
 export default detailroomSlice;
 

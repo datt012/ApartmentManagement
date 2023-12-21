@@ -1,23 +1,23 @@
 export const LIST_LOAI_KHOAN_THU = [
     {
         id: 0,
-        label: "Phí đóng góp" 
+        label: "Phí đóng góp"
     },
     {
         id: 1,
-        label: "Phí sinh hoạt" 
+        label: "Phí sinh hoạt"
     },
     {
         id: 2,
-        label: "Phí dịch vụ" 
+        label: "Phí dịch vụ"
     },
     {
         id: 3,
-        label: "Phí quản lý" 
+        label: "Phí quản lý"
     },
     {
         id: 4,
-        label: "Phí gửi xe" 
+        label: "Phí gửi xe"
     }
 ]
 export const LIST_LOAI_XE = [

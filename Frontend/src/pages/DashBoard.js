@@ -8,7 +8,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import { useHistory } from 'react-router-dom';
-
 const DashBoard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -18,7 +17,6 @@ const DashBoard = () => {
   useEffect(() => {
     dispatch(fetchAllUsers());
   }, []);
-
   return (
     <div style={{
       margin: 'auto',
@@ -38,7 +36,7 @@ const DashBoard = () => {
                 <CardMedia
                   component="img"
                   height="100"
-                  image={require('../assets/quan-ly-ho-khau.jpg')}
+                  image={require('../assets/quanlyhokhau.jpg')}
                   alt="green iguana"
                 />
                 <CardContent>
@@ -51,14 +49,13 @@ const DashBoard = () => {
                 </CardContent>
               </CardActionArea>
             </Card>
-
             <Card onClick={() => history.push('/room')}
               sx={{ width: 300, backgroundColor: 'white', margin: '10px' }}>
               <CardActionArea>
                 <CardMedia
                   component="img"
                   height="100"
-                  image={require('../assets/quan-ly-can-ho.jpg')}
+                  image={require('../assets/quanlycanho.jpg')}
                   alt="green iguana"
                 />
                 <CardContent>
@@ -77,7 +74,7 @@ const DashBoard = () => {
                 <CardMedia
                   component="img"
                   height="100"
-                  image={require('../assets/quan-ly-khoan-thu.jpg')}
+                  image={require('../assets/quanlykhoanthu.jpg')}
                   alt="green iguana"
                 />
                 <CardContent>
@@ -96,7 +93,7 @@ const DashBoard = () => {
                 <CardMedia
                   component="img"
                   height="100"
-                  image={require('../assets/quan-ly-nhan-khau.jpg')}
+                  image={require('../assets/quanlynhankhau.jpg')}
                   alt="green iguana"
                 />
                 <CardContent>
@@ -115,7 +112,7 @@ const DashBoard = () => {
                 <CardMedia
                   component="img"
                   height="100"
-                  image={require('../assets/quan-ly-tam-tru.jpg')}
+                  image={require('../assets/quanlytamtru.jpg')}
                   alt="green iguana"
                 />
                 <CardContent>
@@ -134,7 +131,7 @@ const DashBoard = () => {
                 <CardMedia
                   component="img"
                   height="100"
-                  image={require('../assets/quan-ly-tam-vang.jpg')}
+                  image={require('../assets/quanlytamvang.jpg')}
                   alt="green iguana"
                 />
                 <CardContent>
@@ -149,7 +146,6 @@ const DashBoard = () => {
             </Card>
           </>
         }
-
       </div>
     </div>
   );

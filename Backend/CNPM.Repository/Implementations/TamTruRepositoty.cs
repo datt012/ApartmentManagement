@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using CNPM.Core.Utils;
 using CNPM.Core.Models;
 using System.ComponentModel.DataAnnotations;
-
 namespace CNPM.Repository.Implementations
 {
     public class TamTruRepository : ITamTruRepository
@@ -27,15 +26,13 @@ namespace CNPM.Repository.Implementations
                 }
                 else arr = _dbcontext.TamTru!.Where(
                     o => o.Delete == Constant.NOT_DELETE).Skip(limit * (index - 1)).Take(limit).ToList();
-
                 return arr;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-        
         public TamTruEntity GetTamTru(int maTamTru)
         {
             try
@@ -56,14 +53,10 @@ namespace CNPM.Repository.Implementations
             {
                 var _dbcontext = new MyDbContext();
                 _dbcontext.TamTru.Add(tamTru);
-
                 int number_rows = _dbcontext.SaveChanges();
-
                 if (number_rows <= 0) return -1;
-
                 TamTruEntity tamTruCreated = _dbcontext.TamTru.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.CanCuocCongDan == tamTru.CanCuocCongDan).FirstOrDefault();
-
                 return tamTruCreated.MaTamTru;
             }
             catch (Exception ex)
@@ -81,7 +74,7 @@ namespace CNPM.Repository.Implementations
                 if (tamTru == null) return true;
                 return false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -123,7 +116,6 @@ namespace CNPM.Repository.Implementations
                 var _dbcontext = new MyDbContext();
                 var tamTru = _dbcontext.TamTru!.FirstOrDefault(
                     o => o.MaTamTru == newTamTru.MaTamTru && o.Delete == Constant.NOT_DELETE);
-
                 if (tamTru != null)
                 {
                     tamTru.UserUpdate = newTamTru.UserUpdate;
@@ -137,7 +129,6 @@ namespace CNPM.Repository.Implementations
                     return newTamTru.MaTamTru;
                 }
                 else return -1;
-
             }
             catch (Exception ex)
             {

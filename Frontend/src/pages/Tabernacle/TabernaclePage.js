@@ -11,33 +11,30 @@ import RegisterTabernacle from "./RegisterTabernacle";
 import EditTabernacle from "./EditTabernacle";
 import tabernacleService from "../../Services/API/tabernacleService";
 import moment from "moment";
-
 const TabernaclePage = () => {
   const dispatch = useDispatch();
   const [openPopup, setOpenPopup] = useState(false);
   const [openInPopup, setOpenInPopup] = useState(false);
   const { tabernacleList, isLoading } = useSelector((state) => state.tabernacle);
   const [data, setData] = useState([]);
-
   const EditButton = ({ maTamTru, openInPopup, setOpenInPopup }) => {
     return (
-        <Button onClick={() => {
-          tabernacleService.getTabernacle(maTamTru).then(mes => {
-            setData(mes.data);
-            setOpenInPopup(!openInPopup);
-          });
-        }}
-          startIcon={<ManageAccountsRoundedIcon />}
-          variant="contained"
-          color="info">Chi tiết
-        </Button>
+      <Button onClick={() => {
+        tabernacleService.getTabernacle(maTamTru).then(mes => {
+          setData(mes.data);
+          setOpenInPopup(!openInPopup);
+        });
+      }}
+        startIcon={<ManageAccountsRoundedIcon />}
+        variant="contained"
+        color="info">Chi tiết
+      </Button>
     );
   }
   useEffect(() => {
     if (!isLoading) {
       dispatch(fetchAllTabernacles());
     }
-
   }, []);
   useEffect(() => {
   }, [tabernacleList]);
@@ -45,7 +42,7 @@ const TabernaclePage = () => {
     { field: "maTamTru", headerName: "Mã tạm trú", flex: 0.5 },
     {
       field: "hoTen",
-      headerName: "Họ và tên",
+      headerName: "Họ tên",
       flex: 1,
       cellClassName: "name-column--cell",
     },
@@ -69,7 +66,7 @@ const TabernaclePage = () => {
       headerName: "",
       flex: 1,
       disableExport: true,
-      renderCell: (param) => <EditButton maTamTru={param.row.maTamTru} openInPopup={openInPopup} setOpenInPopup={setOpenInPopup}/>,
+      renderCell: (param) => <EditButton maTamTru={param.row.maTamTru} openInPopup={openInPopup} setOpenInPopup={setOpenInPopup} />,
     }
   ]);
   return (
@@ -77,8 +74,9 @@ const TabernaclePage = () => {
       <Header
         title="Danh sách tạm trú"
       />
-      <Button onClick={()=>{
-        setOpenPopup(!openPopup);}}
+      <Button onClick={() => {
+        setOpenPopup(!openPopup);
+      }}
         color="info" variant="contained" style={{ fontWeight: "bold" }}>
         Đăng ký tạm trú</Button>
       <Box

@@ -14,14 +14,13 @@ import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import 'react-toastify/dist/ReactToastify.css';
 import dayjs from "dayjs";
-
 const HouseholdAddPage = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const history = useHistory();
   const [dataNhanKhau, setDataNhanKhau] = useState([]);
   const [ngayCap, setNgayCap] = useState();
   const handleSubmit = (values) => {
-    if(window.confirm("Bạn chắc chắn muốn lưu?") === true) {
+    if (window.confirm("Bạn chắc chắn muốn lưu?") === true) {
       householdService.addHouseHold({
         "maHoKhau": values.maHoKhau,
         "diaChiThuongTru": values.diaChiThuongTru,
@@ -55,11 +54,9 @@ const HouseholdAddPage = () => {
       }
     }, []
   )
-
   return (
     <Box m="20px">
       <Header title="Đăng ký hộ khẩu" />
-
       <Formik
         onSubmit={(values) => handleSubmit(values)}
         initialValues={initialValues}
@@ -93,20 +90,20 @@ const HouseholdAddPage = () => {
                 name="maHoKhau"
                 error={!!touched.maHoKhau && !!errors.maHoKhau}
                 helperText={touched.maHoKhau && errors.maHoKhau}
-                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 4" }}
+                sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Địa chỉ"
+                label="Địa chỉ thường trú"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.diaChiThuongTru}
                 name="diaChiThuongTru"
                 error={!!touched.diaChiThuongTru && !!errors.diaChiThuongTru}
                 helperText={touched.diaChiThuongTru && errors.diaChiThuongTru}
-                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 4" }}
+                sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
               />
               <TextField
                 fullWidth
@@ -119,29 +116,16 @@ const HouseholdAddPage = () => {
                 name="noiCap"
                 error={!!touched.noiCap && !!errors.noiCap}
                 helperText={touched.noiCap && errors.noiCap}
-                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 2" }}
+                sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
               />
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DesktopDatePicker label="Ngày cấp"
-                    inputFormat="DD/MM/YYYY"
-                    onChange={setNgayCap}
-                    value={ngayCap}
-                    renderInput={(params) => <TextField {...params} />}>
-                  </DesktopDatePicker>
-                </LocalizationProvider>
-              {/* <TextField
-                fullWidth
-                variant="filled"
-                type='date'
-                label="Ngày cấp"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.ngaycap}
-                name="ngayCap"
-                error={!!touched.ngayCap && !!errors.ngayCap}
-                helperText={touched.ngayCap && errors.ngayCap}
-                sx={{ "& .MuiInputBase-root": {height: 60},  input: { border: "none" }, gridColumn: "span 4" }}
-              /> */}
+                <DesktopDatePicker label="Ngày cấp"
+                  inputFormat="DD/MM/YYYY"
+                  onChange={setNgayCap}
+                  value={ngayCap}
+                  renderInput={(params) => <TextField {...params} />}>
+                </DesktopDatePicker>
+              </LocalizationProvider>
               <br />
               <Field
                 fullWidth
@@ -151,25 +135,20 @@ const HouseholdAddPage = () => {
                 component={CustomSelect}
                 placeholder="Danh sách mã nhân khẩu "
                 isMulti={true}
-                sx={{ width :"400px" }}
-
+                sx={{ width: "400px" }}
               />
-
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="info" variant="contained" startIcon={<SaveAsIcon />}>
                 Lưu
               </Button>
             </Box>
-  
           </form>
         )}
       </Formik>
-      {/* <ToastContainer /> */}
     </Box>
   );
 };
-
 const checkoutSchema = yup.object().shape({
   maHoKhau: yup.string(),
   diaChiThuongTru: yup.string().required("Bạn chưa điền thông tin"),
@@ -184,5 +163,4 @@ let initialValues = {
   ngayCap: new Date(),
   danhSachNhanKhau: [],
 };
-
 export default HouseholdAddPage;

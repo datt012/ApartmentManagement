@@ -10,11 +10,10 @@ using CNPM.Core.Utils;
 using CNPM.Core.Models;
 using CNPM.Core.Models.NhanKhau;
 using System.ComponentModel.DataAnnotations;
-
 namespace CNPM.Repository.Implementations
 {
     public class TamVangRepository : ITamVangRepository
-    {   
+    {
         public List<TamVangEntity> GetListTamVang(int index, int limit)
         {
             try
@@ -28,15 +27,13 @@ namespace CNPM.Repository.Implementations
                 }
                 else arr = _dbcontext.TamVang!.Where(
                     o => o.Delete == Constant.NOT_DELETE).Skip(limit * (index - 1)).Take(limit).ToList();
-
                 return arr;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-        
         public TamVangEntity GetTamVang(int maTamVang)
         {
             try
@@ -57,14 +54,10 @@ namespace CNPM.Repository.Implementations
             {
                 var _dbcontext = new MyDbContext();
                 _dbcontext.TamVang.Add(tamVang);
-
                 int number_rows = _dbcontext.SaveChanges();
-
                 if (number_rows <= 0) return -1;
-
                 TamVangEntity tamVangCreated = _dbcontext.TamVang.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaNhanKhau == tamVang.MaNhanKhau).FirstOrDefault();
-
                 return tamVangCreated.MaTamVang;
             }
             catch (Exception ex)
@@ -82,12 +75,11 @@ namespace CNPM.Repository.Implementations
                 if (tamVang == null) return true;
                 return false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-
         public bool CheckExistCongDanDaDangKiTamVangUpdate(int maTamVang, int maNhanKhau)
         {
             try
@@ -110,7 +102,6 @@ namespace CNPM.Repository.Implementations
                 var _dbcontext = new MyDbContext();
                 var tamVang = _dbcontext.TamVang!.FirstOrDefault(
                     o => o.MaTamVang == newTamVang.MaTamVang && o.Delete == Constant.NOT_DELETE);
-
                 if (tamVang != null)
                 {
                     tamVang.UserUpdate = newTamVang.UserUpdate;
@@ -123,7 +114,6 @@ namespace CNPM.Repository.Implementations
                     return newTamVang.MaTamVang;
                 }
                 else return -1;
-
             }
             catch (Exception ex)
             {

@@ -7,14 +7,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import roomService from "../../Services/API/roomService";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 const EditRoom = ({ roomData, onClose, onSuccess }) => {
-
     const isNonMobile = useMediaQuery("(min-width:600px)");
-
     const handleFormSubmit = (values) => {
-        if(window.confirm("Bạn chắc chắn muốn lưu?") === true) {
+        if (window.confirm("Bạn chắc chắn muốn lưu?") === true) {
             roomService.updateRoom(roomData.maCanHo, {
                 tenCanHo: values.tenCanHo,
                 tang: values.tang,
@@ -144,16 +140,13 @@ const EditRoom = ({ roomData, onClose, onSuccess }) => {
                 </Box>
             </DialogContent>
         </Dialog>
-
     );
 };
-
 const checkoutSchema = yup.object().shape({
     tenCanHo: yup.string().required("Bạn chưa điền thông tin"),
     tang: yup.string().required("Bạn chưa điền thông tin"),
     dienTich: yup.number().required("Bạn chưa điền thông tin").min(0, "Diện tích không hợp lệ").max(1000, "Diện tích không hợp lệ")
 });
-
 export default EditRoom;
 
 

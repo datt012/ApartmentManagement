@@ -8,20 +8,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace CNPM.Core.Models.KhoanThu
 {
-    public class KhoanThuDto1004 
+    public class KhoanThuDto1004
     {
         [JsonProperty("maKhoanThuTheoHo")]
         public int MaKhoanThuTheoHo { get; set; }
-
         [JsonProperty("maHoKhau")]
         public string? MaHoKhau { get; set; }
-
-        [JsonProperty("soTien")]   
+        [JsonProperty("soTien")]
         public int SoTien { get; set; }
-
         [JsonProperty("soTienDaNop")]
         public int SoTienDaNop { get; set; }
     }

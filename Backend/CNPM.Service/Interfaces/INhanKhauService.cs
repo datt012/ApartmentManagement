@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CNPM.Core.Models;
 using CNPM.Core.Models.NhanKhau;
 using Microsoft.AspNetCore.Mvc;
-
 namespace CNPM.Service.Interfaces
 {
     public interface INhanKhauService

@@ -7,7 +7,6 @@ import absentReducer from "./absentSlice";
 import revenueReducer from "./revenueSlice";
 import detailroomSlice from "./detailRoomSlice";
 import demographicReducer from "./demographicSlice";
-
 export const store = configureStore({
   reducer: {
     user: userReducer,

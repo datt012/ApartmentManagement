@@ -13,7 +13,6 @@ import { useDispatch } from "react-redux";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import roomService from "../../Services/API/roomService";
-
 const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
   const [dataPhong, setDataPhong] = useState([]);
   const [roomName, setRoomName] = useState("");
@@ -113,7 +112,7 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                     fullWidth
                     variant="filled"
                     type="text"
-                    label="Họ và tên"
+                    label="Họ tên"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.hoTen}
@@ -126,7 +125,7 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                     fullWidth
                     variant="filled"
                     type="text"
-                    label="Số căn cước công dân"
+                    label="Căn cước công dân"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.canCuocCongDan}
@@ -158,7 +157,6 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                     value={roomName}
                     error={!!touched.diaChiThuongTru && !roomName}
                     helperText={touched.diaChiThuongTru && !roomName && "Bạn chưa điền thông tin"}
-                    
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}>
                     {dataPhong.map((canHo, index) => {
                       return <MenuItem key={index} value={canHo.label}>{canHo.label}</MenuItem>
@@ -166,7 +164,6 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                   </TextField>
                 </Box>
                 <Box display="flex" justifyContent="end" mt="20px" >
-
                   <Button onClick={() => {
                     if (window.confirm("Bạn thật sự muốn xóa?")) {
                       tabernacleService.deleteTabernacle(data.maTamTru, data.version).then(mes => {
@@ -179,7 +176,7 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
                     style={{ backgroundColor: colors.redAccent[600], marginRight: 10 }}
                     variant="contained" startIcon={<DeleteSweepIcon />}>Xóa
                   </Button>
-                  <Button 
+                  <Button
                     type="submit" color="secondary" variant="contained" startIcon={<SaveAsIcon />}>
                     Lưu
                   </Button>
@@ -192,12 +189,10 @@ const EditTabernacle = ({ openInPopup, setOpenInPopup, data }) => {
     </Dialog>
   );
 };
-
 const checkoutSchema = yup.object().shape({
   hoTen: yup.string().required("Bạn chưa điền thông tin"),
   canCuocCongDan: yup
     .string().required("Bạn chưa điền thông tin").max(12, "Căn cước công dân không được quá 12 ký tự"),
   diaChiThuongTru: yup.string().required("Bạn chưa điền thông tin"),
 });
-
 export default EditTabernacle;

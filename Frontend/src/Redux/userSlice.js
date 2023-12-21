@@ -11,12 +11,10 @@ export const fetchAllUsers = createAsyncThunk(
     }
   }
 );
-
 const initialState = {
   userList: [],
   isLoading: false,
 };
-
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -38,5 +36,4 @@ const userSlice = createSlice({
   },
 });
 export const _ = userSlice.actions;
-
 export default userSlice.reducer;

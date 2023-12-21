@@ -12,7 +12,6 @@ export const fetchAllAbsents = createAsyncThunk(
     }
 );
 export const resetAbsentSlice = createAction("resetAbsentSlice");
-
 const initialState = {
     absentList: [],
     isLoading: false,

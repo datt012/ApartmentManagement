@@ -15,10 +15,8 @@ using Newtonsoft.Json.Linq;
 using CNPM.Repository.Implementations;
 using System.Collections.Generic;
 using CNPM.Core.Models.CanHo;
-
 namespace CNPM.Service.Implementations
 {
-
     public class CanHoService : ICanHoService
     {
         private readonly ICanHoRepository _canHoRepository;
@@ -51,12 +49,11 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-
         public IActionResult GetCanHo(int maCanHo)
         {
-            try { 
+            try
+            {
                 CanHoEntity canHo = _canHoRepository.GetCanHo(maCanHo);
-
                 if (canHo == null) return new BadRequestObjectResult(
                        new
                        {
@@ -64,10 +61,9 @@ namespace CNPM.Service.Implementations
                            reason = Constant.MA_CAN_HO_NOT_EXIST
                        }
                     );
-
                 var canHoDto1001 = _mapper.Map<CanHoEntity, CanHoDto1001>(canHo);
-
-                return new OkObjectResult(new {
+                return new OkObjectResult(new
+                {
                     message = Constant.GET_TAM_VANG_SUCCESSFULLY,
                     data = canHoDto1001
                 });
@@ -82,16 +78,13 @@ namespace CNPM.Service.Implementations
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-
                 CanHoEntity canHo = _mapper.Map<CanHoDto1000, CanHoEntity>(canHo1000);
-
                 canHo.CreateTime = DateTime.Now;
                 canHo.UpdateTime = DateTime.Now;
                 canHo.UserCreate = userName;
                 canHo.UserUpdate = userName;
                 if (canHo1000.MaHoKhau == "") canHo.MaHoKhau = null;
                 bool created = _canHoRepository.CreateCanHo(canHo);
-
                 if (created)
                 {
                     return new OkObjectResult(new
@@ -120,15 +113,11 @@ namespace CNPM.Service.Implementations
                     message = Constant.UPDATE_CAN_HO_FAILED,
                     reason = Constant.MA_CAN_HO_NOT_EXIST
                 });
-
                 if (canHo.Version != newCanHo.Version) return new BadRequestObjectResult(new
                 {
                     message = Constant.UPDATE_CAN_HO_FAILED,
                     reason = Constant.DATA_UPDATED_BEFORE
                 });
-
-
-                
                 CanHoEntity canHoEntity = _mapper.Map<CanHoDto1002, CanHoEntity>(newCanHo);
                 if (newCanHo.MaHoKhau == "") canHoEntity.MaHoKhau = null;
                 canHoEntity.MaCanHo = maCanHo;
@@ -159,21 +148,16 @@ namespace CNPM.Service.Implementations
             {
                 var userName = Helpers.DecodeJwt(token, "username");
                 var canHo = _canHoRepository.GetCanHo(maCanHo);
-
-
                 if (canHo == null) return new BadRequestObjectResult(new
                 {
                     message = Constant.DELETE_CAN_HO_FAILED,
                     reason = Constant.MA_CAN_HO_NOT_EXIST
                 });
-
-
                 if (canHo.Version != version) return new BadRequestObjectResult(new
                 {
                     message = Constant.DELETE_CAN_HO_FAILED,
                     reason = Constant.DATA_UPDATED_BEFORE
                 });
-
                 bool delete = _canHoRepository.DeleteCanHo(maCanHo, userName);
                 if (delete)
                 {

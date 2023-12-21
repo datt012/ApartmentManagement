@@ -1,11 +1,9 @@
 import axios from "../../setups/custom_axios";
-
 const getAllUsers = () => {
   return axios.get("/get-all-users");
 };
 const createUser = (payload) => {
   const { username, firstName, lastName, email, role } = payload;
-
   return axios.post("/user", {
     UserName: username,
     GivenName: firstName,
@@ -16,7 +14,6 @@ const createUser = (payload) => {
 };
 const updateUser = (payload) => {
   const { userName, firstName, lastName, email, role } = payload;
-
   return axios.put("/user", {
     userName: userName,
     givenName: firstName,

@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using CNPM.Core.Utils;
 using CNPM.Core.Models;
 using CNPM.Core.Models.NhanKhau;
-
 namespace CNPM.Repository.Implementations
 {
     public class HoKhauRepository : IHoKhauRepository
@@ -27,7 +26,6 @@ namespace CNPM.Repository.Implementations
                 }
                 else arr = _dbcontext.HoKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE).Skip(limit * (index - 1)).Take(limit).ToList();
-
                 return arr;
             }
             catch (Exception ex)
@@ -59,11 +57,8 @@ namespace CNPM.Repository.Implementations
                     hoKhau.MaHoKhau = GetRandomMaHoKhau();
                 }
                 _dbcontext.HoKhau.Add(hoKhau);
-
                 int number_rows = _dbcontext.SaveChanges();
-
                 if (number_rows <= 0) return "";
-
                 return hoKhau.MaHoKhau;
             }
             catch (Exception ex)
@@ -94,7 +89,7 @@ namespace CNPM.Repository.Implementations
                 _dbcontext.SaveChanges();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -104,15 +99,12 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-
                 var canHoByMaHoKhau = _dbcontext.CanHo!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == maHoKhau).FirstOrDefault();
-
                 if (canHoByMaHoKhau != null)
                 {
                     canHoByMaHoKhau.MaHoKhau = null;
                 }
-
                 if (maCanHo == -1)
                 {
                     _dbcontext.SaveChanges();
@@ -120,9 +112,7 @@ namespace CNPM.Repository.Implementations
                 }
                 var canHo = _dbcontext.CanHo!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaCanHo == maCanHo).FirstOrDefault();
-                
                 if (canHo == null) return false;
-                
                 canHo.MaHoKhau = maHoKhau;
                 _dbcontext.SaveChanges();
                 return true;
@@ -137,12 +127,9 @@ namespace CNPM.Repository.Implementations
             try
             {
                 var _dbcontext = new MyDbContext();
-
                 var canHo = _dbcontext.CanHo!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == maHoKhau).FirstOrDefault();
-
                 if (canHo == null) return false;
-
                 canHo.MaHoKhau = null;
                 _dbcontext.SaveChanges();
                 return true;
@@ -226,7 +213,6 @@ namespace CNPM.Repository.Implementations
                 var _dbcontext = new MyDbContext();
                 var hoKhau = _dbcontext.HoKhau!.FirstOrDefault(
                     o => o.MaHoKhau == newHoKhau.MaHoKhau && o.Delete == Constant.NOT_DELETE);
-
                 if (hoKhau != null)
                 {
                     hoKhau.UserUpdate = newHoKhau.UserUpdate;
@@ -252,7 +238,6 @@ namespace CNPM.Repository.Implementations
                     return newHoKhau.MaHoKhau;
                 }
                 else return "";
-
             }
             catch (Exception ex)
             {
@@ -275,7 +260,6 @@ namespace CNPM.Repository.Implementations
                     _dbcontext.SaveChanges();
                     return true;
                 }
-               
                 return false;
             }
             catch (Exception ex)
@@ -283,6 +267,5 @@ namespace CNPM.Repository.Implementations
                 throw new Exception(ex.Message);
             }
         }
-
     }
 }

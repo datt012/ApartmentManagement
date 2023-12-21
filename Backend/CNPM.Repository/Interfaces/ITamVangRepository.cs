@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CNPM.Core.Entities;
 using CNPM.Core.Models;
 using CNPM.Core.Models.NhanKhau;
-
 namespace CNPM.Repository.Interfaces
 {
     public interface ITamVangRepository
@@ -18,6 +17,5 @@ namespace CNPM.Repository.Interfaces
         public bool CheckExistCongDanDaDangKiTamVangUpdate(int maTamVang, int maNhanKhau);
         public int UpdateTamVang(TamVangEntity tamVang);
         public bool DeleteTamVang(int maTamVang, string userName);
-
     }
 }

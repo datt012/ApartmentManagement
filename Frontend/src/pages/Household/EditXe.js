@@ -8,13 +8,10 @@ import householdService from "../../Services/API/householdService";
 import { LIST_LOAI_XE } from "../../Services/Utils/const";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 const EditXe = ({ xeData, onClose, onSuccess }) => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
-
     const handleFormSubmit = (values) => {
-        if(window.confirm("Bạn chắc chắn muốn lưu?") === true) {
+        if (window.confirm("Bạn chắc chắn muốn lưu?") === true) {
             householdService.updateXeToHouseHold(xeData.maXe, {
                 tenXe: values.tenXe,
                 bienKiemSoat: values.bienKiemSoat,
@@ -142,16 +139,13 @@ const EditXe = ({ xeData, onClose, onSuccess }) => {
                 </Box>
             </DialogContent>
         </Dialog>
-
     );
 };
-
 const checkoutSchema = yup.object().shape({
     tenXe: yup.string().required("Bạn chưa điền thông tin"),
     bienKiemSoat: yup.string().required("Bạn chưa điền thông tin"),
     maLoaiXe: yup.string().required("Bạn chưa chọn thông tin loại xe")
 });
-
 export default EditXe;
 
 

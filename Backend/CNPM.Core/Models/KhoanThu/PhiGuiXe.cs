@@ -9,10 +9,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace CNPM.Core.Models.KhoanThu
 {
-    public class PhiGuiXe 
+    public class PhiGuiXe
     {
         [JsonProperty("xeMay")]
         public SoTienAndDonVi? XeMay { get; set; }

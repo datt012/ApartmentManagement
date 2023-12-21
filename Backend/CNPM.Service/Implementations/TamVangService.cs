@@ -15,10 +15,8 @@ using Newtonsoft.Json.Linq;
 using CNPM.Repository.Implementations;
 using System.Collections.Generic;
 using CNPM.Core.Models.TamVang;
-
 namespace CNPM.Service.Implementations
 {
-
     public class TamVangService : ITamVangService
     {
         private readonly ITamVangRepository _tamVangRepository;
@@ -40,7 +38,7 @@ namespace CNPM.Service.Implementations
             {
                 var listTamVang = _tamVangRepository.GetListTamVang(index, limit);
                 var arr = _mapper.Map<List<TamVangEntity>, List<TamVangDto1003>>(listTamVang);
-                foreach(var item in arr)
+                foreach (var item in arr)
                 {
                     var nhanKhau = _nhanKhauRepository.GetNhanKhau(item.MaNhanKhau);
                     item.HoTen = nhanKhau.HoTen;
@@ -59,12 +57,11 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-
         public IActionResult GetTamVang(int maTamVang)
         {
-            try { 
+            try
+            {
                 TamVangEntity tamVang = _tamVangRepository.GetTamVang(maTamVang);
-
                 if (tamVang == null) return new BadRequestObjectResult(
                        new
                        {
@@ -72,14 +69,12 @@ namespace CNPM.Service.Implementations
                            reason = Constant.MA_TAM_VANG_NOT_EXIST
                        }
                     );
-
                 var tamVang1001 = _mapper.Map<TamVangEntity, TamVangDto1001>(tamVang);
-
                 var nhanKhau = _nhanKhauRepository.GetNhanKhau(tamVang.MaNhanKhau);
                 tamVang1001.HoTen = nhanKhau.HoTen;
                 tamVang1001.CanCuocCongDan = nhanKhau.CanCuocCongDan;
-
-                return new OkObjectResult(new {
+                return new OkObjectResult(new
+                {
                     message = Constant.GET_TAM_VANG_SUCCESSFULLY,
                     data = tamVang1001
                 });
@@ -110,7 +105,7 @@ namespace CNPM.Service.Implementations
                         message = Constant.CREATE_TAM_VANG_FAILED,
                         reason = Constant.NHAN_KHAU_IS_DIED
                     });
-                }                
+                }
                 bool CCCD = _tamVangRepository.CheckExistCongDanDaDangKiTamVang(tamVang1000.MaNhanKhau);
                 if (!CCCD)
                 {
@@ -121,13 +116,11 @@ namespace CNPM.Service.Implementations
                     });
                 }
                 TamVangEntity tamVang = _mapper.Map<TamVangDto1000, TamVangEntity>(tamVang1000);
-
                 tamVang.CreateTime = DateTime.Now;
                 tamVang.UpdateTime = DateTime.Now;
                 tamVang.UserCreate = userName;
                 tamVang.UserUpdate = userName;
                 int maTamVang = _tamVangRepository.CreateTamVang(tamVang);
-
                 if (maTamVang != -1)
                 {
                     return new OkObjectResult(new
@@ -183,15 +176,11 @@ namespace CNPM.Service.Implementations
                         reason = Constant.REASON_NHAN_KHAU_TAM_VANG_EXISTED
                     });
                 }
-
                 if (tamVang.Version != newTamVang.Version) return new BadRequestObjectResult(new
                 {
                     message = Constant.UPDATE_TAM_VANG_FAILED,
                     reason = Constant.DATA_UPDATED_BEFORE
                 });
-
-
-                
                 TamVangEntity tamVangEntity = _mapper.Map<TamVangDto1002, TamVangEntity>(newTamVang);
                 tamVangEntity.MaTamVang = maTamVang;
                 tamVangEntity.UserUpdate = userName;
@@ -222,21 +211,16 @@ namespace CNPM.Service.Implementations
             {
                 var userName = Helpers.DecodeJwt(token, "username");
                 var tamVang = _tamVangRepository.GetTamVang(maTamVang);
-
-
                 if (tamVang == null) return new BadRequestObjectResult(new
                 {
                     message = Constant.DELETE_TAM_VANG_FAILED,
                     reason = Constant.MA_TAM_VANG_NOT_EXIST
                 });
-
-
                 if (tamVang.Version != version) return new BadRequestObjectResult(new
                 {
                     message = Constant.DELETE_TAM_VANG_FAILED,
                     reason = Constant.DATA_UPDATED_BEFORE
                 });
-
                 bool delete = _tamVangRepository.DeleteTamVang(maTamVang, userName);
                 if (delete)
                 {

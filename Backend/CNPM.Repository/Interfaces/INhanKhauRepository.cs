@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CNPM.Core.Entities;
 using CNPM.Core.Models;
 using CNPM.Core.Models.NhanKhau;
-
 namespace CNPM.Repository.Interfaces
 {
     public interface INhanKhauRepository
@@ -21,6 +20,5 @@ namespace CNPM.Repository.Interfaces
         public bool CheckExistCanCuocCongDanUpdate(int maNhanKhau, string canCuocCongDan);
         public int UpdateNhanKhau(NhanKhauEntity nhanKhau);
         public bool DeleteNhanKhau(int maNhanKhau, string userName);
-
     }
 }

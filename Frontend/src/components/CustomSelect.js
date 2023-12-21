@@ -25,17 +25,17 @@ export const CustomSelect = ({
     }
   }
   return (
-    <div style={{width: '500px'}}>
-    <Select
-      className={className}
-      name={field.name}
-      value={getValue()}
-      onChange={onChange}
-      placeholder={placeholder}
-      options={options}
-      isMulti={isMulti}
-      defaultValue = {defaultValue}
-    />
+    <div style={{ width: '500px' }}>
+      <Select
+        className={className}
+        name={field.name}
+        value={getValue()}
+        onChange={onChange}
+        placeholder={placeholder}
+        options={options}
+        isMulti={isMulti}
+        defaultValue={defaultValue}
+      />
     </div>
   )
 }

@@ -11,5 +11,4 @@ const demographicRoute = (props) => {
     </>
   );
 };
-
 export default demographicRoute;

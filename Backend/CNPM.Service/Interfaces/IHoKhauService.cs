@@ -7,7 +7,6 @@ using CNPM.Core.Models;
 using CNPM.Core.Models.HoKhau;
 using CNPM.Core.Models.Xe;
 using Microsoft.AspNetCore.Mvc;
-
 namespace CNPM.Service.Interfaces
 {
     public interface IHoKhauService
@@ -20,6 +19,6 @@ namespace CNPM.Service.Interfaces
         public IActionResult AddXeToHoKhau(string token, XeDto1000 xe);
         public IActionResult UpdateXe(string token, int maXe, XeDto1002 xe);
         public IActionResult RemoveXeFromHoKhau(string token, int maXe);
-        public IActionResult DeleteHoKhau(string token, string maHoKhau,  int version);
+        public IActionResult DeleteHoKhau(string token, string maHoKhau, int version);
     }
 }

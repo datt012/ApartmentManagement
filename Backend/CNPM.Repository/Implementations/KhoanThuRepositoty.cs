@@ -13,7 +13,6 @@ using CNPM.Core.Models.NhanKhau;
 using System.ComponentModel.DataAnnotations;
 using CNPM.Core.Models.KhoanThu;
 using Newtonsoft.Json.Linq;
-
 namespace CNPM.Repository.Implementations
 {
     public class KhoanThuRepository : IKhoanThuRepository
@@ -31,10 +30,9 @@ namespace CNPM.Repository.Implementations
                 }
                 else arr = _dbcontext.KhoanThu!.Where(
                     o => o.Delete == Constant.NOT_DELETE).Skip(limit * (index - 1)).Take(limit).ToList();
-
                 return arr;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -59,36 +57,27 @@ namespace CNPM.Repository.Implementations
             {
                 var _dbcontext = new MyDbContext();
                 _dbcontext.KhoanThu.Add(khoanThu);
-
                 int number_rows = _dbcontext.SaveChanges();
-
                 if (number_rows <= 0) return -1;
-
                 var listHoKhau = _dbcontext.HoKhau!.Where(o => o.Delete == Constant.NOT_DELETE).ToList();
                 List<PhiSinhHoat> dsPhiSinhHoat = new List<PhiSinhHoat>();
                 if (khoanThu.LoaiKhoanThu == 1)
                 {
                     JArray jsonArray = JArray.Parse(khoanThu.ChiTiet!);
-
                     foreach (JObject jsonObject in jsonArray)
                     {
                         int dien = (int)jsonObject["dien"]!;
-                        
                         int nuoc = (int)jsonObject["nuoc"]!;
-                        
                         int internet = (int)jsonObject["internet"]!;
-
                         string maHoKhau = (string)jsonObject["maHoKhau"];
                         var phiSinhHoat = new PhiSinhHoat();
                         phiSinhHoat.Dien = dien;
                         phiSinhHoat.Nuoc = nuoc;
                         phiSinhHoat.Internet = internet;
                         phiSinhHoat.MaHoKhau = maHoKhau!;
-
                         dsPhiSinhHoat.Add(phiSinhHoat);
                     }
                 }
-
                 foreach (var hoKhau in listHoKhau)
                 {
                     KhoanThuTheoHoEntity khoanThuTheoHo = new KhoanThuTheoHoEntity();
@@ -98,7 +87,6 @@ namespace CNPM.Repository.Implementations
                     khoanThuTheoHo.UserUpdate = khoanThu.UserUpdate;
                     khoanThuTheoHo.CreateTime = DateTime.Now;
                     khoanThuTheoHo.UpdateTime = DateTime.Now;
-
                     if (khoanThu.LoaiKhoanThu == 1)
                     {
                         var phiSinhHoat = dsPhiSinhHoat.Find(o => o.MaHoKhau == hoKhau.MaHoKhau);
@@ -128,7 +116,6 @@ namespace CNPM.Repository.Implementations
                     _dbcontext.KhoanThuTheoHo.Add(khoanThuTheoHo);
                     _dbcontext.SaveChanges();
                 }
-
                 return khoanThu.MaKhoanThu;
             }
             catch (Exception ex)
@@ -156,7 +143,7 @@ namespace CNPM.Repository.Implementations
                     if (khoanThu.LoaiKhoanThu == 1)
                     {
                         var listNhanKhau = _dbcontext.NhanKhau!.Where(
-                            o => o.MaHoKhau == hoKhau.MaHoKhau 
+                            o => o.MaHoKhau == hoKhau.MaHoKhau
                             && o.TrangThai == Constant.ALIVE
                             && o.Delete == Constant.NOT_DELETE).ToList();
                         khoanThuTheoHo.SoTien = 6000 * listNhanKhau.Count();
@@ -178,7 +165,6 @@ namespace CNPM.Repository.Implementations
                 var _dbcontext = new MyDbContext();
                 var khoanThuTheoHo = _dbcontext.KhoanThuTheoHo!.Where(
                    o => o.MaKhoanThu == maKhoanThu && o.Delete == Constant.NOT_DELETE).ToList();
-                
                 return khoanThuTheoHo;
             }
             catch (Exception ex)
@@ -193,7 +179,6 @@ namespace CNPM.Repository.Implementations
                 var _dbcontext = new MyDbContext();
                 var khoanThuTheoHo = _dbcontext.KhoanThuTheoHo!.Where(
                    o => o.MaHoKhau == maHoKhau && o.Delete == Constant.NOT_DELETE).ToList();
-
                 return khoanThuTheoHo;
             }
             catch (Exception ex)
@@ -205,11 +190,9 @@ namespace CNPM.Repository.Implementations
         {
             try
             {
-
                 var _dbcontext = new MyDbContext();
                 var khoanThu = _dbcontext.KhoanThu!.FirstOrDefault(
                     o => o.MaKhoanThu == newKhoanThu.MaKhoanThu && o.Delete == Constant.NOT_DELETE);
-
                 if (khoanThu != null)
                 {
                     khoanThu.UserUpdate = newKhoanThu.UserUpdate;
@@ -223,7 +206,6 @@ namespace CNPM.Repository.Implementations
                     return newKhoanThu.MaKhoanThu;
                 }
                 else return -1;
-
             }
             catch (Exception ex)
             {
@@ -267,11 +249,8 @@ namespace CNPM.Repository.Implementations
             {
                 var _dbcontext = new MyDbContext();
                 _dbcontext.HoaDon.Add(hoaDon);
-
                 int number_rows = _dbcontext.SaveChanges();
-
                 if (number_rows <= 0) return -1;
-
                 return hoaDon.MaHoaDon;
             }
             catch (Exception ex)

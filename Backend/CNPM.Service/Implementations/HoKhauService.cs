@@ -18,10 +18,8 @@ using System.Collections.Generic;
 using CNPM.Core.Models.HoKhau;
 using CNPM.Core.Models.Xe;
 using CNPM.Core.Models.CanHo;
-
 namespace CNPM.Service.Implementations
 {
-
     public class HoKhauService : IHoKhauService
     {
         private readonly IHoKhauRepository _hoKhauRepository;
@@ -65,12 +63,11 @@ namespace CNPM.Service.Implementations
                 throw new Exception(ex.Message);
             }
         }
-
         public IActionResult GetHoKhau(string maHoKhau)
         {
-            try { 
+            try
+            {
                 HoKhauEntity hoKhau = _hoKhauRepository.GetHoKhau(maHoKhau);
-
                 if (hoKhau == null) return new BadRequestObjectResult(
                        new
                        {
@@ -78,24 +75,22 @@ namespace CNPM.Service.Implementations
                            reason = Constant.MA_HO_KHAU_NOT_EXIST
                        }
                     );
-
                 var hoKhau1001 = _mapper.Map<HoKhauEntity, HoKhauDto1001>(hoKhau);
                 var listNhanKhauEntity = _nhanKhauRepository.GetListNhanKhauInHoKhau(maHoKhau);
-                var listNhanKhauDto = _mapper.Map<List<NhanKhauEntity>, List<NhanKhauDto1001> >(listNhanKhauEntity);
+                var listNhanKhauDto = _mapper.Map<List<NhanKhauEntity>, List<NhanKhauDto1001>>(listNhanKhauEntity);
                 var phongEntity = _canHoRepository.GetCanHoByHoKhau(maHoKhau);
-                var phong1001 = _mapper.Map<CanHoEntity, CanHoDto1001 >(phongEntity);
+                var phong1001 = _mapper.Map<CanHoEntity, CanHoDto1001>(phongEntity);
                 var listXeEntity = _xeRepository.GetListXeByHoKhau(maHoKhau);
-                var listXe1001 = _mapper.Map<List<XeEntity>, List<XeDto1001> >(listXeEntity);
-
+                var listXe1001 = _mapper.Map<List<XeEntity>, List<XeDto1001>>(listXeEntity);
                 if (phong1001 != null)
                 {
                     hoKhau1001.MaCanHo = phong1001.MaCanHo;
                 }
-       
                 hoKhau1001.DanhSachXe = listXe1001;
                 hoKhau1001.DanhSachNhanKhau = listNhanKhauDto;
                 hoKhau1001.SoThanhVien = listNhanKhauDto.FindAll(o => o.TrangThai == Constant.ALIVE).ToList().Count();
-                return new OkObjectResult(new {
+                return new OkObjectResult(new
+                {
                     message = Constant.GET_HO_KHAU_SUCCESSFULLY,
                     data = hoKhau1001
                 });
@@ -121,14 +116,13 @@ namespace CNPM.Service.Implementations
                             reason = Constant.REASON_MA_HO_KHAU_EXISTED
                         });
                     }
-                } 
+                }
                 HoKhauEntity hoKhau = _mapper.Map<HoKhauDto1000, HoKhauEntity>(hoKhau1000);
                 hoKhau.CreateTime = DateTime.Now;
                 hoKhau.UpdateTime = DateTime.Now;
                 hoKhau.UserCreate = userName;
                 hoKhau.UserUpdate = userName;
                 string maHoKhau = _hoKhauRepository.CreateHoKhau(hoKhau);
-
                 if (maHoKhau != "")
                 {
                     bool addNKToHK = _hoKhauRepository.AddNhanKhauToHoKhau(hoKhau1000.DanhSachNhanKhau!, maHoKhau, userName);
@@ -228,7 +222,6 @@ namespace CNPM.Service.Implementations
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-                
                 var hoKhau = _hoKhauRepository.GetHoKhau(xe.MaHoKhau!);
                 if (hoKhau == null) return new BadRequestObjectResult(new
                 {
@@ -250,7 +243,6 @@ namespace CNPM.Service.Implementations
                 xeEntity.CreateTime = DateTime.Now;
                 xeEntity.UpdateTime = DateTime.Now;
                 int maXe = _xeRepository.CreateXe(xeEntity);
-
                 if (maXe != -1)
                 {
                     return new OkObjectResult(new
@@ -273,7 +265,6 @@ namespace CNPM.Service.Implementations
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-
                 XeEntity xe = _xeRepository.GetXe(maXe);
                 if (xe == null)
                 {
@@ -292,16 +283,13 @@ namespace CNPM.Service.Implementations
                         reason = Constant.BIEN_SO_XE_EXISTED
                     });
                 }
-                
                 XeEntity xeEntity = _mapper.Map<XeDto1002, XeEntity>(newXe);
                 xeEntity.MaXe = maXe;
                 xeEntity.UserCreate = userName;
                 xeEntity.UserUpdate = userName;
                 xeEntity.CreateTime = DateTime.Now;
                 xeEntity.UpdateTime = DateTime.Now;
-
                 bool update = _xeRepository.UpdateXe(xeEntity);
-
                 if (update)
                 {
                     return new OkObjectResult(new
@@ -324,7 +312,6 @@ namespace CNPM.Service.Implementations
             try
             {
                 var userName = Helpers.DecodeJwt(token, "username");
-
                 bool remove = _xeRepository.DeleteXe(maXe, userName);
                 if (remove)
                 {
@@ -333,7 +320,6 @@ namespace CNPM.Service.Implementations
                         message = Constant.REMOVE_XE_SUCCESSFULLY
                     });
                 }
-
                 return new BadRequestObjectResult(new
                 {
                     message = Constant.REMOVE_XE_FAILED
@@ -350,14 +336,12 @@ namespace CNPM.Service.Implementations
             {
                 var userName = Helpers.DecodeJwt(token, "username");
                 var hoKhau = _hoKhauRepository.GetHoKhau(maHoKhau);
-
                 if (hoKhau == null) return new BadRequestObjectResult(new
                 {
                     message = Constant.DELETE_HO_KHAU_FAILED,
                     reason = Constant.MA_HO_KHAU_NOT_EXIST
                 });
                 _hoKhauRepository.AddCanHoToHoKhau(maHoKhau, -1, userName);
-
                 bool remove = _hoKhauRepository.RemoveNhanKhauFromHoKhau(maHoKhau, userName);
                 if (remove)
                 {

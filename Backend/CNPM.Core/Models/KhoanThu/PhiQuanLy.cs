@@ -9,14 +9,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace CNPM.Core.Models.KhoanThu
 {
-    public class PhiQuanLy 
+    public class PhiQuanLy
     {
         [JsonProperty("quanLy")]
         public SoTienAndDonVi? QuanLy { get; set; }
-
     }
 }
 

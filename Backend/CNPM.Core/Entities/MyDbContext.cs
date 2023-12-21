@@ -3,10 +3,8 @@ using CNPM.Core.Utils;
 using Microsoft.Extensions.Configuration;
 namespace CNPM.Core.Entities
 {
-
     public class MyDbContext : DbContext
     {
-        
         public DbSet<UserEntity>? Users { set; get; }
         public DbSet<RoleEntity>? Roles { set; get; }
         public DbSet<LoginInfoEntity>? LoginInfos { set; get; }
@@ -20,7 +18,6 @@ namespace CNPM.Core.Entities
         public DbSet<CanHoEntity>? CanHo { set; get; }
         public DbSet<LoaiXeEntity>? LoaiXe { set; get; }
         public DbSet<XeEntity>? Xe { set; get; }
-
         private const string connectionString = Constant.CONNECTION_STRING;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

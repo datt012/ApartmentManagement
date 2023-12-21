@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from '../setups/custom_axios';
 import { logout } from "../Redux/authSlice";
@@ -31,11 +31,7 @@ export default function ChangePasswordPage() {
       toast(e?.response?.data?.reason || e?.response?.data?.message || "Có lỗi xảy ra");
       return;
     }
-
   }
-  useEffect(() => {
-
-  }, []);
   return (
     <div>
       <div className="input-custome" style={{ margin: "auto", width: '40%' }}>
@@ -54,7 +50,6 @@ export default function ChangePasswordPage() {
               disabled
             />
           </div>
-
           <div className="form-group">
             <label>
               Mật khẩu cũ (<span className="text-danger">*</span>)

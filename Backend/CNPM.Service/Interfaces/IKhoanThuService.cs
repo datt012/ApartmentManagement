@@ -8,7 +8,6 @@ using CNPM.Core.Models;
 using CNPM.Core.Models.HoaDon;
 using CNPM.Core.Models.KhoanThu;
 using Microsoft.AspNetCore.Mvc;
-
 namespace CNPM.Service.Interfaces
 {
     public interface IKhoanThuService

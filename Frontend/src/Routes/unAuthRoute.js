@@ -6,11 +6,9 @@ const UnAuth = (props) => {
       <Switch>
         <>
           <Route path="*" exact component={LoginPage} />
-          {/* <Route path="*" component={RedirectLogin} /> */}
         </>
       </Switch>
     </>
   );
 };
-
 export default UnAuth;

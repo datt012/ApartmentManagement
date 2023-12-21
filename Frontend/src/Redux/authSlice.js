@@ -51,7 +51,6 @@ const initialState = {
   isLoading: true,
   loginType: null
 };
-
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -100,7 +99,5 @@ const authSlice = createSlice({
     },
   },
 });
-
 export const _ = authSlice.actions;
-
 export default authSlice.reducer;

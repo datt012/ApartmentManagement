@@ -23,8 +23,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import ModalDetailDemographic from "./ModalDetailDemographic";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-
-
 const HouseholdAddPage = () => {
   const history = useHistory();
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -38,9 +36,7 @@ const HouseholdAddPage = () => {
   const [addXe, setAddXe] = useState(false);
   const [editXe, setEditXe] = useState(false);
   const [ngayCap, setNgayCap] = useState();
-
   const [currentXe, setCurrentXe] = useState({});
-
   const handleSelect = (selectedOption) => {
     setSelectOption(selectedOption);
   };
@@ -50,7 +46,7 @@ const HouseholdAddPage = () => {
       householdService.addRoomToHouseHold(values.maHoKhau, roomId).then((result) => {
         console.log('result', result);
       }).catch(e => {
-
+        toast(e?.response?.data?.message);
       })
       console.log('selectOption', selectOption);
       console.log('ngayCap', ngayCap);
@@ -134,7 +130,6 @@ const HouseholdAddPage = () => {
   const [dataNhanKhau, setDataNhanKhau] = useState([]);
   const [dataPhong, setDataPhong] = useState([]);
   const handleRemoveXe = (maXe) => {
-
     let text = "Bạn chắc chắn muốn xóa?";
     if (!window.confirm(text)) {
       return
@@ -153,9 +148,7 @@ const HouseholdAddPage = () => {
   if (isLoading) {
     return <div>Loading....</div>
   }
-
   return (
-
     <Box m="20px" onLoad>
       <Header title="Cập nhật hộ khẩu" />
       {addXe && <RegisterXe maHoKhau={initialValues.maHoKhau} onClose={() => setAddXe(false)} onSuccess={() => handleGetData()} />}
@@ -203,7 +196,7 @@ const HouseholdAddPage = () => {
                   fullWidth
                   variant="filled"
                   type="text"
-                  label="Địa chỉ"
+                  label="Địa chỉ thường trú"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.diaChiThuongTru}
@@ -247,9 +240,7 @@ const HouseholdAddPage = () => {
                     return <MenuItem key={index} value={canHo.value}>{canHo.label}</MenuItem>
                   })}
                 </TextField>
-
                 <div style={{ display: 'flex', flexDirection: 'column' }}></div>
-
               </Box>
               <Box>
                 <div style={{ width: '60vh', marginBottom: 10, marginLeft: 10, marginTop: -32 }}>
@@ -261,9 +252,9 @@ const HouseholdAddPage = () => {
                     <thead>
                       <tr>
                         <th>Mã xe</th>
+                        <th>Tên xe</th>
                         <th>Biển kiểm soát</th>
                         <th>Loại xe</th>
-                        <th>Tên xe</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -271,9 +262,9 @@ const HouseholdAddPage = () => {
                       {xeArr.map((row, index) => {
                         return <tr key={index}>
                           <td>{row.maXe}</td>
+                          <td>{row.tenXe}</td>
                           <td>{row.bienKiemSoat}</td>
                           <td>{row.maLoaiXe === "LX001" ? "Xe máy" : "Xe ô tô"}</td>
-                          <td>{row.tenXe}</td>
                           <td>
                             <div style={{
                               display: 'flex',
@@ -289,7 +280,6 @@ const HouseholdAddPage = () => {
                       })}
                     </tbody>
                   </table>
-
                 </div>
               </Box>
             </div>
@@ -304,7 +294,6 @@ const HouseholdAddPage = () => {
                   defaultValue={values.danhSachNhanKhau}
                   onChange={handleSelect}
                 />
-
               </div>
               <div style={{ marginTop: 9, marginLeft: 10 }}>
                 <VisibilityIcon style={{ cursor: 'pointer' }} onClick={() => setShowDetailMember(true)} />
@@ -323,13 +312,10 @@ const HouseholdAddPage = () => {
     </Box>
   );
 };
-
 const checkoutSchema = yup.object().shape({
   maHoKhau: yup.string().required("Bạn chưa điền thông tin"),
   diaChiThuongTru: yup.string().required("Bạn chưa điền thông tin"),
   noiCap: yup.string().required("Bạn chưa điền thông tin"),
   danhSachNhanKhau: yup.array().required("Bạn chưa điền thông tin")
 });
-
-
 export default HouseholdAddPage;

@@ -11,5 +11,4 @@ const tabernacleRoute = (props) => {
     </>
   );
 };
-
 export default tabernacleRoute;

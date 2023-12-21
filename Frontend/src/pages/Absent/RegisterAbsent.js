@@ -14,7 +14,6 @@ import dayjs from "dayjs";
 import axios from "../../setups/custom_axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [dataNk, setDataNk] = useState([]);
@@ -47,7 +46,7 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
     setDate(newValue);
   }
   useEffect(() => {
-    if (openPopup){
+    if (openPopup) {
       handleGetDataNhanKhauChuaDkiTamVang()
     }
   }, [openPopup]);
@@ -109,7 +108,7 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
                     value={maNhanKhau}
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}>
                     {dataNk.map((nhanKhau, index) => {
-                      return <MenuItem key={index} value={nhanKhau.maNhanKhau}>{nhanKhau?.canCuocCongDan + ' - ' + nhanKhau?.hoTen }</MenuItem>
+                      return <MenuItem key={index} value={nhanKhau.maNhanKhau}>{nhanKhau?.canCuocCongDan + ' - ' + nhanKhau?.hoTen}</MenuItem>
                     })}
                   </TextField>
                   <TextField
@@ -126,12 +125,11 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
                     sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 4" }}
                   />
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DesktopDatePicker label="Thời gian bắt đầu"
+                    <DesktopDatePicker label="Ngày bắt đầu"
                       inputFormat="DD/MM/YYYY"
                       onChange={handleOnChange}
                       value={date}
                       renderInput={(params) => <TextField style={{ width: 150 }} {...params} />}>
-
                     </DesktopDatePicker>
                   </LocalizationProvider>
                 </Box>
@@ -145,17 +143,13 @@ const RegisterAbsent = ({ openPopup, setOpenPopup }) => {
             )}
           </Formik>
         </Box>
-        {/* <ToastContainer /> */}
       </DialogContent>
     </Dialog>
-
   );
 };
-
 const checkoutSchema = yup.object().shape({
   lyDo: yup.string().required("Bạn chưa điền thông tin"),
 });
-
 export default RegisterAbsent;
 
 

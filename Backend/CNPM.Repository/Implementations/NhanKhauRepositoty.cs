@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using CNPM.Core.Utils;
 using CNPM.Core.Models;
 using CNPM.Core.Models.NhanKhau;
-
 namespace CNPM.Repository.Implementations
 {
     public class NhanKhauRepository : INhanKhauRepository
@@ -27,10 +26,9 @@ namespace CNPM.Repository.Implementations
                 }
                 else arr = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE).Skip(limit * (index - 1)).Take(limit).ToList();
-
                 return arr;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -48,7 +46,6 @@ namespace CNPM.Repository.Implementations
                 }
                 else arr = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.MaHoKhau == null).Skip(limit * (index - 1)).Take(limit).ToList();
-
                 return arr;
             }
             catch (Exception ex)
@@ -56,7 +53,6 @@ namespace CNPM.Repository.Implementations
                 throw new Exception(ex.Message);
             }
         }
-
         public List<NhanKhauEntity> GetListNhanKhauAlive(int index, int limit)
         {
             try
@@ -70,7 +66,6 @@ namespace CNPM.Repository.Implementations
                 }
                 else arr = _dbcontext.NhanKhau!.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.TrangThai == Constant.ALIVE).Skip(limit * (index - 1)).Take(limit).ToList();
-
                 return arr;
             }
             catch (Exception ex)
@@ -89,7 +84,7 @@ namespace CNPM.Repository.Implementations
                 ).ToList();
                 return arr;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -114,14 +109,10 @@ namespace CNPM.Repository.Implementations
             {
                 var _dbcontext = new MyDbContext();
                 _dbcontext.NhanKhau.Add(nhanKhau);
-
                 int number_rows = _dbcontext.SaveChanges();
-
-                if (number_rows <= 0) return -1;  
-               
+                if (number_rows <= 0) return -1;
                 NhanKhauEntity nhanKhauCreated = _dbcontext.NhanKhau.Where(
                     o => o.Delete == Constant.NOT_DELETE && o.CanCuocCongDan == nhanKhau.CanCuocCongDan).FirstOrDefault();
-
                 return nhanKhauCreated.MaNhanKhau;
             }
             catch (Exception ex)
@@ -139,7 +130,7 @@ namespace CNPM.Repository.Implementations
                 if (nhanKhau == null) return true;
                 return false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -166,7 +157,6 @@ namespace CNPM.Repository.Implementations
                 var _dbcontext = new MyDbContext();
                 var nhanKhau = _dbcontext.NhanKhau!.FirstOrDefault(
                     o => o.MaNhanKhau == newNhanKhau.MaNhanKhau && o.Delete == Constant.NOT_DELETE);
-
                 if (nhanKhau != null)
                 {
                     nhanKhau.UserUpdate = newNhanKhau.UserUpdate;
@@ -185,7 +175,6 @@ namespace CNPM.Repository.Implementations
                     return newNhanKhau.MaNhanKhau;
                 }
                 else return -1;
-
             }
             catch (Exception ex)
             {

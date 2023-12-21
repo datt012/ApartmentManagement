@@ -10,13 +10,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import revenueService from "../../Services/API/revenueService";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 const PayRevenue = ({ openPopup, setOpenPopup, maKhoanThuTheoHo, maKhoanThu, soTienCanThu, maHoKhau }) => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [soTienDaNop] = useState(0);
     const dispatch = useDispatch();
     const handleFormSubmit = (values) => {
-        if(window.confirm("Bạn có muốn lưu?") === true) {
+        if (window.confirm("Bạn có muốn lưu?") === true) {
             revenueService.payRevenue({
                 maKhoanThuTheoHo: values.maKhoanThuTheoHo,
                 tenHoaDon: values.tenHoaDon,
@@ -127,15 +126,12 @@ const PayRevenue = ({ openPopup, setOpenPopup, maKhoanThuTheoHo, maKhoanThu, soT
                 </Box>
             </DialogContent>
         </Dialog>
-
     );
 };
-
 const checkoutSchema = yup.object().shape({
     tenHoaDon: yup.string().required("Bạn chưa điền thông tin"),
     soTienDaNop: yup.number().required("Bạn chưa điền thông tin").min(0, "Số tiền không hợp lệ"),
 });
-
 export default PayRevenue;
 
 

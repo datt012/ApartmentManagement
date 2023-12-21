@@ -9,11 +9,9 @@ namespace CNPM.Core.Entities
         {
             RoleName = roleName;
         }
-
         [Key]
         [Required]
         public int RoleId { get; set; }
-
         [StringLength(100)]
         [Required]
         public string RoleName { get; set; }

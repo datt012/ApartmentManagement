@@ -8,7 +8,6 @@ namespace CNPM.Core.Entities
         [Key]
         [Required]
         public string? MaLoaiXe { get; set; }
-
         [Required]
         [StringLength(100)]
         public string? LoaiXe { get; set; }

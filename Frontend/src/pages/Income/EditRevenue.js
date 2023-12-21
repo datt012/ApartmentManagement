@@ -15,7 +15,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
@@ -42,8 +41,6 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
             });
         }
     };
-
-
     useEffect(() => {
         console.log(data.thoiGianBatDau);
         setNewDateStart(data.thoiGianBatDau);
@@ -52,7 +49,6 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
         console.log(data.thoiGianKetThuc);
         setNewDateEnd(data.thoiGianKetThuc);
     }, [data.thoiGianKetThuc]);
-
     const initialValues = {
         maKhoanThu: data.maKhoanThu,
         tenKhoanThu: data.tenKhoanThu,
@@ -63,7 +59,6 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
         tongCanThu: data.tongCanThu,
         tongDaThu: data.tongDaThu
     };
-
     return (
         <Dialog open={openInPopup} maxWidth="md" style={{ backgroundColor: "transparent" }}>
             <DialogTitle>
@@ -163,26 +158,23 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
                                         sx={{ "& .MuiInputBase-root": { height: 60 }, input: { border: "none" }, gridColumn: "span 2" }}
                                     />
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <DesktopDatePicker label="Thời gian bắt đầu"
+                                        <DesktopDatePicker label="Ngày bắt đầu"
                                             inputFormat="DD/MM/YYYY"
                                             onChange={setNewDateStart}
                                             name="thoiGianBatDau"
                                             value={newDateStart}
                                             renderInput={(params) => <TextField {...params} />}>
-
                                         </DesktopDatePicker>
-                                        <DesktopDatePicker label="Thời gian kết thúc"
+                                        <DesktopDatePicker label="Ngày kết thúc"
                                             inputFormat="DD/MM/YYYY"
                                             onChange={setNewDateEnd}
                                             name="thoiGianKetThuc"
                                             value={newDateEnd}
                                             renderInput={(params) => <TextField {...params} />}>
-
                                         </DesktopDatePicker>
                                     </LocalizationProvider>
                                 </Box>
                                 <Box display="flex" justifyContent="end" mt="20px" >
-
                                     <Button onClick={() => {
                                         if (window.confirm('Bạn thật sự muốn xóa?')) {
                                             revenueService.deleteRevenue(values.maKhoanThu, data.version).then(mes => {
@@ -209,10 +201,7 @@ const EditRevenue = ({ openInPopup, setOpenInPopup, data }) => {
         </Dialog>
     );
 };
-
-
 const checkoutSchema = yup.object().shape({
     tenKhoanThu: yup.string().required("Bạn chưa điền thông tin"),
 });
-
 export default EditRevenue;

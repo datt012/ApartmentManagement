@@ -6,26 +6,20 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace CNPM.Core.Models.Xe
 {
     public class XeDto1003
     {
         [JsonProperty("maXe")]
         public int MaXe { get; set; }
-
         [JsonProperty("tenXe")]
         public string? TenXe { get; set; }
-
         [JsonProperty("bienKiemSoat")]
         public string? BienKiemSoat { get; set; }
-
         [JsonProperty("maLoaiXe")]
         public string? MaLoaiXe { get; set; }
-
         [JsonProperty("maHoKhau")]
         public string? MaHoKhau { get; set; }
-
         [JsonProperty("moTa")]
         public string? MoTa { get; set; }
     }

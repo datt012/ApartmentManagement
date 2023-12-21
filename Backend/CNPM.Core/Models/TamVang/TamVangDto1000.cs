@@ -9,19 +9,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace CNPM.Core.Models.TamVang
 {
-    public class TamVangDto1000 
+    public class TamVangDto1000
     {
         [Required]
         [JsonProperty("maNhanKhau")]
         public int MaNhanKhau { get; set; }
-
         [Required]
         [JsonProperty("thoiHan")]
         public DateTime ThoiHan { get; set; }
-
         [Required]
         [MaxLength(200)]
         [JsonProperty("lyDo")]

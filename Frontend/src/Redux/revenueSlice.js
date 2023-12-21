@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import revenueService from "../Services/API/revenueService";
-
 export const fetchAllRevenue = createAsyncThunk(
     "revenue/fetchAllRevenue",
     async (_, thunkAPI) => {
@@ -38,7 +37,6 @@ export const setRevenueItemID = createAction("setRevenueItemID");
 export const setRevenueItemType = createAction("setRevenueItemType");
 export const setRevenueHouseID = createAction("setRevenueHouseID");
 export const resetRevenueSlice = createAction("resetRevenueSlice");
-
 const initialState = {
     revenueList: [],
     isLoadingList: false,
@@ -81,7 +79,7 @@ const revenueSlice = createSlice({
             console.log("action rej", action);
             state.isLoadingHouse = false;
         },
-        [fetchRevenueItem.pending] : (state) => {
+        [fetchRevenueItem.pending]: (state) => {
             console.log("pending");
             state.isLoadingItem = true;
         },
@@ -94,13 +92,13 @@ const revenueSlice = createSlice({
             console.log("action rej", action);
             state.isLoadingItem = false;
         },
-        [setRevenueItemID] : (state, action) => {
+        [setRevenueItemID]: (state, action) => {
             state.maKhoanThu = action?.payload;
         },
-        [setRevenueItemType] : (state, action) => {
+        [setRevenueItemType]: (state, action) => {
             state.loaiKhoanThu = action?.payload;
         },
-        [setRevenueHouseID] : (state, action) => {
+        [setRevenueHouseID]: (state, action) => {
             state.revenueHouseID = action?.payload;
         },
         [resetRevenueSlice]: () => initialState

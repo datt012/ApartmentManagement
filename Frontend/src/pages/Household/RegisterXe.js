@@ -11,9 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
     console.log('maHoKhau', maHoKhau);
     const isNonMobile = useMediaQuery("(min-width:600px)");
-
     const handleFormSubmit = (values) => {
-        if(window.confirm("Bạn chắc chắn muốn lưu?") === true) {
+        if (window.confirm("Bạn chắc chắn muốn lưu?") === true) {
             householdService.addXeToHouseHold({
                 tenXe: values.tenXe,
                 bienKiemSoat: values.bienKiemSoat,
@@ -37,9 +36,7 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
         moTa: ""
     };
     return (
-        <Dialog open={true} maxWidth="md" style={{ backgroundColor: "transparent" }}
-            sx={{
-            }}>
+        <Dialog open={true} maxWidth="md" style={{ backgroundColor: "transparent" }}>
             <DialogTitle>
                 <div style={{ display: 'flex' }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1, fontSize: 20, fontWeight: "bold" }}>
@@ -140,16 +137,13 @@ const RegisterXe = ({ maHoKhau, onClose, onSuccess }) => {
                 </Box>
             </DialogContent>
         </Dialog>
-
     );
 };
-
 const checkoutSchema = yup.object().shape({
     tenXe: yup.string().required("Bạn chưa điền thông tin"),
     bienKiemSoat: yup.string().required("Bạn chưa điền thông tin"),
     maLoaiXe: yup.string().required("Bạn chưa chọn thông tin loại xe")
 });
-
 export default RegisterXe;
 
 

@@ -12,18 +12,13 @@ import demographicService from "../../Services/API/demographicService";
 import RegisterDemographic from "./RegisterDemographic";
 import EditDemographic from "./EditDemographic";
 import moment from "moment";
-
 const DemographicPage = () => {
-
   const dispatch = useDispatch();
-
   const [openPopup, setOpenPopup] = useState(false);
   const [openInPopup, setOpenInPopup] = useState(false);
   const { demographicList, isLoading } = useSelector((state) => state.demographic);
   const [data, setData] = useState([]);
-
   const EditButton = ({ maNhanKhau, openInPopup, setOpenInPopup }) => {
-
     return (
       <Button onClick={() => {
         demographicService.getDemographic(maNhanKhau).then(mes => {
@@ -38,16 +33,13 @@ const DemographicPage = () => {
       </Button>
     );
   }
-
   useEffect(() => {
     if (!isLoading) {
       dispatch(fetchAllDemographic());
     }
-
   }, []);
   useEffect(() => {
   }, [demographicList, isLoading]);
-
   const columns = useMemo(() => [
     {
       field: "maNhanKhau",
@@ -67,7 +59,7 @@ const DemographicPage = () => {
     },
     {
       field: "ngaySinh",
-      headerName: "Ngày Sinh",
+      headerName: "Ngày sinh",
       flex: 0.5,
       valueGetter: (param) => { return dayjs(param.row.ngaySinh).format('DD/MM/YYYY') },
     },
@@ -78,7 +70,7 @@ const DemographicPage = () => {
     },
     {
       field: "trangThai",
-      headerName: "Trạng Thái",
+      headerName: "Trạng thái",
       flex: 0.5,
       valueGetter: (param) => { return ((param.row.trangThai === 1) ? "Còn sống" : "Đã mất") },
     },
@@ -89,9 +81,7 @@ const DemographicPage = () => {
       disableExport: true,
       renderCell: (param) => <EditButton maNhanKhau={param.row.maNhanKhau} openInPopup={openInPopup} setOpenInPopup={setOpenInPopup} />,
     }
-
   ]);
-
   return (
     <Box m="20px">
       <Header
@@ -114,7 +104,6 @@ const DemographicPage = () => {
       >
         <RegisterDemographic openPopup={openPopup} setOpenPopup={setOpenPopup} />
         <EditDemographic openInPopup={openInPopup} setOpenInPopup={setOpenInPopup} data={data} />
-
         {isLoading ? (
           <div className="loading-container d-flex flex-column align-items-center ustify-content-center">
             <Triangle

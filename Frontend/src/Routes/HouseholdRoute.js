@@ -11,5 +11,4 @@ const householdRoute = (props) => {
     </>
   );
 };
-
 export default householdRoute;

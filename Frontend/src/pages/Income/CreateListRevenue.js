@@ -6,7 +6,6 @@ import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import CloseIcon from '@mui/icons-material/Close';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
-
 const StyledBox = styled(Box)(({ theme }) => ({
   height: '50vh',
   width: 700,
@@ -24,10 +23,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
     color: theme.palette.mode === 'dark' ? '#ff4343' : '#750f0f',
   },
 }));
-
 let promiseTimeout;
-
-
 const StyledTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
@@ -36,7 +32,6 @@ const StyledTooltip = styled(({ className, ...props }) => (
     color: theme.palette.error.contrastText,
   },
 }));
-
 function NameEditInputCell(props) {
   const { error } = props;
   return (
@@ -46,11 +41,10 @@ function NameEditInputCell(props) {
   );
 }
 const dataPreUpdate = [];
-
 const CreateListRevenue = ({ openModal, setOpenModal, dataHouseHold, setDataHouseHold }) => {
   function renderEditName(params) {
     const item = dataPreUpdate.find(o => o.id === params.id && o.field === params.field);
-    if (!item) dataPreUpdate.push({id: params.id, field: params.field, error: params.error});
+    if (!item) dataPreUpdate.push({ id: params.id, field: params.field, error: params.error });
     else item.error = params.error;
     return <NameEditInputCell {...params} />;
   }
@@ -58,7 +52,6 @@ const CreateListRevenue = ({ openModal, setOpenModal, dataHouseHold, setDataHous
     const hasError = params.props.value === null || params.props.value < 0;
     return { ...params.props, error: hasError };
   };
-
   useEffect(
     async () => {
       try {
@@ -72,16 +65,15 @@ const CreateListRevenue = ({ openModal, setOpenModal, dataHouseHold, setDataHous
       } catch (error) {
         console.log(error);
       }
-
       return
     }, []);
-    const checkData = () => {
-      console.log(dataPreUpdate);
-      for (const item of dataPreUpdate){
-        if (item.error) return false;
-      }
-      return true;
+  const checkData = () => {
+    console.log(dataPreUpdate);
+    for (const item of dataPreUpdate) {
+      if (item.error) return false;
     }
+    return true;
+  }
   const columns = useMemo(() => [
     { field: "maHoKhau", headerName: "Mã hộ khẩu", flex: 0.5 },
     {
@@ -89,9 +81,8 @@ const CreateListRevenue = ({ openModal, setOpenModal, dataHouseHold, setDataHous
       headerName: "Tiền điện",
       flex: 1,
       type: "number",
-      preProcessEditCellProps,    
+      preProcessEditCellProps,
       editable: true,
-      
       renderEditCell: renderEditName,
     },
     {
@@ -99,7 +90,7 @@ const CreateListRevenue = ({ openModal, setOpenModal, dataHouseHold, setDataHous
       headerName: "Tiền nước",
       flex: 1,
       type: "number",
-      preProcessEditCellProps,    
+      preProcessEditCellProps,
       editable: true,
       renderEditCell: renderEditName,
     },
@@ -108,18 +99,16 @@ const CreateListRevenue = ({ openModal, setOpenModal, dataHouseHold, setDataHous
       headerName: "Tiền internet",
       flex: 1,
       type: "number",
-      preProcessEditCellProps,   
+      preProcessEditCellProps,
       editable: true,
       renderEditCell: renderEditName,
     },
   ]);
-
   const processRowUpdate = (newRow) => {
     console.log(newRow);
     setDataHouseHold(dataHouseHold.map((item) => (item.id === newRow.id ? newRow : item)));
     return newRow;
   };
-
   const handleProcessRowUpdateError = (error) => {
     console.log({ children: error.message, severity: 'error' });
   }
@@ -128,7 +117,6 @@ const CreateListRevenue = ({ openModal, setOpenModal, dataHouseHold, setDataHous
       clearTimeout(promiseTimeout);
     };
   }, []);
-
   return <Dialog open={openModal} maxWidth="md" style={{ backgroundColor: "transparent" }}>
     <DialogTitle>
       <div style={{ display: 'flex' }}>
@@ -143,7 +131,7 @@ const CreateListRevenue = ({ openModal, setOpenModal, dataHouseHold, setDataHous
       </div>
     </DialogTitle>
     <DialogContent dividers>
-        <StyledBox>
+      <StyledBox>
         <DataGrid
           getRowId={(row) => row.id}
           rows={dataHouseHold}
@@ -152,11 +140,11 @@ const CreateListRevenue = ({ openModal, setOpenModal, dataHouseHold, setDataHous
           onProcessRowUpdateError={handleProcessRowUpdateError}
           experimentalFeatures={{ newEditingApi: true }}
         />
-        </StyledBox>
-      <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: 20}}>
+      </StyledBox>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 20 }}>
         <Button color="secondary" variant="contained" startIcon={<SaveAsIcon />}
           onClick={() => {
-            if(checkData() && window.confirm("Bạn chắc chắn muốn lưu?") === true) {
+            if (checkData() && window.confirm("Bạn chắc chắn muốn lưu?") === true) {
               setOpenModal(false);
             }
           }}>
@@ -166,5 +154,4 @@ const CreateListRevenue = ({ openModal, setOpenModal, dataHouseHold, setDataHous
     </DialogContent>
   </Dialog>;
 }
-
 export default CreateListRevenue;

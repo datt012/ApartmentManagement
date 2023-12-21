@@ -15,9 +15,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import householdService from "../../Services/API/householdService";
 import { toast } from "react-toastify";
 import moment from "moment";
-
 const HouseholdPage = () => {
-
   const dispatch = useDispatch();
   const history = useHistory();
   const handleDelete = (maHoKhau) => {
@@ -39,14 +37,10 @@ const HouseholdPage = () => {
       console.log(error);
     }
   }
-
   useEffect(() => {
     getListHoKhau()
   }, [])
-
   const ListButton = ({ maHoKhau }) => {
-
-
     return (
       <Link to={"/revenue-house"}>
         <Button onClick={() => {
@@ -60,11 +54,10 @@ const HouseholdPage = () => {
       </Link>
     );
   }
-
   const columns = useMemo(() => [
     {
       field: "maHoKhau",
-      headerName: "Mã hộ",
+      headerName: "Mã hộ khẩu",
       flex: 0.5
     },
     {
@@ -74,7 +67,7 @@ const HouseholdPage = () => {
     },
     {
       field: "diaChiThuongTru",
-      headerName: "Địa chỉ thường chú",
+      headerName: "Địa chỉ thường trú",
       flex: 1,
     },
     {
@@ -125,7 +118,6 @@ const HouseholdPage = () => {
       renderCell: (param) => <ListButton maHoKhau={param.row.maHoKhau}></ListButton>,
     }
   ]);
-
   return (
     <Box m="20px">
       <Header
@@ -147,7 +139,6 @@ const HouseholdPage = () => {
       >
         <DataGrid
           getRowId={(row) => row.maHoKhau}
-          // response.data
           rows={dataHouseHold}
           columns={columns}
           components={{ Toolbar: CustomToolbar }}

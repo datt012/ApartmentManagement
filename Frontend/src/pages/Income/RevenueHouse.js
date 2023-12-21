@@ -6,10 +6,9 @@ import Button from '@mui/material/Button';
 import { useMemo, useState } from "react";
 import { Triangle } from "react-loader-spinner";
 import { useSelector, useDispatch } from "react-redux";
-import {setRevenueItemID, setRevenueHouseID, setRevenueItemType } from "../../Redux/revenueSlice";
+import { setRevenueItemID, setRevenueHouseID, setRevenueItemType } from "../../Redux/revenueSlice";
 import PayRevenue from "./PayRevenue";
 import moment from "moment";
-
 const RevenueHouse = () => {
     const dispatch = useDispatch();
     const [openPopup, setOpenPopup] = useState(false);
@@ -19,7 +18,6 @@ const RevenueHouse = () => {
     const isLoadingHouse = useSelector((state) => state.revenue.isLoadingHouse);
     const [soTienCanThu, setSoTienCanThu] = useState(0);
     const [maHoKhau, setMaHoKhau] = useState();
-
     const PayButton = ({ maKhoanThuTheoHo, openPopup, setOpenPopup, maKhoanThu, soTienCanThu, loaiKhoanThu, maHoKhau }) => {
         return (
             <Button onClick={() => {
@@ -38,8 +36,16 @@ const RevenueHouse = () => {
         );
     }
     const columns = useMemo(() => [
-        { field: "maKhoanThu", headerName: "Mã khoản thu", flex: 0.5 },
-        { field: "maKhoanThuTheoHo", headerName: "Mã khoản thu theo hộ", flex: 1 },
+        { 
+            field: "maKhoanThu", 
+            headerName: "Mã khoản thu", 
+            flex: 0.5 
+        },
+        { 
+            field: "maKhoanThuTheoHo", 
+            headerName: "Mã khoản thu theo hộ", 
+            flex: 0.7 
+        },
         {
             field: "tenKhoanThu",
             headerName: "Tên khoản thu",
@@ -63,7 +69,7 @@ const RevenueHouse = () => {
             headerName: "Tình trạng",
             flex: 1,
             valueGetter: (param) => {
-                if (param.row.soTien == null) return ("Phí đóng góp");
+                if (param.row.soTien == null) return ("Đóng góp");
                 return ((param.row.soTienDaNop >= param.row.soTien) ? "Đã nộp đủ" : ("Còn thiếu " + (param.row.soTien - param.row.soTienDaNop) + " đồng"));
             },
         },
@@ -92,7 +98,6 @@ const RevenueHouse = () => {
                         "margin-top": "1em",
                         "margin-bottom": "1em"
                     }
-
                 }}
             >
                 <PayRevenue openPopup={openPopup} setOpenPopup={setOpenPopup} maKhoanThuTheoHo={revenueHouseID} maKhoanThu={maKhoanThu} soTienCanThu={soTienCanThu} maHoKhau={maHoKhau} />
@@ -120,16 +125,16 @@ const RevenueHouse = () => {
 };
 function CustomToolbar() {
     return (
-      <GridToolbarContainer>
-        <GridToolbarColumnsButton />
-        <GridToolbarFilterButton />
-        <GridToolbarDensitySelector />
-        <GridToolbarExport csvOptions={{
-          fileName: `Danh sách khoản thu theo hộ ${moment().format('YYYY-MM-DD')}`,
-          utf8WithBom: true,
-        }}
-        />
-      </GridToolbarContainer>
+        <GridToolbarContainer>
+            <GridToolbarColumnsButton />
+            <GridToolbarFilterButton />
+            <GridToolbarDensitySelector />
+            <GridToolbarExport csvOptions={{
+                fileName: `Danh sách khoản thu theo hộ ${moment().format('YYYY-MM-DD')}`,
+                utf8WithBom: true,
+            }}
+            />
+        </GridToolbarContainer>
     );
-  }
+}
 export default RevenueHouse;

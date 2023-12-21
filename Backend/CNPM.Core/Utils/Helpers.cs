@@ -29,11 +29,10 @@ namespace CNPM.Core.Utils
         public static bool CheckValidUserData(UserDto1005 userData)
         {
             if (string.IsNullOrEmpty(userData.UserName)
-              || string.IsNullOrEmpty(userData.FirstName)
-              || string.IsNullOrEmpty(userData.LastName)
-
+             || string.IsNullOrEmpty(userData.FirstName)
+             || string.IsNullOrEmpty(userData.LastName)
                ) return true;
-            return false;   
+            return false;
         }
         public static string GetHashPassword(string password)
         {
@@ -53,7 +52,6 @@ namespace CNPM.Core.Utils
         }
         public static string DecodeJwt(string jwt, string type)
         {
-            
             var handler = new JwtSecurityTokenHandler();
             var jsonToken = handler.ReadToken(jwt);
             var tokenS = jsonToken as JwtSecurityToken;

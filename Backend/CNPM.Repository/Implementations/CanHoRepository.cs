@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using CNPM.Core.Utils;
 using CNPM.Core.Models;
 using System.ComponentModel.DataAnnotations;
-
 namespace CNPM.Repository.Implementations
 {
     public class CanHoRepository : ICanHoRepository
@@ -27,15 +26,13 @@ namespace CNPM.Repository.Implementations
                 }
                 else arr = _dbcontext.CanHo!.Where(
                     o => o.Delete == Constant.NOT_DELETE).Skip(limit * (index - 1)).Take(limit).ToList();
-
                 return arr;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-        
         public CanHoEntity GetCanHo(int maCanHo)
         {
             try
@@ -50,7 +47,6 @@ namespace CNPM.Repository.Implementations
                 throw new Exception(ex.Message);
             }
         }
-
         public CanHoEntity GetCanHoByHoKhau(string maHoKhau)
         {
             try
@@ -65,18 +61,14 @@ namespace CNPM.Repository.Implementations
                 throw new Exception(ex.Message);
             }
         }
-
         public bool CreateCanHo(CanHoEntity canHo)
         {
             try
             {
                 var _dbcontext = new MyDbContext();
                 _dbcontext.CanHo.Add(canHo);
-
                 int number_rows = _dbcontext.SaveChanges();
-
                 if (number_rows <= 0) return false;
-
                 return true;
             }
             catch (Exception ex)
@@ -91,7 +83,6 @@ namespace CNPM.Repository.Implementations
                 var _dbcontext = new MyDbContext();
                 var canHo = _dbcontext.CanHo!.FirstOrDefault(
                     o => o.MaCanHo == newCanHo.MaCanHo && o.Delete == Constant.NOT_DELETE);
-
                 if (canHo != null)
                 {
                     canHo.UserUpdate = newCanHo.UserUpdate;

@@ -20,30 +20,28 @@ const AbsentPage = () => {
   const [data, setData] = useState([]);
   const EditButton = ({ maTamVang, openInPopup, setOpenInPopup }) => {
     return (
-        <Button onClick={() => {
-            absentService.getAbsent(maTamVang).then(mes => {
-                setData(mes.data);
-                setOpenInPopup(!openInPopup);
-            })
-        }}
-          startIcon={<ManageAccountsRoundedIcon />}
-          variant="contained"
-          color="info">Chi tiết
-        </Button>
+      <Button onClick={() => {
+        absentService.getAbsent(maTamVang).then(mes => {
+          setData(mes.data);
+          setOpenInPopup(!openInPopup);
+        })
+      }}
+        startIcon={<ManageAccountsRoundedIcon />}
+        variant="contained"
+        color="info">Chi tiết
+      </Button>
     );
   }
   useEffect(() => {
     if (!isLoading) {
       dispatch(fetchAllAbsents());
     }
-
   }, []);
-  
   const columns = useMemo(() => [
     { field: "maTamVang", headerName: "Mã tạm vắng", flex: 0.5 },
     {
       field: "hoTen",
-      headerName: "Họ và tên",
+      headerName: "Họ tên",
       flex: 1,
       cellClassName: "name-column--cell",
     },
@@ -58,17 +56,17 @@ const AbsentPage = () => {
       flex: 1,
     },
     {
-        field: "thoiHan",
-        headerName: "Thời gian bắt đầu",
-        flex: 1,
-        valueGetter: (param) => {return dayjs(param.row.thoiHan).format('DD/MM/YYYY')},
-      },
+      field: "thoiHan",
+      headerName: "Ngày bắt đầu",
+      flex: 1,
+      valueGetter: (param) => { return dayjs(param.row.thoiHan).format('DD/MM/YYYY') },
+    },
     {
       field: "chiTiet",
       headerName: "",
       flex: 1,
       disableExport: true,
-      renderCell: (param) => <EditButton maTamVang={param.row.maTamVang} openInPopup={openInPopup} setOpenInPopup={setOpenInPopup}/>,
+      renderCell: (param) => <EditButton maTamVang={param.row.maTamVang} openInPopup={openInPopup} setOpenInPopup={setOpenInPopup} />,
     }
   ]);
   return (
@@ -76,8 +74,9 @@ const AbsentPage = () => {
       <Header
         title="Danh sách tạm vắng"
       />
-      <Button onClick={()=>{
-        setOpenPopup(!openPopup);}}
+      <Button onClick={() => {
+        setOpenPopup(!openPopup);
+      }}
         color="info" variant="contained" style={{ fontWeight: "bold" }}>
         Đăng ký tạm vắng</Button>
       <Box
